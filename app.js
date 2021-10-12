@@ -15,7 +15,7 @@ const adminRoutes = require('./routes/admin');
 const restaurantRoutes = require('./routes/restaurant');
 
 app.use('/admin', adminRoutes);
-app.use(restaurantRoutes)
+app.use(restaurantRoutes);
 
 
 // app.use((req,res,next)=>{
@@ -23,7 +23,7 @@ app.use(restaurantRoutes)
 // });
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/blogue')
+  .connect('mongodb://127.0.0.1:27017/noderesto')
   .then(result => {
     app.listen(3000);
   })
