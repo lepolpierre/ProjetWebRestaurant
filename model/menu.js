@@ -8,7 +8,7 @@ const platsSchema = new Schema(
       required: true
     },
 
-  },
+  }
 );
 
 module.exports = mongoose.model('plats', platsSchema);
