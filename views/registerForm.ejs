@@ -1,0 +1,27 @@
+<% include ('includes/head.ejs') %> 
+
+</head>
+
+<body>
+    <main>
+        <h2>Register form</h2>
+
+        <form method="POST" action="/create">
+
+            <label for="u-email">Votre Courriel</label>
+            <input type="email" name="u_email" value= <%= locals.email %> >
+
+            <label for="u-username">Nom utilisateur</label>
+            <input type="text" name="u_username" value= <%= locals.username %> >
+
+            <label for="u-pwd">Mot de passe</label>
+            <input type="password" name="u_pwd" value= <%= locals.pwd %> >
+
+            <label for="u-pwdConfirm">Confirmer le mot de passe</label>
+            <input type="password" name="u_pwdConfirm">
+
+            <input type="button" value="Soumettre">
+
+        </form>
+    </main>
+</body>

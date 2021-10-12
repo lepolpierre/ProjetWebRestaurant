@@ -1,0 +1,13 @@
+'use strict';
+
+// Router config
+const express = require('express');
+const router = express.Router();
+
+// Controller
+const adminCtrl = require('../controllers/adminController');
+
+router.get('/create', adminCtrl.registerAccount);
+router.post('/create', adminCtrl.createAccount);
+
+exports.router = router;

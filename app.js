@@ -1,31 +1,38 @@
 "use strict";
 
-// Express
+const path = require('path');
+// Express, MongoDb
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 
-const mongoose = require('mongoose');
+// Middlewares
+app.use(express.urlencoded({ extended: false})); // body parser
+app.use(express.static(path.join(__dirname, 'public '))); // static files
 
 // EJS
 app.set('view engine', 'ejs');
 app.set('views', "views");
 
-// Rooutes 
+
+// Routes 
 const adminRoutes = require('./routes/admin');
-const restaurantRoutes = require('./routes/restaurant');
+const platRoutes = require('./routes/unPlat');
 
 app.use('/admin', adminRoutes);
-app.use(restaurantRoutes);
+// app.use(restaurantRoutes);
+app.use('/plat', platRoutes);
 
 
-// app.use((req,res,next)=>{
-//     res.render('index');
-// });
 
+
+// connection MongoDB
 mongoose
-  .connect('mongodb://127.0.0.1:27017/noderesto')
-  .then(result => {
-    app.listen(3000);
+  .connect('mongodb://127.0.0.1:27017/resto')
+  .then(() => {
+    const server = app.listen(3000, ()=>{
+      console.log(`Server running on port : ${server.address().port}`);
+    });
   })
-  .catch(err => console.log("AHHHHHHHH :",err));
-// app.listen(3000);
+  .catch(err => console.error(`Erreur ${err}`));
+
