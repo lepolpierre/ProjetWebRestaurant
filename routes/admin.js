@@ -10,4 +10,4 @@ const adminCtrl = require('../controllers/adminController');
 router.get('/create', adminCtrl.registerAccount);
 router.post('/create', adminCtrl.createAccount);
 
-exports.router = router;
+module.exports = router;

@@ -19,7 +19,7 @@ app.set('views', "views");
 const adminRoutes = require('./routes/admin');
 const platRoutes = require('./routes/unPlat');
 
-//app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 // app.use(restaurantRoutes);
 app.use('/plat', platRoutes);
 

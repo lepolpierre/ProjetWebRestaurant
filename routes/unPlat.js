@@ -2,7 +2,7 @@
 
 const express = require("express");
 
-const platController = require('../controllers/platControllers')
+const platController = require('../controllers/platControllers');
 
 const router = express.Router();
 
