@@ -1,27 +1,67 @@
-<%- include ('includes/head.ejs') %> 
+<%- include ('includes/head.ejs') %>
 
-</head>
+    </head>
 
-<body>
-    <main>
-        <h2>Register form</h2>
+    <body>
+        <main>
+            <h2>Register form</h2>
 
-        <form method="POST" action="/create">
+            <form method="POST" action="/admin/create">
 
-            <label for="u-email">Votre Courriel</label>
-            <input type="email" name="u_email" value= <%= locals.email %> >
+                <div>
+                    <label for="u-email">Votre Courriel</label>
+                    <input type="email" name="u_email" value=<%=locals.email %> >
+                </div>
 
-            <label for="u-username">Nom utilisateur</label>
-            <input type="text" name="u_username" value= <%= locals.username %> >
+                <div>
+                    <label for="u-username">Nom utilisateur</label>
+                    <input type="text" name="u_username" value=<%=locals.username %> >
+                </div>
 
-            <label for="u-pwd">Mot de passe</label>
-            <input type="password" name="u_pwd" value= <%= locals.pwd %> >
+                <div>
+                    <label for="u-pwd">Mot de passe</label>
+                    <input type="password" name="u_pwd" value=<%=locals.pwd %> >
+                </div>
 
-            <label for="u-pwdConfirm">Confirmer le mot de passe</label>
-            <input type="password" name="u_pwdConfirm">
+                <div>
+                    <label for="u-pwdConfirm">Confirmer le mot de passe</label>
+                    <input type="password" name="u_pwdConfirm">
+                </div>
+                <input class="btnSubmit" type="submit" value="Soumettre">
 
-            <input type="button" value="Soumettre">
+            </form>
+        </main>
+    </body>
 
-        </form>
-    </main>
-</body>
+    <style>
+        body {
+            background-color: rgb(211, 238, 229);
+            width: 75vw;
+            margin: 0 auto;
+            display: block;
+        }
+
+
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 35vw;
+        }
+        form input[type="text"], input[type="email"], input[type="password"] {
+            box-shadow: aquamarine ;
+            border-radius: 5px;
+        }
+
+        form div{
+            display: flex;
+            margin: 1%;
+            justify-content: space-between;
+        }
+
+        .btnSubmit{
+            margin-top: 1rem;
+            align-self: flex-start;
+        }
+
+
+    </style>

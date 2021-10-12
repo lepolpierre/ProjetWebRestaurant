@@ -9,7 +9,7 @@ let riz = new plat({name:"riz"});
 let pattes = new plat({name:"pattes"});
 riz.save();
 pattes.save();
-console.log("PLAT : ",riz);
+// console.log("PLAT : ",riz);
 
 exports.getPlat = (req, res, next) => {
     console.log('req.params :', req.params);
