@@ -5,6 +5,12 @@
     <body>
         <main>
             <h2>Register form</h2>
+            
+            <div class="error">
+               
+                <p><%= locals.error %> </p>
+          
+            </div>
 
             <form method="POST" action="/admin/create">
 
@@ -12,11 +18,12 @@
                     <label for="u-email">Votre Courriel</label>
                     <input type="email" name="u_email" value=<%=locals.email %> >
                 </div>
-
+                
                 <div>
                     <label for="u-username">Nom utilisateur</label>
                     <input type="text" name="u_username" value=<%=locals.username %> >
                 </div>
+               
 
                 <div>
                     <label for="u-pwd">Mot de passe</label>
@@ -34,6 +41,13 @@
     </body>
 
     <style>
+
+
+        .error{
+            font-size: 90%;
+            color: red;
+        }
+
         body {
             background-color: rgb(211, 238, 229);
             width: 75vw;
@@ -45,7 +59,7 @@
         form{
             display: flex;
             flex-direction: column;
-            width: 35vw;
+            width: 50vw;
         }
         form input[type="text"], input[type="email"], input[type="password"] {
             box-shadow: aquamarine ;

@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 // Importer le type email
 require('mongoose-type-email');
 
+
 const userSchema = new Schema(
     {
 
@@ -15,9 +16,14 @@ const userSchema = new Schema(
             required: true,
             minlength: 3
         },
-        password: String
+        password: {
+            type: String,
+            required: true,
+            minlength: 5
+        }
 
-    }
+    },
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('User', userSchema);
