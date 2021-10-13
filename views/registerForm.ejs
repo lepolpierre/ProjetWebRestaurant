@@ -7,9 +7,7 @@
             <h2>Register form</h2>
             
             <div class="error">
-               
                 <p><%= locals.error %> </p>
-          
             </div>
 
             <form method="POST" action="/admin/create">
@@ -37,7 +35,11 @@
                 <input class="btnSubmit" type="submit" value="Soumettre">
 
             </form>
+            
         </main>
+
+
+        <%- include('includes/end.ejs')  %> 
     </body>
 
     <style>
