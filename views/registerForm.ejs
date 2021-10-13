@@ -1,83 +1,81 @@
 <%- include ('includes/head.ejs') %>
+</head>
 
-    </head>
+<body>
+    <main>
+        <h2>Register form</h2>
 
-    <body>
-        <main>
-            <h2>Register form</h2>
-            
-            <div class="error">
-                <p><%= locals.error %> </p>
+        <div class="error">
+            <p><%= locals.error %> </p>
+        </div>
+
+        <form method="POST" action="/admin/create">
+
+            <div>
+                <label for="u-email">Votre Courriel</label>
+                <input type="email" name="u_email" value=<%=locals.email %>>
             </div>
 
-            <form method="POST" action="/admin/create">
-
-                <div>
-                    <label for="u-email">Votre Courriel</label>
-                    <input type="email" name="u_email" value=<%=locals.email %> >
-                </div>
-                
-                <div>
-                    <label for="u-username">Nom utilisateur</label>
-                    <input type="text" name="u_username" value=<%=locals.username %> >
-                </div>
-               
-
-                <div>
-                    <label for="u-pwd">Mot de passe</label>
-                    <input type="password" name="u_pwd" value=<%=locals.pwd %> >
-                </div>
-
-                <div>
-                    <label for="u-pwdConfirm">Confirmer le mot de passe</label>
-                    <input type="password" name="u_pwdConfirm">
-                </div>
-                <input class="btnSubmit" type="submit" value="Soumettre">
-
-            </form>
-            
-        </main>
+            <div>
+                <label for="u-username">Nom utilisateur</label>
+                <input type="text" name="u_username" value=<%=locals.username %>>
+            </div>
 
 
-        <%- include('includes/end.ejs')  %> 
-    </body>
+            <div>
+                <label for="u-pwd">Mot de passe</label>
+                <input type="password" name="u_pwd" value=<%=locals.pwd %>>
+            </div>
 
-    <style>
+            <div>
+                <label for="u-pwdConfirm">Confirmer le mot de passe</label>
+                <input type="password" name="u_pwdConfirm">
+            </div>
+            <input class="btnSubmit" type="submit" value="Soumettre">
 
+        </form>
 
-        .error{
-            font-size: 90%;
-            color: red;
-        }
-
-        body {
-            background-color: rgb(211, 238, 229);
-            width: 75vw;
-            margin: 0 auto;
-            display: block;
-        }
+    </main>
 
 
-        form{
-            display: flex;
-            flex-direction: column;
-            width: 50vw;
-        }
-        form input[type="text"], input[type="email"], input[type="password"] {
-            box-shadow: aquamarine ;
-            border-radius: 5px;
-        }
+    <%- include('includes/end.ejs')  %>
+</body>
 
-        form div{
-            display: flex;
-            margin: 1%;
-            justify-content: space-between;
-        }
+<!-- <style>
+    .error {
+        font-size: 90%;
+        color: red;
+    }
 
-        .btnSubmit{
-            margin-top: 1rem;
-            align-self: flex-start;
-        }
+    body {
+        background-color: rgb(211, 238, 229);
+        width: 75vw;
+        margin: 0 auto;
+        display: block;
+    }
 
 
-    </style>
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 50vw;
+    }
+
+    form input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        box-shadow: aquamarine;
+        border-radius: 5px;
+    }
+
+    form div {
+        display: flex;
+        margin: 1%;
+        justify-content: space-between;
+    }
+
+    .btnSubmit {
+        margin-top: 1rem;
+        align-self: flex-start;
+    }
+</style> -->

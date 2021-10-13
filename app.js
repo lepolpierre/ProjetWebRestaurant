@@ -6,13 +6,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
-// Middlewares
-app.use(express.urlencoded({ extended: false})); // body parser
-app.use(express.static(path.join(__dirname, 'public '))); // static files
-
 // EJS
 app.set('view engine', 'ejs');
 app.set('views', "views");
+
+// Middlewares
+app.use(express.urlencoded({ extended: false})); // body parser
+app.use('/public', express.static(path.join(__dirname, 'public'))); // static files
 
 
 // Routes 

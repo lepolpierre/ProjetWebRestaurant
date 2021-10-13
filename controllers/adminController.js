@@ -20,9 +20,9 @@ exports.createAccount = (req, res) => {
     const { u_email, u_username, u_pwd, u_pwdConfirm } = req.body;
 
     // Verifier que tous les champs ont été fournis
-    if (!u_email || !u_username || !u_pwd || !u_pwdConfirm ){
-       res.status(500);
-       return returnUserFormRempli(req,res, "Veuillez remplir tous les champs! ");
+    if (!u_email || !u_username || !u_pwd || !u_pwdConfirm) {
+        res.status(500);
+        return returnUserFormRempli(req, res, "Veuillez remplir tous les champs! ");
     }
 
     // let exists= User.findOne({email :  u_email});
@@ -33,11 +33,9 @@ exports.createAccount = (req, res) => {
 
 
     // Verifier les deux mots de passes.
-    if(!verifierDeuxMDP(u_pwd, u_pwdConfirm)){
+    if (!verifierDeuxMDP(u_pwd, u_pwdConfirm)) {
         res.status(500);
-       
-
-        return returnUserFormRempli(req,res, "Les deux mots de passes doivent être identiques! ");
+        return returnUserFormRempli(req, res, "Les deux mots de passes doivent être identiques! ");
     }
 
 
@@ -51,13 +49,13 @@ exports.createAccount = (req, res) => {
     user.save()
         .then(() => {
             res.json({ msg: `utilisateur ${user.username} cree!` });
-
         })
         .catch(err => {
             console.error(err);
-            returnUserFormRempli(req,res, err);
-           
+            returnUserFormRempli(req, res, err);
         });
+
+
 };
 
 
@@ -72,11 +70,11 @@ const verifierDeuxMDP = (mdp1, mdp2) => {
  * @param {object} req 
  * @param {object} res 
  */
-const returnUserFormRempli = (req,res, error= "") => {
+const returnUserFormRempli = (req, res, error = "") => {
     res.render('registerForm', {
         email: req.body.u_email,
         username: req.body.u_username,
         pwd: req.body.u_pwd,
-        error:error
+        error: error
     });
 };
