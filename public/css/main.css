@@ -1,9 +1,24 @@
-
-
-body{
-    background-color: aquamarine;
+* {
+    box-sizing: border-box;
 }
 
-input{
-    color: blueviolet;
+
+body {
+    background-color: rgb(211, 238, 229);
+    width: 75vw;
+    margin: 0 auto;
+    display: block;
+}
+
+.titre{
+    display:block;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid  rgb(124, 124, 124);
+}
+
+
+.error {
+    font-size: 90%;
+    color: red;
 }

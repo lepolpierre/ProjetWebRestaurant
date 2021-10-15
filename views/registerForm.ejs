@@ -1,14 +1,21 @@
 <%- include ('includes/head.ejs') %>
+
+<link rel="stylesheet" type="text/css" href="/public/css/registerForm.css">
+
 </head>
 
 <body>
     <main>
-        <h2>Register form</h2>
+        <h2 class="titre">Création de compte</h2>
 
-        <div class="error">
-            <p><%= locals.error %> </p>
-        </div>
+        <% if (typeof locals.error != 'object') { %>
+            <div class="error">
+                <p><%= locals.error %> </p>
+            </div>
+        <% } %>
 
+
+    
         <form method="POST" action="/admin/create">
 
             <div>
@@ -16,16 +23,34 @@
                 <input type="email" name="u_email" value=<%=locals.email %>>
             </div>
 
+            <% if (locals.error.email != null) { %>
+                <div class="error">
+                    <p><%= locals.error.email.message %> </p>
+                </div>
+            <% } %>
+
             <div>
                 <label for="u-username">Nom utilisateur</label>
                 <input type="text" name="u_username" value=<%=locals.username %>>
             </div>
+            
+            <% if (locals.error.username != null) { %>
+                <div class="error">
+                    <p><%= locals.error.username.message %> </p>
+                </div>
+            <% } %>
 
 
             <div>
                 <label for="u-pwd">Mot de passe</label>
                 <input type="password" name="u_pwd" value=<%=locals.pwd %>>
             </div>
+
+            <% if (locals.error.password != null) { %>
+                <div class="error">
+                    <p><%= locals.error.password.message %> </p>
+                </div>
+            <% } %>
 
             <div>
                 <label for="u-pwdConfirm">Confirmer le mot de passe</label>
@@ -41,41 +66,3 @@
     <%- include('includes/end.ejs')  %>
 </body>
 
-<!-- <style>
-    .error {
-        font-size: 90%;
-        color: red;
-    }
-
-    body {
-        background-color: rgb(211, 238, 229);
-        width: 75vw;
-        margin: 0 auto;
-        display: block;
-    }
-
-
-    form {
-        display: flex;
-        flex-direction: column;
-        width: 50vw;
-    }
-
-    form input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        box-shadow: aquamarine;
-        border-radius: 5px;
-    }
-
-    form div {
-        display: flex;
-        margin: 1%;
-        justify-content: space-between;
-    }
-
-    .btnSubmit {
-        margin-top: 1rem;
-        align-self: flex-start;
-    }
-</style> -->

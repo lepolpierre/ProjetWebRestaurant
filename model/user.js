@@ -10,16 +10,23 @@ require('mongoose-type-email');
 const userSchema = new Schema(
     {
 
-        email: mongoose.SchemaTypes.Email,
+        email: {
+           type:mongoose.SchemaTypes.Email,
+           required: [true, "Veuillez entrer un courriel valide"]
+        },
         username: {
             type: String,
-            required: true,
-            minlength: 3
+            required: [true, "Veuillez entrer un nom d'utilisateur"],
+            minlength: [3, "Le nom d'utilisateur doit contenir 3 caratères au minimum "]
         },
         password: {
             type: String,
-            required: true,
+            required: [true, "Veuillez entrer un mot de passe"],
             minlength: 5
+        },
+        salt:{
+            type:String,
+            required:true
         }
 
     },
