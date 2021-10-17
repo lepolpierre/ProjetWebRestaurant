@@ -27,7 +27,7 @@ app.use('/plat', platRoutes);
 
 // Erreurs
 const errors = require('./controllers/errorController');
-// app.use(errors.getError404);
+app.use(errors.getError404);
 
 
 

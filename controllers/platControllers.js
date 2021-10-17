@@ -13,8 +13,6 @@ const plat = require('../model/menu');
 
 exports.getPlat = (req, res, next) => {
     console.log('req.params :', req.params);
-    console.log('req.query :', req.query);
-
     const platId = req.params.platId;
  
     plat.findById(platId)
