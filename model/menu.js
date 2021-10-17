@@ -11,4 +11,4 @@ const platsSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('plats', platsSchema);
+module.exports = mongoose.model('Plat', platsSchema);
