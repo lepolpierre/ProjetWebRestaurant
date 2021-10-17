@@ -62,6 +62,8 @@ exports.createAccount = (req, res) => {
                     res.status(201).json({ msg: `utilisateur ${user.username} crée!` });
                 })
                 .catch(err => {
+                    // Erreur liée au serveur.
+                    if (!err.statusCode){err.statusCode = 500;}
                     console.error(err);
                     returnUserFormRempli(req, res, err.errors);
                 });

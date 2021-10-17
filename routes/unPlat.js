@@ -6,7 +6,9 @@ const platController = require('../controllers/platControllers');
 
 const router = express.Router();
 
-router.get('/', platController.getPlat);
-router.get('/plat/:platId', platController.getPlat);
+router.get('/', (req,res)=>{
+    res.end('routes plat');
+});
+router.get('/:platId', platController.getPlat);
 
 module.exports = router;

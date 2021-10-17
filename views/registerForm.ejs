@@ -1,6 +1,6 @@
 <%- include ('includes/head.ejs') %>
 
-<link rel="stylesheet" type="text/css" href="/public/css/registerForm.css">
+<!-- <link rel="stylesheet" type="text/css" href="/public/css/registerForm.css"> -->
 
 </head>
 
@@ -20,7 +20,7 @@
 
             <div>
                 <label for="u-email">Votre Courriel</label>
-                <input type="email" name="u_email" value=<%=locals.email %>>
+                <input type="email" name="u_email" required value=<%=locals.email %>>
             </div>
 
             <% if (locals.error != null) { %>
@@ -31,7 +31,7 @@
 
             <div>
                 <label for="u-username">Nom utilisateur</label>
-                <input type="text" name="u_username" value=<%=locals.username %>>
+                <input type="text" name="u_username" required value=<%=locals.username %> >
             </div>
             
             <% if (locals.error != null) { %>
@@ -43,7 +43,7 @@
 
             <div>
                 <label for="u-pwd">Mot de passe</label>
-                <input type="password" name="u_pwd" value=<%=locals.pwd %>>
+                <input type="password" name="u_pwd" required value=<%=locals.pwd %> >
             </div>
 
             <% if (locals.error != null) { %>
@@ -54,7 +54,7 @@
 
             <div>
                 <label for="u-pwdConfirm">Confirmer le mot de passe</label>
-                <input type="password" name="u_pwdConfirm">
+                <input type="password" name="u_pwdConfirm" required>
             </div>
             <input class="btnSubmit" type="submit" value="Soumettre">
 
