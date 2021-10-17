@@ -11,6 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', "views");
 
 // Middlewares
+app.use(express.json());
 app.use(express.urlencoded({ extended: false})); // body parser
 app.use('/public',express.static(path.join(__dirname, 'public'))); // static files
 
@@ -19,9 +20,14 @@ app.use('/public',express.static(path.join(__dirname, 'public'))); // static fil
 const adminRoutes = require('./routes/admin');
 const platRoutes = require('./routes/unPlat');
 
+
+
 app.use('/admin', adminRoutes);
 app.use('/plat', platRoutes);
 
+// Erreurs
+const errors = require('./controllers/errorController');
+app.use(errors.getError404);
 
 
 

@@ -20,7 +20,7 @@ exports.createAccount = (req, res) => {
 
     // Verifier que tous les champs ont été fournis
     if (!u_email || !u_username || !u_pwd || !u_pwdConfirm) {
-        res.status(500);
+        res.status(400);
         return returnUserFormRempli(req, res, "Veuillez remplir tous les champs! ");
     }
 
@@ -35,7 +35,7 @@ exports.createAccount = (req, res) => {
 
         // Verifier les deux mots de passes.
         if (!verifierDeuxMDP(u_pwd, u_pwdConfirm)) {
-            res.status(500);
+            res.status(400);
             return returnUserFormRempli(req, res, "Les deux mots de passes doivent être identiques! ");
         }
 
@@ -47,10 +47,9 @@ exports.createAccount = (req, res) => {
             }
 
             // Hashage du mot de passe.
-            var user;
             bcrypt.hash(u_pwd, salt).then( hash =>{
                 // creation d'un nouvel utilisateur.
-                user = new User({
+                const user = new User({
                     email: u_email,
                     username: u_username,
                     password: hash,
@@ -60,7 +59,7 @@ exports.createAccount = (req, res) => {
                 // Enregitrement des données dans la BD.
                 user.save()
                 .then(() => {
-                    res.json({ msg: `utilisateur ${user.username} crée!` });
+                    res.status(201).json({ msg: `utilisateur ${user.username} crée!` });
                 })
                 .catch(err => {
                     console.error(err);
@@ -69,6 +68,7 @@ exports.createAccount = (req, res) => {
                          
             })
             .catch(err=>{
+                console.error(err);
                 throw err;
             });
             

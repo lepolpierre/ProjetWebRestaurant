@@ -23,9 +23,9 @@
                 <input type="email" name="u_email" value=<%=locals.email %>>
             </div>
 
-            <% if (locals.error.email != null) { %>
+            <% if (locals.error != null) { %>
                 <div class="error">
-                    <p><%= locals.error.email.message %> </p>
+                    <p><%= locals.error.email %> </p>
                 </div>
             <% } %>
 
@@ -34,9 +34,9 @@
                 <input type="text" name="u_username" value=<%=locals.username %>>
             </div>
             
-            <% if (locals.error.username != null) { %>
+            <% if (locals.error != null) { %>
                 <div class="error">
-                    <p><%= locals.error.username.message %> </p>
+                    <p><%= locals.error.username %> </p>
                 </div>
             <% } %>
 
@@ -46,9 +46,9 @@
                 <input type="password" name="u_pwd" value=<%=locals.pwd %>>
             </div>
 
-            <% if (locals.error.password != null) { %>
+            <% if (locals.error != null) { %>
                 <div class="error">
-                    <p><%= locals.error.password.message %> </p>
+                    <p><%= locals.error.password %> </p>
                 </div>
             <% } %>
 
