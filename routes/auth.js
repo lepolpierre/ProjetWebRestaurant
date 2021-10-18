@@ -5,15 +5,15 @@ const express = require('express');
 const router = express.Router();
 
 // Controller
-const adminCtrl = require('../controllers/adminController');
+const authCtrl = require('../controllers/authController');
 
 
 router.get('/', (req,res)=>{
-    res.send("admin route");
+    res.send("auth route");
 });
 
-router.get('/create', adminCtrl.registerAccount);
-router.post('/create', adminCtrl.createAccount);
+router.get('/signup', authCtrl.registerAccount);
+router.post('/signup', authCtrl.createAccount);
 
 
 // Exportation du router

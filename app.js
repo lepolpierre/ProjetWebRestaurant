@@ -17,12 +17,11 @@ app.use('/public',express.static(path.join(__dirname, 'public'))); // static fil
 
 
 // Routes 
-const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/auth');
 const platRoutes = require('./routes/unPlat');
 
 
-
-app.use('/admin', adminRoutes);
+app.use('/auth', adminRoutes);
 app.use('/plat', platRoutes);
 
 // Erreurs

@@ -7,6 +7,19 @@ const platsSchema = new Schema(
       type: String,
       required: true
     },
+    description: {
+      type: String,
+      required: false
+    },
+    vegetarien: {
+      type: Boolean,
+      required: false
+    },
+    prix: {
+      type: Number,
+      required: false
+    },
+
 
   }
 );
