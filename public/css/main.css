@@ -4,17 +4,18 @@
 
 
 body {
-    background-color: rgb(211, 238, 229);
+    background-image: linear-gradient(to bottom, rgb(255, 254, 234), rgba(255, 254, 234, 0.4));
     width: 75vw;
     margin: 0 auto;
     display: block;
+    min-height: 100vh;
 }
 
 .titre{
     display:block;
     padding-bottom: 1.5rem;
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid  rgb(124, 124, 124);
+    border-bottom: 2px solid  rgb(253, 199, 127);
 }
 
 

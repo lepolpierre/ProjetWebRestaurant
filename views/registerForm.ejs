@@ -1,23 +1,21 @@
 <%- include ('includes/head.ejs') %>
 
-<link rel="stylesheet" type="text/css" href="/public/css/registerForm.css">
+<link rel="stylesheet" type="text/css" href="/public/css/signupForm.css">
 
 </head>
 
 <body>
     <main>
         <h2 class="titre">Création de compte</h2>
-
-        <% if (typeof locals.error != 'object') { %>
-            <div class="error">
-                <p><%= locals.error %> </p>
-            </div>
-        <% } %>
-
-
     
         <form class="col-6" method="POST" action="/auth/signup">
 
+            <% if (typeof locals.error != 'object') { %>
+                <div class="error">
+                    <p><%= locals.error %> </p>
+                </div>
+            <% } %>
+    
             <div>
                 <label class="form-label" for="u-email">Votre Courriel</label>
                 <input class="form-control" type="email" name="u_email" required value=<%=locals.email %>>
@@ -56,7 +54,7 @@
                 <label class="form-label" for="u-pwdConfirm">Confirmer le mot de passe</label>
                 <input class="form-control" type="password" name="u_pwdConfirm" required>
             </div>
-            <input class="btn-primary" type="submit" value="Soumettre">
+            <input class="mt-2 btn-outline-success btn" type="submit" value="Soumettre">
 
         </form>
 

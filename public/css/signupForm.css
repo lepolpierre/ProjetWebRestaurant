@@ -1,0 +1,13 @@
+form {
+   margin: 0 auto;
+   padding: 2%;
+   border: 1px solid rgb(255, 209, 83);
+   border-radius: 25px;
+   transition: border-width 0.01s, box-shadow 1s;
+}
+
+form:hover{
+    border-width: 2px;
+    box-shadow: 1px 1px 10px 1px rgb(255, 209, 83);
+}
+
