@@ -1,6 +1,6 @@
 <%- include ('includes/head.ejs') %>
 
-<!-- <link rel="stylesheet" type="text/css" href="/public/css/registerForm.css"> -->
+<link rel="stylesheet" type="text/css" href="/public/css/registerForm.css">
 
 </head>
 
@@ -16,11 +16,11 @@
 
 
     
-        <form method="POST" action="/auth/signup">
+        <form class="col-6" method="POST" action="/auth/signup">
 
             <div>
-                <label for="u-email">Votre Courriel</label>
-                <input type="email" name="u_email" required value=<%=locals.email %>>
+                <label class="form-label" for="u-email">Votre Courriel</label>
+                <input class="form-control" type="email" name="u_email" required value=<%=locals.email %>>
             </div>
 
             <% if (locals.error != null) { %>
@@ -30,8 +30,8 @@
             <% } %>
 
             <div>
-                <label for="u-username">Nom utilisateur</label>
-                <input type="text" name="u_username" required value=<%=locals.username %> >
+                <label class="form-label" for="u-username">Nom utilisateur</label>
+                <input class="form-control" type="text" name="u_username" required value=<%=locals.username %> >
             </div>
             
             <% if (locals.error != null) { %>
@@ -42,8 +42,8 @@
 
 
             <div>
-                <label for="u-pwd">Mot de passe</label>
-                <input type="password" name="u_pwd" required value=<%=locals.pwd %> >
+                <label class="form-label" for="u-pwd">Mot de passe</label>
+                <input class="form-control" type="password" name="u_pwd" required value=<%=locals.pwd %> >
             </div>
 
             <% if (locals.error != null) { %>
@@ -53,10 +53,10 @@
             <% } %>
 
             <div>
-                <label for="u-pwdConfirm">Confirmer le mot de passe</label>
-                <input type="password" name="u_pwdConfirm" required>
+                <label class="form-label" for="u-pwdConfirm">Confirmer le mot de passe</label>
+                <input class="form-control" type="password" name="u_pwdConfirm" required>
             </div>
-            <input class="btnSubmit" type="submit" value="Soumettre">
+            <input class="btn-primary" type="submit" value="Soumettre">
 
         </form>
 

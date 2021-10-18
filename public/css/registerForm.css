@@ -1,7 +1,6 @@
 form {
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
+    /* display: flex;
+    flex-direction: column; */
 }
 
 
@@ -14,9 +13,9 @@ input[type="password"] {
 
 
 form div {
-    display: flex;
+    /* display: flex;
     margin: 1%;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 .btnSubmit {
