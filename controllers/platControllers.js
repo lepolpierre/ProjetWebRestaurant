@@ -6,12 +6,12 @@ const plat = require('../model/menu');
 // Récupère un article grâce à son id
 //menu.push({name:"riz"})
 let mange = new plat({name:"mange"});
-let bannane = new plat({name:"bannane"});
+let banane = new plat({name:"banane", description:"une banane",categorie:"fruit", vege:true, prix:5});
 
 mange.save();
-bannane.save();
-console.log("pattes : ",bannane);
-console.log("riz:", mange  )
+banane.save();
+console.log("banane : ",banane);
+console.log("mange:", mange  )
 
 exports.getPlat = (req, res, next) => {
     console.log('req.params :', req.params.platId);

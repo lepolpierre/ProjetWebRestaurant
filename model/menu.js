@@ -11,8 +11,12 @@ const platsSchema = new Schema(
       type: String,
       required: false
     },
-    vegetarien: {
+    vege: {
       type: Boolean,
+      required: false
+    },
+    categorie: {
+      type: String,
       required: false
     },
     prix: {
