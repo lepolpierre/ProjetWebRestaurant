@@ -24,7 +24,6 @@ const platsSchema = new Schema(
       required: false
     },
 
-
   }
 );
 

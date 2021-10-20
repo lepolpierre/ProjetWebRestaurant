@@ -1,0 +1,40 @@
+<%- include ('includes/head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/public/css/plat.css">
+
+</head>
+
+<body>
+
+  <main>
+
+<% menu.forEach(plat => { %>
+    <div class="card" >
+        <img src="../public/images/<%= plat.name%>.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">
+            Nom : <%= plat.name %>
+          </h5>
+          <h5 class="card-categorie">
+            Type de plat : <%= plat.categorie %>
+          </h5>
+          <h5 class="card-description">
+            Description : <%= plat.description %>
+          </h5>
+          <h5 class="card-prix">
+            Prix : <%= plat.prix %>
+          </h5>
+          <a href="#" class="btn btn-primary">ajouter au panier</a>
+        </div>
+      </div>
+<% }) %>
+
+
+    
+
+  </main>
+
+  <%- include('includes/end.ejs') %>
+
+</body>
+
+</html>

@@ -1,2 +1,4 @@
 pattes : 616cd6954a5f629bd10803f3
 riz : 616cd6954a5f629bd10803f2
+bannane : 616ceaecbeae7e2661aab175
+poulet : 616cf3dc26c09ca3f1ea649f
