@@ -1,7 +1,7 @@
 "use strict";
 var mongoose = require('mongoose');
 const Menu = require('../model/menu');
-const resultsPerPage = 10;
+const resultsPerPage = 9;
 
 
 
