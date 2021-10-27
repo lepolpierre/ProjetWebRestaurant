@@ -1,0 +1,35 @@
+<%- include ('includes/head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/public/css/form.css">
+
+</head>
+
+<body>
+    <main>
+        <h2 class="titre">Connexion au compte</h2>
+    
+        <form class="col-6" method="POST" action="/auth/login">
+            
+         
+            <div class="error">
+                <p><%= locals.error %> </p>
+            </div>
+            
+
+            <div>
+                <label class="form-label" for="utilisateur">Courriel ou nom d'utilisateur</label>
+                <input class="form-control" type="text" name="utilisateur" required  value=<%= locals.user %> >
+            </div>
+
+            <div>
+                <label class="form-label" for="pass">Mot de passe</label>
+                <input class="form-control" type="password" name="pass" required>
+            </div>
+            
+            <input class="mt-2 btn-outline-success btn" type="submit" value="Se connecter">
+
+        </form>
+    </main>
+
+    <%- include('includes/end.ejs')  %>
+
+</body>

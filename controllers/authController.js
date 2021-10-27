@@ -1,49 +1,56 @@
 'use strict';
 
-// Importation du modèle User de la BD
-const User = require('../model/user');
-// Hashage du mot de passe
-const bcrypt = require('bcrypt');
+const User = require('../model/user'); // Importation du modèle User de la BD
+const bcrypt = require('bcrypt'); // Hashage du mot de passe
+const jwt = require('jsonwebtoken'); // JWT
+
+var LocalS = require('node-localstorage').LocalStorage;
+LocalS = new LocalS('./scratch');
+
+require('dotenv').config(); 
 
 
-// Affiche le formulaire permettant de la création d'un compte utilisateur
+
+
+// Affiche le formulaire permettant à un visteur la création d'un compte utilisateur
 exports.registerAccount = (req, res) => {
-    res.render('registerForm', {
+    res.render('signup', {
         pageTitle: "Création de compte"
     });
 };
 
 
 // Permet la création du compte utilisateur
-exports.createAccount = (req, res) => {
+exports.createAccount = (req, res,next) => {
     const { u_email, u_username, u_pwd, u_pwdConfirm } = req.body;
+
 
     // Verifier que tous les champs ont été fournis
     if (!u_email || !u_username || !u_pwd || !u_pwdConfirm) {
         res.status(400);
-        return returnUserFormRempli(req, res, "Veuillez remplir tous les champs! ");
+        returnSignInFormRempli(req, res, "Veuillez remplir tous les champs! ");
     }
 
     // Verifier que l'utilisateur désirant s'inscrire n'existe pas.
     User.findOne({ $or:[{email :  u_email}, {username: u_username}]},(err, user)=>{
         if (err) {
-            console.error(err);
-            throw err;
+            // gestion erreur
+            next(err);
         }
 
-        if(user) return returnUserFormRempli(req,res, "Utilisateur existant avec ce nom d'utilisateur ou courriel");
+        if(user) returnSignInFormRempli(req,res, "Utilisateur existant avec ce nom d'utilisateur ou courriel");
 
         // Verifier les deux mots de passes.
         if (!verifierDeuxMDP(u_pwd, u_pwdConfirm)) {
             res.status(400);
-            return returnUserFormRempli(req, res, "Les deux mots de passes doivent être identiques! ");
+            returnSignInFormRempli(req, res, "Les deux mots de passes doivent être identiques! ");
         }
 
         // Gener le salt et enregistrement de données.
+
         bcrypt.genSalt(10, (err, salt)=>{
             if (err) {
-                console.error(err);
-                throw err;
+                next(err);
             }
 
             // Hashage du mot de passe.
@@ -63,15 +70,13 @@ exports.createAccount = (req, res) => {
                 })
                 .catch(err => {
                     // Erreur liée au serveur.
-                    if (!err.statusCode){err.statusCode = 500;}
                     console.error(err);
-                    returnUserFormRempli(req, res, err.errors);
+                    returnSignInFormRempli(req, res, err.errors);
                 });
                          
             })
             .catch(err=>{
-                console.error(err);
-                throw err;
+               next(err);
             });
             
 
@@ -82,6 +87,72 @@ exports.createAccount = (req, res) => {
 
 
 };
+
+
+
+// Affiche le formulaire permettant à un utilisateur de se connecter
+exports.loginForm = (req,res,next)=>{
+    res.render('login', {
+        pageTitle: "Connexion"
+    });
+};
+
+
+
+exports.loginAccount = (req,res,next)=>{
+    const {utilisateur, pass} = req.body;
+
+    // Vérifier que les champs sont bien remplis.
+    if(!utilisateur || !pass){
+        res.status(404);
+        returnLoginInFormRempli(req,res, "Veuillez remplir tous les champs.");
+    }
+
+    // Utilisateur désirant se connecter.
+    let loginUser;
+
+    User.find({$or:[{email:utilisateur}, {username:utilisateur}]})
+    .then((user)=>{
+        if(user.length < 1){
+            res.status(404);
+            returnLoginInFormRempli(req,res, "Utilisateur inéxitant");
+        }
+        
+        loginUser = user[0];
+        return bcrypt.compare(pass, user[0].password);
+    })
+    .then(egal=>{
+        if(!egal){
+            res.status(404);
+            returnLoginInFormRempli(req,res, "Informations incorrectes");
+        }
+        // JWT
+        const token = jwt.sign(
+            {
+                user: loginUser.username,
+                userId : loginUser._id.toString()
+            },
+            // Secret Key
+            process.env.JWT_SECRET_KEY,
+            {expiresIn: 300}
+        );
+        LocalS.setItem('token', token);
+     
+        res.status(200).json({message: "Connecté!", token : token});
+    })
+    .catch(err=>{
+        next(err);
+    });
+
+
+};
+
+
+
+
+
+
+// Méthodes utiles
 
 
 /**
@@ -97,16 +168,31 @@ const verifierDeuxMDP = (mdp1, mdp2) => {
 
 
 /**
- * Renvoie le formulaire de création d'utilisateur avec données pré-rempli
+ * Renvoie le formulaire de création d'utilisateur avec données pré-rempli 
  * @param {object} req 
  * @param {object} res 
  */
-const returnUserFormRempli = (req, res, error = "") => {
-    res.render('registerForm', {
+const returnSignInFormRempli = (req, res, error = "") => {
+    res.render('signup', {
         pageTitle: "Création de compte",
         email: req.body.u_email,
         username: req.body.u_username,
         pwd: req.body.u_pwd,
         error: error
     });
+};
+
+
+/**
+ * Renvoie le formulaire de connexion d'un utilisateur avec données pré-rempli.
+ * @param {*} req 
+ * @param {*} res 
+ */
+const returnLoginInFormRempli = (req,res, error = "")=>{
+    res.render('login', {
+        pageTitle: "Connexion",
+        user: req.body.utilisateur,
+        error: error
+    });
+  
 };

@@ -12,8 +12,15 @@ router.get('/', (req,res)=>{
     res.send("auth route");
 });
 
+
+// Création de compte
 router.get('/signup', authCtrl.registerAccount);
 router.post('/signup', authCtrl.createAccount);
+
+// Connexion
+router.get('/login', authCtrl.loginForm);
+router.post('/login', authCtrl.loginAccount);
+
 
 
 // Exportation du router

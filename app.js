@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', "views");
 
 // Middlewares
-app.use(express.json());
+// app.use(express.json());
 app.use(express.urlencoded({ extended: false})); // body parser
 app.use('/public',express.static(path.join(__dirname, 'public'))); // static files
 
@@ -24,9 +24,20 @@ const platRoutes = require('./routes/unPlat');
 app.use('/auth', adminRoutes);
 app.use('/plat', platRoutes);
 
+
+
 // Erreurs
 const errors = require('./controllers/errorController');
 app.use(errors.getError404);
+
+
+// Gestion des erreurs
+// "Attrappe" les erreurs envoyé par "throw"
+app.use(function (err, req, res, next) {
+  console.log('err', err);
+  if (!err.statusCode) err.statusCode = 500;
+  res.status(err.statusCode).json({ message: err.message, statusCode: err.statusCode });
+});
 
 
 

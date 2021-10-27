@@ -11,8 +11,8 @@ const userSchema = new Schema(
     {
 
         email: {
-           type:mongoose.SchemaTypes.Email,
-           required: [true, "Veuillez entrer un courriel valide"]
+           type: [mongoose.SchemaTypes.Email,"Veuillez entrer un courriel valide"],
+           required: [true, "Veuillez entrer un courriel"]
         },
         username: {
             type: String,
