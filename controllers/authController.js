@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt'); // Hashage du mot de passe
 const jwt = require('jsonwebtoken'); // JWT
 
 var LocalS = require('node-localstorage').LocalStorage;
-LocalS = new LocalS('./scratch');
+LocalS = new LocalS('./localStorage');
 
 require('dotenv').config(); 
 

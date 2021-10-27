@@ -1,5 +1,6 @@
 "use strict";
 
+require('dotenv').config();
 const path = require('path');
 // Express, MongoDb
 const express = require('express');
@@ -15,14 +16,14 @@ app.set('views', "views");
 app.use(express.urlencoded({ extended: false})); // body parser
 app.use('/public',express.static(path.join(__dirname, 'public'))); // static files
 
-
 // Routes 
 const adminRoutes = require('./routes/auth');
 const platRoutes = require('./routes/unPlat');
-
+const menuRoutes = require('./routes/menu');
 
 app.use('/auth', adminRoutes);
 app.use('/plat', platRoutes);
+app.use('/menu', menuRoutes);
 
 
 
@@ -43,7 +44,7 @@ app.use(function (err, req, res, next) {
 
 // connection MongoDB
 mongoose
-  .connect('mongodb://127.0.0.1:27017/resto')
+  .connect(process.env.MONGODB)
   .then(() => {
     const server = app.listen(3000, ()=>{
       console.log(`Server running on port : ${server.address().port}`);
