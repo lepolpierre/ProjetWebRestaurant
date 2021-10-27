@@ -7,14 +7,15 @@ const resultsPerPage = 9;
 
 
 const loadPLat = () => {
-  const noms = ["poulet", "riz", "pattes", "rizoto", "bolognaise", "couscous", "burger", "pizza", "naan", "poutine", "banane"];
-  const description = ["un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat"];
-  const categorie = ["repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas"];
-  const vege = [false, false, false, false, false, false, false, false, false, false, false];
-  const prix = [10, 9, 14, 12, 15, 11, 10, 9, 10, 10, 10];
+  let noms = ["poulet", "riz", "pattes", "rizoto", "bolognaise", "couscous", "burger", "pizza", "naan", "poutine", "banane"];
+  let description = ["un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat", "un plat"];
+  let categorie = ["repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas", "repas"];
+  let vege = [false, false, false, false, false, false, false, false, false, false, false];
+  let prix = [10, 9, 14, 12, 15, 11, 10, 9, 10, 10, 10];
+
 
   for (let i = 0; i < 10; i++) {
-    let plat = new Menu({ name: noms[i] }, { description: description[i] }, { categorie: categorie[i] }, { vege: vege[i] }, { prix: prix[i] });
+    let plat = new Menu({ name: noms[i] ,  description: description[i] ,  categorie: "un plat" ,  vege: false ,  prix:  10});
     plat.save();
   }
 };
