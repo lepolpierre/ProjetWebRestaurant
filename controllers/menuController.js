@@ -1,11 +1,9 @@
 "use strict";
-var mongoose = require('mongoose');
+
+
+
 const Menu = require('../model/menu');
-const resultsPerPage = 10;
-
-const Plat = require("../model/menu");
-
-
+const resultsPerPage = 9;
 
 
 const loadPLat = () => {
@@ -16,7 +14,7 @@ const loadPLat = () => {
   const prix = [10, 9, 14, 12, 15, 11, 10, 9, 10, 10, 10];
 
   for (let i = 0; i < 10; i++) {
-    let plat = new Plat({ noms: noms[i] }, { descriptioni: description[i] }, { categorie: categorie[i] }, { vege: vege[i] }, { prix: prix[i] });
+    let plat = new Menu({ name: noms[i] }, { description: description[i] }, { categorie: categorie[i] }, { vege: vege[i] }, { prix: prix[i] });
     plat.save();
   }
 };
@@ -25,7 +23,6 @@ const loadPLat = () => {
 exports.getMenu = (req, res, next) => {
   loadPLat();
 
-  
   Menu.find()
     .then(menu => {
       const numOfResult = menu.length;

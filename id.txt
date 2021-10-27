@@ -3,24 +3,3 @@ riz : 616cd6954a5f629bd10803f2
 bannane : 616ceaecbeae7e2661aab175
 poulet : 616cf3dc26c09ca3f1ea649f
 
-
-<% menu.forEach(plat => { %>
-    <div class="card" >
-        <img src="../public/images/<%= plat.name%>.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">
-            Nom : <%= plat.name %>
-          </h5>
-          <h5 class="card-categorie">
-            Type de plat : <%= plat.categorie %>
-          </h5>
-          <h5 class="card-description">
-            Description : <%= plat.description %>
-          </h5>
-          <h5 class="card-prix">
-            Prix : <%= plat.prix %>
-          </h5>
-          <a href="#" class="btn btn-primary">ajouter au panier</a>
-        </div>
-      </div>
-<% }) %>

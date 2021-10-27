@@ -2,3 +2,18 @@
     width: 30vw;
     margin: 0 auto ;
 }
+.card{
+    width: 17rem;
+    margin: 1%;
+    border-radius: 10px;
+}
+.card:hover{
+    box-shadow: 2px 2px 5px 5px rgb(255, 234, 203);
+}
+.cardMenu{
+    display: flex;
+    flex-wrap: wrap ;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
