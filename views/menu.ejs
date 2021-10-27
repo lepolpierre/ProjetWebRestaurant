@@ -1,12 +1,13 @@
 <%- include ('includes/head.ejs') %>
-<link rel="stylesheet" type="text/css" href="/public/css/plat.css">
+<link rel="stylesheet" type="text/css" href="/public/css/menu.css">
+
 
 </head>
 
 <body>
 
   <main>
-
+    
 <% menu.forEach(plat => { %>
     <div class="card" >
         <img src="../public/images/<%= plat.name%>.jpg" class="card-img-top" alt="...">
@@ -23,18 +24,32 @@
           <h5 class="card-prix">
             Prix : <%= plat.prix %>
           </h5>
-          <a href="#" class="btn btn-primary">ajouter au panier</a>
+          <a href="<% plat.id %> " class="btn btn-primary">ajouter au panier</a>
         </div>
       </div>
 <% }) %>
 
 
-    
+<nav  aria-label="navigation" class="navigation" >
 
-  </main>
+  <ul class="pagination">
 
-  <%- include('includes/end.ejs') %>
+<% if(page > 1) 
+  { %> 
+  <li class="page-item"><a class="page-link" href="/menu/?page=<%=page-1%>">Before</a></li> 
+  <% } %> 
+<% for(let i = iterator; i <= endingLink; i++) 
+  { %>
+    <% if (i === page) { %>
+      <li class="page-item"><a class="page-link" href="/menu/?page=<%=i%>"><%=i%> </a></li>
+      <% continue; %>
+    <% } %>
+    <li class="page-item"><a class="page-link" href="/menu/?page=<%=i %> "><%=i %></a></li>
+  <% } %>
+<% if(page < numOfPages) { %> <li class="page-item"><a class ="page-link" href="/menu/?page=<%=page+1%>">After</a> </li><% } %>
+  </ul>
 
+</nav>
 </body>
 
 </html>

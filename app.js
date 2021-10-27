@@ -15,12 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false})); // body parser
 app.use('/public',express.static(path.join(__dirname, 'public'))); // static files
 
-
 // Routes 
 const adminRoutes = require('./routes/auth');
 const platRoutes = require('./routes/unPlat');
 const menuRoutes = require('./routes/menu');
-
 
 app.use('/auth', adminRoutes);
 app.use('/plat', platRoutes);
