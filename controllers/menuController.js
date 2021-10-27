@@ -2,10 +2,24 @@
 var mongoose = require('mongoose');
 const Menu = require('../model/menu');
 const resultsPerPage = 9;
+const Plat = require('../model/menu');
+
 
 
 
 exports.getMenu = (req, res, next) => {
+
+const noms = ["poulet","riz","pattes","rizoto","bolognaise","couscous","burger","pizza","naan","poutine","banane"];
+const description = ["un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat"];
+const categorie = ["repas","repas","repas","repas","repas","repas","repas","repas","repas","repas","repas"];
+const vege = [false,false,false,false,false,false,false,false,false,false,false];
+const prix = [10,9,14,12,15,11,10,9,10,10,10];
+
+for(let i=0; i < 10 ; i++) 
+{
+  let plat = new Plat({noms:noms[i]},{descriptioni:description[i]},{categorie:categorie[i]},{vege:vege[i]},{prix:prix[i]});
+  plat.save();
+}
 
     Menu.find()
     .then(menu => {

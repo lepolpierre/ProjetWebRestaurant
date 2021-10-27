@@ -5,11 +5,21 @@ const Plat = require('../model/menu');
 
 // Récupère un article grâce à son id
 //menu.push({name:"riz"})
-//let poulet = new Plat({name:"poulet", description:"poulet braisé",categorie:"viande", vege:false, prix:20});
-//let banane = new Plat({name:"banane", description:"une banane",categorie:"fruit", vege:true, prix:5});
 
-//poulet.save();
-//banane.save();
+// const noms = ["poulet","riz","pattes","rizoto","bolognaise","couscous","burger","pizza","naan","poutine","banane"];
+// const description = ["un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat","un plat"];
+// const categorie = ["repas","repas","repas","repas","repas","repas","repas","repas","repas","repas","repas"];
+// const vege = [false,false,false,false,false,false,false,false,false,false,false];
+// const prix = [10,9,14,12,15,11,10,9,10,10,10];
+
+// for(let i=0; i < noms.length -1; i++) 
+// {
+//   let plat = new Plat({noms:noms[i]},{descriptioni:description[i]},{categorie:categorie[i]},{vege:vege[i]},{prix:prix[i]});
+//   plat.save();
+// }
+
+
+
 //console.log("banane : ",poulet);
 //console.log("mange:", mange  )
 
