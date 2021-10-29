@@ -1,19 +1,30 @@
 'use strict';
 
-const User = require('../model/user'); // Importation du modèle User de la BD
 const bcrypt = require('bcrypt'); // Hashage du mot de passe
 const jwt = require('jsonwebtoken'); // JWT
 
+// Mailgun
+const mailgun = require('mailgun-js')(
+    {
+        apiKey: process.env.MAILGUN_API_KEY,
+        domain: process.env.MAILGUN_DOMAIN
+    }
+);
+
 var LocalS = require('node-localstorage').LocalStorage;
 LocalS = new LocalS('./localStorage');
+
+const User = require('../model/user'); // Importation du modèle User de la BD
 
 require('dotenv').config(); 
 
 
 
 
+
+
 // Affiche le formulaire permettant à un visteur la création d'un compte utilisateur
-exports.registerAccount = (req, res) => {
+exports.registerAccount = (req, res,next) => {
     res.render('signup', {
         pageTitle: "Création de compte"
     });
@@ -65,8 +76,34 @@ exports.createAccount = (req, res,next) => {
 
                 // Enregitrement des données dans la BD.
                 user.save()
-                .then(() => {
-                    res.status(201).json({ msg: `utilisateur ${user.username} crée!` });
+                .then((utilisateur) => {
+
+                    // Envoie de courriel de vérification par mailgun
+                    const message = `Veuillez vérifier votre courriel pour finaliser la création`+
+                    `de votre compte sur NodeResto en cliquant ici : ${process.env.HOST}${process.env.PORT}/auth/signup/verify/${utilisateur._id}`;
+                    console.log(message);
+                    var data = {
+                        from: 'NodeResto <me@samples.mailgun.org>',
+                        to: "atoumi@edu.cegepgarneau.ca",
+                        subject: 'Finir la création de votre compte',
+                        
+                        // Le contenu du courriel
+                        text: message
+                    };
+
+                    mailgun.messages().send(data, (err, body)=>{
+
+                        if(err){
+                            throw err;
+                        }
+                        console.log(body);
+                        
+                        // Confirmation de création de courriel.
+                        res.status(201).json({ msg: `utilisateur ${utilisateur.username} crée!` });
+                    });
+                    
+
+
                 })
                 .catch(err => {
                     // Erreur liée au serveur.
@@ -149,6 +186,30 @@ exports.loginAccount = (req,res,next)=>{
 
 
 
+exports.isLoggedIn = (req,res,next)=>{
+    const token = LocalS.getItem('token');
+    if(token !== null){
+        console.log(token);
+        // Récupérer les données du token
+        jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user)=>{
+            if(err || !user){
+                res.status(401).json({err:err});
+            }
+            
+            // Enregistrement du token.
+            req.user = user;
+            next();
+
+        });
+
+
+    }
+
+    res.status(301).render('login');
+
+
+
+};
 
 
 

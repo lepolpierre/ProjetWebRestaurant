@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', "views");
 
 // Middlewares
-// app.use(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: false})); // body parser
 app.use('/public',express.static(path.join(__dirname, 'public'))); // static files
 
@@ -21,15 +21,30 @@ const adminRoutes = require('./routes/auth');
 const platRoutes = require('./routes/unPlat');
 const menuRoutes = require('./routes/menu');
 
+
+// Header
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+  );
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
+
+
 app.use('/auth', adminRoutes);
 app.use('/plat', platRoutes);
 app.use('/menu', menuRoutes);
 
 
 
-// Erreurs
+// Erreurs 404
 const errors = require('./controllers/errorController');
 app.use(errors.getError404);
+
 
 
 // Gestion des erreurs
@@ -46,8 +61,8 @@ app.use(function (err, req, res, next) {
 mongoose
   .connect(process.env.MONGODB)
   .then(() => {
-    const server = app.listen(3000, ()=>{
-      console.log(`Server running on port : ${server.address().port}`);
+    app.listen(process.env.PORT, ()=>{
+      console.log(`Server running on port : ${process.env.PORT}`);
     });
   })
   .catch(err => console.error(`Erreur ${err}`));

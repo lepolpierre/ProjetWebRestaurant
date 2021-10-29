@@ -27,8 +27,11 @@ const userSchema = new Schema(
         salt:{
             type:String,
             required:true
+        },
+        verified:{
+            type : Boolean,
+            default: false
         }
-
     },
     { timestamps: true }
 );

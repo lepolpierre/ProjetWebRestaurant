@@ -22,7 +22,7 @@ const platsSchema = new Schema(
     prix: {
       type: Number,
       required: false
-    },
+    }
 
   }
 );
