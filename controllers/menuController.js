@@ -2,7 +2,7 @@
 
 
 
-const Menu = require('../model/menu');
+const Menu = require('../models/menu');
 const resultsPerPage = 9;
 
 

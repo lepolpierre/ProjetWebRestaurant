@@ -1,6 +1,6 @@
 "use strict";
 
-const Plat = require('../model/menu');
+const Plat = require('../models/menu');
 
 
 
