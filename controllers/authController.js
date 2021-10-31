@@ -159,9 +159,21 @@ exports.verifyUserEmail = (req, res, next) => {
  * @param {object} res
  * @param {function} next
  */
-exports.loginUser = (req, res, next) => res.render("login", {
+exports.loginUser = (req, res, next) => {
+  if(req.user !== null){
+    
+    console.log(req.user);
+
+    return res.render('infouser', {
+      user: req.user
+    });
+  }
+
+  
+  res.render("login", {
     pageTitle: "Connexion",
   });
+};
 
 
 /**
@@ -213,7 +225,7 @@ exports.login = (req, res, next) => {
         },
         // Secret Key
         process.env.JWT_SECRET_KEY, 
-        { expiresIn: 300 }
+        { expiresIn: '1h' }
       );
       // Enbregistrer le token
       LocalS.setItem("token", token);
@@ -346,28 +358,32 @@ exports.userPwdUpdate = (req, res, next) => {
   // Recherche
   User.findById(userid)
     .then(user => {
+      
       if (!user){
         const err = new Error("Aucun utilisateur trouvé!");
         err.statusCode = 404;
         throw err;
       }
-
+      
       bcrypt.genSalt(10, (err, salt) => {
         if (err) next(err);
-
+        
         bcrypt
-          .hash(mdp1, salt)
-          .then(hash => {
-            user.password = hash;
-            user.salt = salt;
+        .hash(mdp1, salt)
+        .then(hash => {
+          user.password = hash;
+          user.salt = salt;
+          
+          user.save()
+          .then(u => {
+            
+              // TODO : RESPONSE AFTER UPDATE
+              // res.status(204).json({
+              //   message: "modifié!",
+              //   user: u
+              // });
 
-            user.save()
-            .then(u => {
-
-              res.status(204).json({
-                message: "modifié!",
-                user: u
-              });
+              res.status(204).render('login');
 
             });
           })
@@ -380,6 +396,37 @@ exports.userPwdUpdate = (req, res, next) => {
 
 // TODO : finir update pwd
 // TODO: deconnection
+
+exports.disconnect = (req,res,next) => {
+  const {userId} = req.params;
+
+  const token = LocalS.getItem('token');
+
+  if( token !== null){
+    
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user)=>{
+      if(err || !user)
+        return res.status(401).json({err:err});
+
+      if(user.userId !== userId){
+        const err = new Error("Utilisateur non reconnu");
+        err.statusCode = 400;
+        throw err;
+      }
+    
+      // Supprimer le token
+      LocalS.removeItem('token');
+      return res.status(301).redirect('/auth/login');
+
+    });
+    
+  }
+
+  
+};
+
+
+
 
 // Méthodes utiles
 

@@ -24,7 +24,7 @@ exports.isAuth = (req,res,next)=>{
         // Récupérer les données du token
         jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user)=>{
             if(err || !user){
-                res.status(401).json({err:err});
+                return res.status(401).json({err:err});
             }
             
             // Enregistrement du token.

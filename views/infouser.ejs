@@ -1,0 +1,16 @@
+<%- include('includes/head.ejs')  %> 
+
+<body>
+    <main>
+
+        <div>
+            <h3 class="titre">Informations sur le compte </h3>
+            <pre> <%= locals.user.user %> </pre>
+
+            <button onclick="location.href = `/auth/login/disconnect/<%= locals.user.userId%>`;"
+            class="mt-2 btn-outline-success btn">Bye</button>
+        </div>
+    </main>
+
+    <%- include('includes/end.ejs')  %> 
+</body>
