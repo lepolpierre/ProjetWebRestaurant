@@ -1,0 +1,31 @@
+<%- include('includes/head.ejs')  %> 
+<link rel="stylesheet" type="text/css" href="/public/css/form.css">
+
+</head>
+
+<body>
+    <main>
+        <h2 class="titre">Récupération de courriel</h2>
+
+        <form class="col-8" action="/auth/login/recover" method="POST">
+
+            <div>
+                <label class="form-label" for="mdp1">Veuillez choisir un nouveau mot de passe :</label>
+                <input class="form-control" type="password" name="mdp1" id="mdp1" 
+                placeholder="Entrez votre mot de passe" required>
+            </div>
+
+            <div>
+                <label class="form-label" for="mdp2">Veuillez confirmer votre mot de passe :</label>
+                <input class="form-control" type="password" name="mdp2" id="mdp2" 
+                placeholder="Confirmez  votre mot de passe" required>
+            </div>
+
+            <input class="mt-2 btn-outline-success btn" type="submit" value="Soumettre">
+
+        </form>
+    </main>
+
+
+    <%- include('includes/end.ejs')  %>
+</body>

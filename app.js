@@ -1,18 +1,19 @@
 "use strict";
 
-require('dotenv').config();
+require('dotenv').config();       // .env
+
 const path = require('path');
-// Express, MongoDb
-const express = require('express');
-const mongoose = require('mongoose');
+
+const express = require('express');   // Express
 const app = express();
+const mongoose = require('mongoose'); // Mongoose
 
 // EJS
 app.set('view engine', 'ejs');
 app.set('views', "views");
 
 // Middlewares
-app.use(express.json());
+app.use(express.json());        // JSON
 app.use(express.urlencoded({ extended: false})); // body parser
 app.use('/public',express.static(path.join(__dirname, 'public'))); // static files
 
@@ -65,7 +66,7 @@ mongoose
       console.log(`Server running on port : ${process.env.PORT}`);
     });
   })
-  .catch(err => console.error(`Erreur ${err}`));
+  .catch(err => console.error(`Erreur :  ${err}`));
 
 
 

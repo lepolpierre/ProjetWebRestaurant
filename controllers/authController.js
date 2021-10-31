@@ -1,6 +1,8 @@
 "use strict";
 
-const bcrypt = require("bcrypt"); // Hashage du mot de passe
+require("dotenv").config();   // .env
+
+const bcrypt = require("bcrypt"); // bcrypt (Hashage du mot de passe)
 const jwt = require("jsonwebtoken"); // JWT
 
 // Mailgun
@@ -14,7 +16,9 @@ LocalS = new LocalS("./localStorage");
 
 const User = require("../models/user"); // Importation du modèle User de la BD
 
-require("dotenv").config();
+
+
+
 
 /**
  * Affiche le formulaire permettant à un invité la création d'un compte utilisateur
@@ -53,20 +57,12 @@ exports.createAccount = (req, res, next) => {
       }
 
       if (user)
-        returnSignInFormRempli(
-          req,
-          res,
-          "Utilisateur existant avec ce nom d'utilisateur ou courriel"
-        );
+        returnSignInFormRempli(req, res, "Utilisateur existant avec ce nom d'utilisateur ou courriel");
 
       // Verifier les deux mots de passes.
       if (!verifierDeuxMDP(u_pwd, u_pwdConfirm)) {
         res.status(400);
-        returnSignInFormRempli(
-          req,
-          res,
-          "Les deux mots de passes doivent être identiques! "
-        );
+        returnSignInFormRempli(req, res, "Les deux mots de passes doivent être identiques! ");
       }
 
       // Générer le salt pour enregistrement de données.
@@ -92,17 +88,18 @@ exports.createAccount = (req, res, next) => {
               .save()
               .then((utilisateur) => {
                 // Le contenu du courriel
-                const message =
-                  `Veuillez vérifier votre courriel pour finaliser la création` +
-                  ` de votre compte sur NodeResto en cliquant ici : ${process.env.HOST}${process.env.PORT}/auth/signup/verify/${utilisateur._id}`;
-                // console.log(message);
+                const message = `<h3>Bonjour ${utilisateur.username},</h3>`+
+                  `<p>Veuillez vérifier votre courriel en cliquant `+
+                  `<a href="${process.env.HOST}${process.env.PORT}/auth/signup/verify/${utilisateur._id}"> ici </a>`+
+                  `pour finaliser la création de votre compte NodeResto </p>`;
+
 
                 // Envoie de courriel de vérification par mailgun
                 var data = {
-                  from: "NodeResto <me@samples.mailgun.org>",
-                  to: "atoumi@edu.cegepgarneau.ca" ,
+                  from: "NodeResto <signup@noderesto.ca>",
+                  to: "atoumi@edu.cegepgarneau.ca",
                   subject: "Finir la création de votre compte",
-                  text: message,
+                  html: message,
                 };
 
                 mailgun.messages().send(data, (err, body) => {
@@ -131,77 +128,6 @@ exports.createAccount = (req, res, next) => {
   );
 };
 
-/**
- * Affiche le formulaire permettant à un utilisateur de se connecter
- * @param {object} req
- * @param {object} res
- * @param {function} next
- */
-exports.loginForm = (req, res, next) => {
-  res.render("login", {
-    pageTitle: "Connexion",
-  });
-};
-
-/**
- * Permet la connexion du compte utilisateur
- * @param {object} req
- * @param {object} res
- * @param {function} next
- */
-exports.loginAccount = (req, res, next) => {
-  const { utilisateur, pass } = req.body;
-
-  //TODO : VALIDER QUE LE COURRIEL EST GOOD
-  
-  // Vérifier que les champs sont bien remplis.
-  if (!utilisateur || !pass) {
-    res.status(404);
-    returnLoginInFormRempli(req, res, "Veuillez remplir tous les champs.");
-  }
-
-  // Utilisateur désirant se connecter.
-  let loginUser;
-
-  User.find({ $or: [{ email: utilisateur }, { username: utilisateur }] })
-    .then((user) => {
-      if (user.length < 1) {
-        res.status(404);
-        returnLoginInFormRempli(req, res, "Utilisateur inéxistant !");
-      }
-
-      loginUser = user[0];
-      return bcrypt.compare(pass, user[0].password);
-    })
-    .then((egal) => {
-      if (!egal) {
-        res.status(404);
-        returnLoginInFormRempli(
-          req,
-          res,
-          "Informations de connexion incorrectes !"
-        );
-      }
-      // JWT
-      const token = jwt.sign(
-        {
-          user: loginUser.username,
-          userId: loginUser._id.toString(),
-        },
-        // Secret Key
-        process.env.JWT_SECRET_KEY,
-        { expiresIn: 300 }
-      );
-      LocalS.setItem("token", token);
-
-      res.status(200).json({ message: "Connecté!", token: token });
-    })
-    .catch((err) => {
-      next(err);
-    });
-};
-
-
 
 /**
  * Permet de valider le courriel d'un utilisateur.
@@ -225,16 +151,169 @@ exports.emailValidation = (req, res, next) => {
 
       user.verified = true;
       user.save()
-      .then( (result)=>{
-        res.json({
-            message: "Vous êtres désormais vérifié  ! ",
+        .then((result) => {
+          res.json({
+            message: "Vous êtres désormais vérifié !",
             user: result,
+          });
         });
-      });
     })
     .catch((err) => {
       next(err);
     });
+};
+
+
+/**
+ * Affiche le formulaire permettant à un utilisateur de se connecter
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ */
+exports.loginForm = (req, res, next) => {
+  res.render("login", {
+    pageTitle: "Connexion",
+  });
+};
+
+/**
+ * Permet la connexion du compte utilisateur
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ */
+exports.loginAccount = (req, res, next) => {
+  const { utilisateur, pass } = req.body;
+
+  // Vérifier que les champs sont bien remplis.
+  if (!utilisateur || !pass) {
+    res.status(404);
+    returnLoginInFormRempli(req, res, "Veuillez remplir tous les champs.");
+  }
+
+  // Utilisateur désirant se connecter.
+  let loginUser;
+
+  User.find({ $or: [{ email: utilisateur }, { username: utilisateur }] })
+    .then((user) => {
+      if (user.length < 1) {
+        res.status(404);
+        returnLoginInFormRempli(req, res, "Utilisateur inéxistant !");
+      }
+
+      loginUser = user[0];
+      // Vérifier que l'utilisateur a vérifié son compte.
+      if (!loginUser.verified) {
+        res.status(401);
+        returnLoginInFormRempli(req, res, "Veuillez confirmer votre courriel !");
+      }
+
+      // Comparer les mots de passe.
+      return bcrypt.compare(pass, user[0].password);
+    })
+    .then((egal) => {
+      if (!egal) {
+        res.status(404);
+        returnLoginInFormRempli(req, res, "Informations de connexion incorrectes !");
+      }
+      // JWT
+      const token = jwt.sign(
+        {
+          user: loginUser.username,
+          userId: loginUser._id.toString(),
+        },
+        // Secret Key
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: 300 }
+      );
+      LocalS.setItem("token", token);
+
+      res.status(200).json({ message: "Connecté!", token: token });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+
+exports.getRecover = (req, res, next) => {
+  res.render('getemailrecoverpwd', { pageTitle: "Récupération de compte" });
+};
+
+// sending email mot de passe oublie
+exports.sendRecover = (req, res, next) => {
+  const { email } = req.body;
+
+  if (!email) {
+    res.status(404).render('getemailrecoverpwd', {
+      pageTitle: "Récupération de compte",
+      error: "Veuillez indiquer votre adresse courriel."
+    });
+  }
+
+
+  User.findOne({ email: email })
+    .then(user => {
+      if (!user) {
+        res.status(404);
+        res.render('getemailrecoverpwd', {
+          pageTitle: "Récupération de compte",
+          error: "Veuillez entrer une adresse courriel enregistrée avec votre compte",
+          email: email
+
+        });
+        next();
+      }
+      console.log(user);
+
+      // contenu du message envoyé
+      const message = `<h3>Bonjour ${user.username}, </h3>`+
+      `<p>Cliquez `+ 
+      `<a href=${process.env.HOST}${process.env.PORT}/auth/login/recover/${user._id}> ici </a>`+
+      `pour récupérer votre compte </p>`;
+      
+      // Envoie de courriel récupération de mot de passe
+      let data = {
+        from: "NodeResto <recover@noderesto.ca>",
+        to: "atoumi@edu.cegepgarneau.ca",
+        subject: "Récupération de compte NodeResto",
+        html: message
+      };
+
+      mailgun.messages().send(data, (err, body) => {
+        if (err)
+          next(err);
+        
+        console.log(body);
+
+        res.status(200).json({
+          message: "Vérifier votre boite de messagerie",
+          body: body
+        });
+
+
+      });
+
+
+    })
+    .catch(err => {
+      next(err);
+    });
+
+};
+
+
+
+/**
+ * Permet d'afficher le formulaire permettant la récupération du compte
+ * après oublie de mot de passe.
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
+ */
+exports.recoverForm = (req, res, next) => {
+  res.render('recoverpwd', { pageTitle: "Récupération de compte" });
+
 };
 
 

@@ -22,7 +22,7 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: [true, "Veuillez entrer un mot de passe"],
-            minlength: 5
+            minlength: [5, "Le mot de passe doit contenir 5 caractères au minimum "]
         },
         salt:{
             type:String,

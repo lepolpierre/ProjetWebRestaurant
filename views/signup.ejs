@@ -8,7 +8,7 @@
     <main>
         <h2 class="titre">Création de compte</h2>
     
-        <form class="col-6" method="POST" action="/auth/signup">
+        <form class="col-10" method="POST" action="/auth/signup">
 
             <% if (typeof locals.error != 'object') { %>
                 <div class="error">
@@ -18,7 +18,8 @@
     
             <div>
                 <label class="form-label" for="u-email">Votre Courriel</label>
-                <input class="form-control" type="email" name="u_email" required value=<%=locals.email %>>
+                <input class="form-control" type="email" name="u_email" placeholder="Courriel"
+                 required value=<%=locals.email %>>
             </div>
 
             <% if (locals.error != null) { %>
@@ -29,7 +30,8 @@
 
             <div>
                 <label class="form-label" for="u-username">Nom utilisateur</label>
-                <input class="form-control" type="text" name="u_username" required value=<%=locals.username %> >
+                <input class="form-control" type="text" name="u_username" placeholder="Username"
+                required value=<%=locals.username %> >
             </div>
             
             <% if (locals.error != null) { %>
@@ -41,7 +43,8 @@
 
             <div>
                 <label class="form-label" for="u-pwd">Mot de passe</label>
-                <input class="form-control" type="password" name="u_pwd" required value=<%=locals.pwd %> >
+                <input class="form-control" type="password" name="u_pwd" placeholder="Choisir un mot de passe"
+                required value=<%=locals.pwd %> >
             </div>
 
             <% if (locals.error != null) { %>
@@ -52,7 +55,8 @@
 
             <div>
                 <label class="form-label" for="u-pwdConfirm">Confirmer le mot de passe</label>
-                <input class="form-control" type="password" name="u_pwdConfirm" required>
+                <input class="form-control" type="password" name="u_pwdConfirm" 
+                placeholder="Confirmer votre mot de passe" required>
             </div>
             
             <input class="mt-2 btn-outline-success btn" type="submit" value="Soumettre">

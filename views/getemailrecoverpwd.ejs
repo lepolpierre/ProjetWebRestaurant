@@ -1,0 +1,27 @@
+<%- include('includes/head.ejs')  %> 
+<link rel="stylesheet" type="text/css" href="/public/css/form.css">
+
+</head>
+
+<body>
+    <main>
+        <h2 class="titre">Valider votre courriel</h2>
+
+        <p>Veuillez entrer l'adresse éléctronique liée à votre compte</p>
+
+        <form class="col-6" action="/auth/login/sendrecover" method="POST">
+            
+            <p class="d-block error"> <%= locals.error %> </p>
+            <div>
+                <label class="form-label" for="email">Veuillez entrer votre courriel</label>
+                <input  class="form-control" type="email" name="email" id="email" 
+                placeholder="Votre courriel" required   value=<%=locals.email%> > 
+            </div>
+
+            <input class="mt-2 btn-outline-success btn" type="submit" value="Récupérer">
+
+        </form>
+    </main>
+
+    <%- include('includes/end.ejs')  %> 
+</body>
