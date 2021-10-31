@@ -8,7 +8,12 @@
         <h2 class="titre">Récupération de courriel</h2>
 
         <form class="col-8" action="/auth/login/recover" method="POST">
+            <input name="userid" type="hidden" value= <%= locals.id %> required >
 
+            <div class="error">
+                <p><%= locals.error %> </p>
+            </div>
+            
             <div>
                 <label class="form-label" for="mdp1">Veuillez choisir un nouveau mot de passe :</label>
                 <input class="form-control" type="password" name="mdp1" id="mdp1" 

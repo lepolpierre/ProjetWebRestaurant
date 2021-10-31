@@ -51,7 +51,7 @@ app.use(errors.getError404);
 // Gestion des erreurs
 // "Attrappe" les erreurs envoyé par "throw"
 app.use(function (err, req, res, next) {
-  console.log('err', err);
+  console.log('[ExpressError]', err);
   if (!err.statusCode) err.statusCode = 500;
   res.status(err.statusCode).json({ message: err.message, statusCode: err.statusCode });
 });
