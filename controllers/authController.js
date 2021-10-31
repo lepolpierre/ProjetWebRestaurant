@@ -1,9 +1,9 @@
 "use strict";
 
-require("dotenv").config();       // .env
+require("dotenv").config();               // .env
 
-const bcrypt = require("bcrypt"); // bcrypt (Hashage du mot de passe)
-const jwt = require("jsonwebtoken"); // JWT
+const bcrypt = require("bcrypt");         // bcrypt (Hashage du mot de passe)
+const jwt = require("jsonwebtoken");      // JWT
 
 // Mailgun
 const mailgun = require("mailgun-js")({
@@ -15,6 +15,8 @@ var LocalS = require("node-localstorage").LocalStorage;
 LocalS = new LocalS("./localStorage");
 
 const User = require("../models/user"); // Importation du modèle User de la BD
+
+
 
 // ROUTES
 
@@ -41,7 +43,7 @@ exports.signupUser = (req, res, next) => {
   // Vérifier que tous les champs ont été fournis
   if (!u_email || !u_username || !u_pwd || !u_pwdConfirm) {
     res.status(400);
-    returnSignInFormRempli(req, res, "Veuillez remplir tous les champs! ");
+    return returnSignInFormRempli(req, res, "Veuillez remplir tous les champs! ");
   }
 
   // Verifier que l'utilisateur désirant s'inscrire n'existe pas.
@@ -50,13 +52,15 @@ exports.signupUser = (req, res, next) => {
         next(err);
 
       if (user)
-        returnSignInFormRempli(req,res,"Utilisateur existant avec ce nom d'utilisateur ou courriel");
+        return returnSignInFormRempli(req,res,"Utilisateur existant avec ce nom d'utilisateur ou courriel");
+      
 
       // Verifier les deux mots de passes.
       if (!verifierDeuxMDP(u_pwd, u_pwdConfirm)) {
         res.status(400);
-        returnSignInFormRempli(req,res,"Les deux mots de passes doivent être identiques! ");
+        return returnSignInFormRempli(req,res,"Les deux mots de passes doivent être identiques! ");
       }
+
 
       // Générer le salt pour enregistrement de données.
       bcrypt.genSalt(10, (err, salt) => {
@@ -107,7 +111,7 @@ exports.signupUser = (req, res, next) => {
               .catch(err => {
                 // Erreur d'enregistrement de l'utilisateur.
                 console.error(err);
-                returnSignInFormRempli(req, res, err.errors);
+                return returnSignInFormRempli(req, res, err.errors);
               });
         })
         .catch(err => next(err));
@@ -172,7 +176,7 @@ exports.login = (req, res, next) => {
   // Vérifier que les champs sont bien remplis.
   if (!utilisateur || !pass) {
     res.status(404);
-    returnLoginInFormRempli(req, res, "Veuillez remplir tous les champs.");
+    return returnLoginInFormRempli(req, res, "Veuillez remplir tous les champs.");
   }
 
   // Utilisateur désirant se connecter.
@@ -182,14 +186,14 @@ exports.login = (req, res, next) => {
     .then(user => {
       if (user.length < 1) {
         res.status(404);
-        returnLoginInFormRempli(req, res, "Utilisateur inéxistant !");
+        return returnLoginInFormRempli(req, res, "Utilisateur inéxistant !");
       }
 
       loginUser = user[0];
       // Vérifier que l'utilisateur a vérifié son compte.
       if (!loginUser.verified) {
         res.status(401);
-        returnLoginInFormRempli( req, res, "Veuillez confirmer votre courriel !");
+        return returnLoginInFormRempli( req, res, "Veuillez confirmer votre courriel !");
       }
 
       // Comparer les mots de passe.
@@ -198,7 +202,7 @@ exports.login = (req, res, next) => {
     .then(egal => {
       if (!egal) {
         res.status(404);
-        returnLoginInFormRempli(req,res,"Informations de connexion incorrectes !");
+        return returnLoginInFormRempli(req,res,"Informations de connexion incorrectes !");
       }
 
       // JWT
@@ -224,17 +228,32 @@ exports.login = (req, res, next) => {
 
 
 
+/**
+ * Permet de récupérer l'adresse courriel de l'utilisateur
+ * ayany oublié sont mot de passe 
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
+ * @returns template
+ */
 exports.getRecoverUserEmail = (req, res, next) => res.render("getemailrecoverpwd", {
     pageTitle: "Récupération de compte",
   });
 
 
-// sending email mot de passe oublie
+
+/**
+ * Permet d'envoyer le courriel de récupération de compte
+ * après oubli de mot de passe
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
+ */
 exports.sendRecoverEmail = (req, res, next) => {
   const {email} = req.body;
 
   if (!email) {
-    res.status(404).render("getemailrecoverpwd", {
+    return res.status(404).render("getemailrecoverpwd", {
       pageTitle: "Récupération de compte",
       error: "Veuillez indiquer votre adresse courriel.",
     });
@@ -243,9 +262,9 @@ exports.sendRecoverEmail = (req, res, next) => {
   User.findOne({email: email})
     .then(user => {
       if (!user) {
-        res.status(404).render("getemailrecoverpwd", {
+        return res.status(404).render("getemailrecoverpwd", {
           pageTitle: "Récupération de compte",
-          error: "Veuillez entrer une adresse courriel enregistrée avec votre compte",
+          error: "Veuillez entrer une adresse courriel valide enregistrée avec votre compte",
           email: email,
         });
        
@@ -283,8 +302,8 @@ exports.sendRecoverEmail = (req, res, next) => {
 
 
 /**
- * Permet d'afficher le formulaire permettant la récupération du compte
- * après oublie de mot de passe.
+ * Permet d'afficher le formulaire permettant le choix du
+ * nouveau mot de passe choisi par l'utilisateur.
  * @param {object} req
  * @param {object} res
  * @param {function} next
@@ -309,7 +328,7 @@ exports.userPwdUpdate = (req, res, next) => {
   }
 
   if (!mdp1 || !mdp2) {
-    res.status(404).render("recoverpwd", {
+    return res.status(400).render("recoverpwd", {
       pageTitle: "Récupération de compte",
       id: userid,
       error: "Veuillez remplir tous les champs correctement.",
@@ -317,7 +336,7 @@ exports.userPwdUpdate = (req, res, next) => {
   }
 
   if (!verifierDeuxMDP(mdp1, mdp2)) {
-    res.status(404).render("recoverpwd", {
+    return res.status(400).render("recoverpwd", {
       pageTitle: "Récupération de compte",
       id: userid,
       error: "Les deux mots de passes doivent être identiques.",
@@ -328,8 +347,8 @@ exports.userPwdUpdate = (req, res, next) => {
   User.findById(userid)
     .then(user => {
       if (!user){
-        const err = new Error("Non authentifié!");
-        err.statusCode = 401;
+        const err = new Error("Aucun utilisateur trouvé!");
+        err.statusCode = 404;
         throw err;
       }
 
@@ -344,11 +363,12 @@ exports.userPwdUpdate = (req, res, next) => {
 
             user.save()
             .then(u => {
-              console.log(u);
+
               res.status(204).json({
                 message: "modifié!",
                 user: u
               });
+
             });
           })
           .catch(err => next(err));
@@ -356,6 +376,10 @@ exports.userPwdUpdate = (req, res, next) => {
     })
     .catch(err => next(err));
 };
+
+
+// TODO : finir update pwd
+// TODO: deconnection
 
 // Méthodes utiles
 
@@ -371,6 +395,7 @@ const verifierDeuxMDP = (mdp1, mdp2) =>  mdp1 === mdp2;
  * Renvoie le formulaire de création d'utilisateur avec données pré-rempli
  * @param {object} req
  * @param {object} res
+ * @param {string} error
  */
 const returnSignInFormRempli = (req, res, error = "") => res.render("signup", {
     pageTitle: "Création de compte",
@@ -383,8 +408,9 @@ const returnSignInFormRempli = (req, res, error = "") => res.render("signup", {
 
 /**
  * Renvoie le formulaire de connexion d'un utilisateur avec données pré-rempli.
- * @param {*} req
- * @param {*} res
+ * @param {object} req
+ * @param {object} res
+ * @param {string} error
  */
 const returnLoginInFormRempli = (req, res, error = "") => res.render("login", {
     pageTitle: "Connexion",
