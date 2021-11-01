@@ -3,10 +3,11 @@
 const express = require("express");
 
 
-const menuController = require('../controllers/menuController');
+const platControllers = require('../controllers/platControllers');
 
 const router = express.Router();
 
-router.get('/', menuController.getMenu);
+router.get('/', platControllers.getMenu);
+router.get('/vege', platControllers.getMenuVege);
 
 module.exports = router;
