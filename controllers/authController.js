@@ -103,7 +103,7 @@ exports.signupUser = (req, res, next) => {
 
                   // Confirmation de création de courriel.
                   res.status(201).json({
-                    msg: `utilisateur ${utilisateur.username} crée!`,
+                    msg: `utilisateur ${utilisateur.username} crée! Valider votre courriel requise`,
                   });
                 });
 
@@ -142,10 +142,10 @@ exports.verifyUserEmail = (req, res, next) => {
       console.log(user);
 
       user.verified = true;
-      user.save().then(result => {
-        res.json({
-          message: "Vous êtres désormais vérifié !",
-          user: result,
+      user.save().then(() => {
+        res.render('login',{
+          pageTitle:"Connexion",
+          msg: "Vous êtes désormais vérifié"
         });
       });
 
@@ -160,16 +160,16 @@ exports.verifyUserEmail = (req, res, next) => {
  * @param {function} next
  */
 exports.loginUser = (req, res, next) => {
-  if(req.user !== null){
-    
-    console.log(req.user);
+  if(req.user !== undefined){
+    console.log(`[GET /login] :` , req.user);
 
     return res.render('infouser', {
+      pageTitle: "Profil utilisateur",
       user: req.user
     });
   }
 
-  
+  // Renvoie la page de connexion si aucun utilisateur est authentifié.
   res.render("login", {
     pageTitle: "Connexion",
   });
@@ -217,11 +217,15 @@ exports.login = (req, res, next) => {
         return returnLoginInFormRempli(req,res,"Informations de connexion incorrectes !");
       }
 
+
+      console.log(`[POST /login user] : ${loginUser}`);
+
+
       // JWT
       const token = jwt.sign(
         {
-          user: loginUser.username,
-          userId: loginUser._id.toString(),
+          username: loginUser.username,
+          _id: loginUser._id.toString(),
         },
         // Secret Key
         process.env.JWT_SECRET_KEY, 
@@ -229,11 +233,14 @@ exports.login = (req, res, next) => {
       );
       // Enbregistrer le token
       LocalS.setItem("token", token);
+      console.log(`[POST /login  Connected token] : ${token}`);
 
-      res.status(200).json({
-        message: "Connecté!",
-        token: token,
+
+      res.status(200).render('infouser', {
+        pageTitle: "Profil utilisateur",
+        user:loginUser
       });
+
     })
     .catch(err => next(err) );
 };
@@ -329,6 +336,15 @@ exports.recoverUser = (req, res, next) => {
   });
 };
 
+
+
+/**
+ * Permet la modification du mot de passe de l'utilisateur après oubli.
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
+ * @returns 
+ */
 exports.userPwdUpdate = (req, res, next) => {
   const {userid,mdp1,mdp2} = req.body;
 
@@ -375,15 +391,11 @@ exports.userPwdUpdate = (req, res, next) => {
           user.salt = salt;
           
           user.save()
-          .then(u => {
-            
-              // TODO : RESPONSE AFTER UPDATE
-              // res.status(204).json({
-              //   message: "modifié!",
-              //   user: u
-              // });
-
-              res.status(204).render('login');
+          .then(() => {
+              res.status(201).render('login', {
+                pageTitle: "Connexion",
+                msg: "Modifié avec succès, veuillez vous connectez de nouveau !"
+              });
 
             });
           })
@@ -394,9 +406,14 @@ exports.userPwdUpdate = (req, res, next) => {
 };
 
 
-// TODO : finir update pwd
-// TODO: deconnection
 
+
+/**
+ * Permet la déconnexion d'un utilisateur.
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
+ */
 exports.disconnect = (req,res,next) => {
   const {userId} = req.params;
 
@@ -408,20 +425,23 @@ exports.disconnect = (req,res,next) => {
       if(err || !user)
         return res.status(401).json({err:err});
 
-      if(user.userId !== userId){
+      if(user._id !== userId){
         const err = new Error("Utilisateur non reconnu");
         err.statusCode = 400;
         throw err;
       }
-    
+      
+      console.log("[GET /login/disconnect/...  GoodBye]", user);
       // Supprimer le token
       LocalS.removeItem('token');
-      return res.status(301).redirect('/auth/login');
-
+      
     });
     
   }
-
+  
+  res.status(301).render('login',{
+    msg: "Déconnecté"
+  });
   
 };
 

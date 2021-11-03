@@ -1,16 +1,32 @@
 <%- include('includes/head.ejs')  %> 
 
+</head>
+
 <body>
     <main>
 
         <div>
             <h3 class="titre">Informations sur le compte </h3>
-            <pre> <%= locals.user.user %> </pre>
 
-            <button onclick="location.href = `/auth/login/disconnect/<%= locals.user.userId%>`;"
-            class="mt-2 btn-outline-success btn">Bye</button>
+            <div class="info">
+
+                <pre> <%= locals.user.username %> </pre>
+                <pre><%= locals.user._id %> </pre>
+                <button onclick="location.href = `/auth/login/disconnect/<%= locals.user._id.toString() %>`;"
+                    class="mt-2 btn-outline-success btn">Bye</button>
+            </div>
         </div>
     </main>
 
     <%- include('includes/end.ejs')  %> 
 </body>
+
+
+
+<style>
+    .info{
+
+        width: 30vw;
+        margin: 0 auto;
+    }
+</style>

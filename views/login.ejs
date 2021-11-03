@@ -9,7 +9,10 @@
     
         <form class="col-8" method="POST" action="/auth/login">
             
-         
+            <div class="valider">
+                <p> <%= locals.msg %> </p>
+            </div>
+
             <div class="error">
                 <p><%= locals.error %> </p>
             </div>
