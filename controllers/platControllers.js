@@ -118,7 +118,7 @@ function envoyerMenu2(menu, req, res, next) {
 
   Plat.find()
     .then(menu => {
-      res.render('menu', {
+      res.render('menu2', {
         menu: JSON.stringify(menu),
       });
     })

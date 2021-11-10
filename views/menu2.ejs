@@ -13,7 +13,13 @@
         <p :style="{fontSize: fontSize, color: color, backgroundColor: '#ff9797'}">Entrer</p>
       </div> -->
 
-
+      <div choixMenu >
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+      </div>
 
       <div v-for="repas in menu" style="margin: 3em;">
         <card-repas>
@@ -99,7 +105,7 @@
         },
       },
       methods: {
-      //  methode de test 
+        //  methode de test 
         // categorieSelected(cat) {
         //   if (cat === 'entrer') {
         //     this.catEntrerSelected = !this.catEntrerSelected;
@@ -109,7 +115,7 @@
         //     this.color = this.catdessertSelected ? 'white' : 'red';
         //   }
         // }
-        activeCategorie(){
+        activeCategorie() {
 
         }
       }
