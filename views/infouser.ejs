@@ -1,32 +1,41 @@
-<%- include('includes/head.ejs')  %> 
+<%- include('includes/head.ejs') %>
 
-</head>
+    </head>
 
-<body>
-    <main>
+    <body>
+        <%- include('includes/header.ejs') %>
+            <main>
 
-        <div>
-            <h3 class="titre">Informations sur le compte </h3>
+                <div>
+                    <h3 class="titre">Informations sur le compte </h3>
 
-            <div class="info">
+                    <div class="info">
 
-                <pre> <%= locals.user.username %> </pre>
-                <pre><%= locals.user._id %> </pre>
-                <button onclick="location.href = `/auth/login/disconnect/<%= locals.user._id.toString() %>`;"
-                    class="mt-2 btn-outline-success btn">Bye</button>
-            </div>
-        </div>
-    </main>
+                        <div>
+                            <h3>Nom de l'utilisateur: </h3>
+                            <p>
+                                <%= locals.user.username %>
+                            </p>
+                        </div>
 
-    <%- include('includes/end.ejs')  %> 
-</body>
+                        <button onclick="location.href = `/auth/login/disconnect/<%= locals.user._id.toString() %>`;"
+                            class="float-end mt-5 btn-outline-success btn">Déconnexion</button>
+                    </div>
+                </div>
+            </main>
+
+            <%- include('includes/end.ejs') %>
+    </body>
 
 
+    <style>
+        .info{
+            width: 50vw;
+            margin: 0 auto;
+        }
 
-<style>
-    .info{
-
-        width: 30vw;
-        margin: 0 auto;
-    }
-</style>
+        .info div{
+            display: flex;
+            justify-content: space-evenly;
+        }
+    </style>
