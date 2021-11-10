@@ -26,8 +26,9 @@ const User = require("../models/user"); // Importation du modèle User de la BD
  * @param {object} res
  * @param {function} next
  */
-exports.registerUser = (req, res, next) => res.render("signup", {
+exports.registerUser = (req, res, next) => res.render("auth/signup", {
     pageTitle: "Création de compte",
+    user:req.user
   });
 
 
@@ -143,7 +144,8 @@ exports.verifyUserEmail = (req, res, next) => {
 
       user.verified = true;
       user.save().then(() => {
-        res.render('login',{
+        res.render('auth/login',{
+          user: req.user,
           pageTitle:"Connexion",
           msg: "Vous êtes désormais vérifié"
         });
@@ -163,15 +165,16 @@ exports.loginUser = (req, res, next) => {
   if(req.user !== undefined){
     console.log(`[GET /login] :` , req.user);
 
-    return res.render('infouser', {
-      pageTitle: "Profil utilisateur",
-      user: req.user
+    return res.render('auth/infouser', {
+      user: req.user,
+      pageTitle: "Profil utilisateur"
     });
   }
 
   // Renvoie la page de connexion si aucun utilisateur est authentifié.
-  res.render("login", {
-    pageTitle: "Connexion",
+  res.render("auth/login", {
+    user:req.user,
+    pageTitle: "Connexion"
   });
 };
 
@@ -236,9 +239,9 @@ exports.login = (req, res, next) => {
       console.log(`[POST /login  Connected token] : ${token}`);
 
 
-      res.status(200).render('infouser', {
-        pageTitle: "Profil utilisateur",
-        user:loginUser
+      res.status(200).render('auth/infouser', {
+        user:loginUser,
+        pageTitle: "Profil utilisateur"
       });
 
     })
@@ -255,8 +258,9 @@ exports.login = (req, res, next) => {
  * @param {function} next 
  * @returns template
  */
-exports.getRecoverUserEmail = (req, res, next) => res.render("getemailrecoverpwd", {
-    pageTitle: "Récupération de compte",
+exports.getRecoverUserEmail = (req, res, next) => res.render("auth/getemailrecoverpwd", {
+    user: req.user,
+    pageTitle: "Récupération de compte"
   });
 
 
@@ -272,7 +276,8 @@ exports.sendRecoverEmail = (req, res, next) => {
   const {email} = req.body;
 
   if (!email) {
-    return res.status(404).render("getemailrecoverpwd", {
+    return res.status(404).render("auth/getemailrecoverpwd", {
+      user: req.user,
       pageTitle: "Récupération de compte",
       error: "Veuillez indiquer votre adresse courriel.",
     });
@@ -281,7 +286,8 @@ exports.sendRecoverEmail = (req, res, next) => {
   User.findOne({email: email})
     .then(user => {
       if (!user) {
-        return res.status(404).render("getemailrecoverpwd", {
+        return res.status(404).render("auth/getemailrecoverpwd", {
+          user : req.user,
           pageTitle: "Récupération de compte",
           error: "Veuillez entrer une adresse courriel valide enregistrée avec votre compte",
           email: email,
@@ -330,9 +336,10 @@ exports.sendRecoverEmail = (req, res, next) => {
 exports.recoverUser = (req, res, next) => {
   const {userId} = req.params;
 
-  res.render("recoverpwd", {
+  res.render("auth/recoverpwd", {
+    user: req.user,
     pageTitle: "Récupération de compte",
-    id: userId,
+    id: userId
   });
 };
 
@@ -356,7 +363,8 @@ exports.userPwdUpdate = (req, res, next) => {
   }
 
   if (!mdp1 || !mdp2) {
-    return res.status(400).render("recoverpwd", {
+    return res.status(400).render("auth/recoverpwd", {
+      user : req.user,
       pageTitle: "Récupération de compte",
       id: userid,
       error: "Veuillez remplir tous les champs correctement.",
@@ -364,7 +372,8 @@ exports.userPwdUpdate = (req, res, next) => {
   }
 
   if (!verifierDeuxMDP(mdp1, mdp2)) {
-    return res.status(400).render("recoverpwd", {
+    return res.status(400).render("auth/recoverpwd", {
+      user: req.user,
       pageTitle: "Récupération de compte",
       id: userid,
       error: "Les deux mots de passes doivent être identiques.",
@@ -392,7 +401,8 @@ exports.userPwdUpdate = (req, res, next) => {
           
           user.save()
           .then(() => {
-              res.status(201).render('login', {
+              res.status(201).render('auth/login', {
+                user: req.user,
                 pageTitle: "Connexion",
                 msg: "Modifié avec succès, veuillez vous connectez de nouveau !"
               });
@@ -439,7 +449,8 @@ exports.disconnect = (req,res,next) => {
     
   }
   
-  res.status(301).render('login',{
+  res.status(301).render('auth/login',{
+    user: req.user,
     msg: "Déconnecté"
   });
   
@@ -464,7 +475,8 @@ const verifierDeuxMDP = (mdp1, mdp2) =>  mdp1 === mdp2;
  * @param {object} res
  * @param {string} error
  */
-const returnSignInFormRempli = (req, res, error = "") => res.render("signup", {
+const returnSignInFormRempli = (req, res, error = "") => res.render("auth/signup", {
+    user: req.user,
     pageTitle: "Création de compte",
     email: req.body.u_email,
     username: req.body.u_username,
@@ -479,8 +491,9 @@ const returnSignInFormRempli = (req, res, error = "") => res.render("signup", {
  * @param {object} res
  * @param {string} error
  */
-const returnLoginInFormRempli = (req, res, error = "") => res.render("login", {
+const returnLoginInFormRempli = (req, res, error = "") => res.render("auth/login", {
+    user: req.user,
     pageTitle: "Connexion",
-    user: req.body.utilisateur,
+    username: req.body.utilisateur,
     error: error,
   });

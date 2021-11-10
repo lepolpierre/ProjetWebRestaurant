@@ -8,16 +8,16 @@ const router = express.Router();
 const authCtrl = require('../controllers/authController');
 
 // Middlewares
-const {isAuth} = require('../middlewares/isAuth');
+const {isAuth, isConnected} = require('../middlewares/auth');
 
 
-router.get('/',  (req,res)=>{
+router.get('/',  (req,res,next)=>{
     res.send("auth route");
 });
 
 
 // Création de compte
-router.get('/signup',authCtrl.registerUser);                        // GET signup form  
+router.get('/signup', authCtrl.registerUser);                        // GET signup form  
 router.post('/signup', authCtrl.signupUser);                        // POST singnup form
 router.get('/signup/verify/:userId', authCtrl.verifyUserEmail);     // GET verify user
 

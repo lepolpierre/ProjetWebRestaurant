@@ -66,13 +66,16 @@ body {
         }
 
         .error {
-            font-size: 120%;
+            font-size: 90%;
             color: red;
+            text-shadow: 0px 0px 20px red;
         }
 
         .valider {
-            font-size: 120%;
+            font-size: 90%;
             color: rgb(110, 187, 110);
+            text-shadow: 0px 0px 20px rgb(53, 253, 4);
+
         }
     }
 }

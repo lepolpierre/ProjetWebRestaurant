@@ -44,7 +44,8 @@ app.use('/menu', menuRoutes);
 
 // Erreurs 404
 const errors = require('./controllers/errorController');
-app.use(errors.getError404);
+const {isConnected} = require('./middlewares/auth');
+app.use(isConnected, errors.getError404);
 
 
 
