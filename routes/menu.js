@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/:categorie', platControllers.getMenuCategorie);
 router.get('/', platControllers.getMenu);
-//router.get('/2', platControllers.getMenu2);
+
 
 
 module.exports = router;

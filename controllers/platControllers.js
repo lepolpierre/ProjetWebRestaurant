@@ -93,7 +93,7 @@ function envoyerMenu(menu, req, res, next) {
       if (endingLink < (page + 4)) {
         iterator -= (page + 4) - numOfPages;
       }
-      res.render('menu', {
+      res.render('menu.ejs', {
         menu: menuReduit,
         page,
         iterator,
@@ -104,23 +104,23 @@ function envoyerMenu(menu, req, res, next) {
 
 }
 
-// exports.getMenu2 = (req, res, next) => {
-//   //loadPLat();
+exports.getMenu2 = (req, res, next) => {
+  //loadPLat();
 
-//   Plat.find({categorie:req.param.categorie})
-//     .then(menu => {
-//       envoyerMenu2(menu, req, res, next)
-//     });
-// };
+  Plat.find({categorie:req.param.categorie})
+    .then(menu => {
+      envoyerMenu2(menu, req, res, next)
+    });
+};
 
 
-// function envoyerMenu2(menu, req, res, next) {
+function envoyerMenu2(menu, req, res, next) {
 
-//   Plat.find()
-//     .then(menu => {
-//       res.render('menu', {
-//         menu: JSON.stringify(menu),
-//       });
-//     })
+  Plat.find()
+    .then(menu => {
+      res.render('menu', {
+        menu: JSON.stringify(menu),
+      });
+    })
 
-// }
+}

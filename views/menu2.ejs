@@ -1,0 +1,119 @@
+<%- include ('includes/head.ejs') %>
+  <script src="https://unpkg.com/vue"></script>
+  </head>
+
+  <body>
+    <h1></h1>
+    <p>Menu </p>
+
+    <div id="app">
+      <!-- <h1>{{ menu }}</h1> -->
+
+      <!-- <div class="demo" :class="catEntrer" @click="categorieSelected('entrer')">
+        <p :style="{fontSize: fontSize, color: color, backgroundColor: '#ff9797'}">Entrer</p>
+      </div> -->
+
+
+
+      <div v-for="repas in menu" style="margin: 3em;">
+        <card-repas>
+
+
+        </card-repas>
+
+        <div>
+          <div>
+            {{repas.name}}
+          </div>
+
+          <div>
+            {{repas.description}}
+          </div>
+
+          <div>
+            {{repas.categorie}}
+          </div>
+
+          <div>
+            {{repas.prix}}
+          </div>
+
+
+          <!-- <button-counter></button-counter> -->
+        </div>
+
+      </div>
+
+    </div>
+
+    <%- include('includes/end.ejs') %>
+
+  </body>
+
+
+  <script>
+    // -------------------------------------------
+    //BTN TST
+    Vue.component('button-counter', {
+      data: function () {
+
+        return {
+          count: 0
+        }
+      },
+      template: '<button v-on:click="count++">Ajouter au panier {{ count }} fois.</button>'
+    })
+
+    //CARD REPAS
+    Vue.component('card-repas', {
+
+      data: function () {
+
+        return {
+
+        }
+      },
+      template: '<div style="background-color:  #ff9797;">{{repas}}</div>'
+    })
+
+
+    //BTN TST
+    Vue.component('button-selection', {
+
+      template:
+        `<button v-on:click="visible= !visible"categorie selected {{ categorie }} </button>`
+
+    })
+    // -------------------------------------------
+    var app = new Vue({
+      el: '#app',
+      data: {
+        menu: JSON.parse('<%-menu%>'),
+        color: 'red',
+        fontSize: '30px',
+        catEntrerSelected: false,
+      },
+      computed: {
+        catEntrer() {
+          return { active: this.catEntrerSelected };
+        },
+      },
+      methods: {
+      //  methode de test 
+        // categorieSelected(cat) {
+        //   if (cat === 'entrer') {
+        //     this.catEntrerSelected = !this.catEntrerSelected;
+        //     this.color = this.catEntrerSelected ? 'white' : 'red';
+        //   } else if (cat === 'dessert') {
+        //     this.catdessertSelected = !this.catdessertelected;
+        //     this.color = this.catdessertSelected ? 'white' : 'red';
+        //   }
+        // }
+        activeCategorie(){
+
+        }
+      }
+    })
+  </script>
+
+  </html>
