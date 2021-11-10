@@ -83,6 +83,9 @@ exports.getMenu = (req, res, next) => {
     });
 };
 
+
+
+
 exports.getMenuVege = (req, res, next) => {
    //loadPLat();
   console.log("BOOOOP");
@@ -121,3 +124,23 @@ exports.getMenuVege = (req, res, next) => {
 };
 
 
+exports.getMenu2 = (req, res, next) => {
+  //loadPLat();
+
+  Plat.find({categorie:req.param.categorie})
+    .then(menu => {
+      envoyerMenu2(menu, req, res, next)
+    });
+};
+
+
+function envoyerMenu2(menu, req, res, next) {
+
+  Plat.find()
+    .then(menu => {
+      res.render('menu', {
+        menu: JSON.stringify(menu),
+      });
+    })
+
+}
