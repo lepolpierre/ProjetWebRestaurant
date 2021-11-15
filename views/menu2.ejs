@@ -1,5 +1,7 @@
 <%- include ('includes/head.ejs') %>
 <script src="https://unpkg.com/vue"></script>
+<link rel="stylesheet" type="text/css" href="/public/css/menu.css">
+
 </head>
 
 <body>
@@ -8,20 +10,32 @@
 
   <div id="app">
 
-    <div choixMenu>
+    <div id="choixMenu" choixMenu>
 
-      <input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk">
-      <label for="entrerChk">entrer</label>
+      <div id="choixMenu2">
+        <div id="chkBox"> 
+          <input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk">
+          <label for="entrerChk"> entrer</label>
+        </div>
 
-      <input type="checkbox" id="plat" value="platChk" v-model="platChk">
-      <label for="platChk">plat</label>
+        <div id="chkBox">
+          <input type="checkbox" id="platChkBox" value="platChk" v-model="platChk">
+          <label for="platChk"> plat</label>
+        </div>
 
-      <input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk">
-      <label for="dessertChk">dessert</label>
+        <div id="chkBox">
+          <input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk">
+          <label for="dessertChk"> dessert</label>
 
-      <input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk">
-      <label for="vegeChk">vege</label>
+        </div id="chkBox">
 
+      
+        <div id="chkBox">
+          <input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk">
+          <label for="vegeChk"> vege</label>
+        </div>
+
+      </div>
     </div>
 
 
@@ -29,207 +43,217 @@
 
     <!-- --------------------------------------------------------- -->
     <!-- MENU DE PLAT SELECTONNER  -->
+    <div id="menuComplet">
+      <div v-for="repas in menu" style="margin: 3em, ">
 
-    <div v-for="repas in menu" style="margin: 3em;">
 
+        <!-- --------------------------------------------------------- -->
+        <!-- SI  VEGE :  -->
 
-      <!-- --------------------------------------------------------- -->
-      <!-- SI  VEGE :  -->
+        <div v-if="repas.vege == true && vegeChk == true">
 
-      <div v-if="repas.vege == true && vegeChk == true">
+          <div id="plat" v-if="repas.categorie == 'entrer' && entrerChk == true">
+            <div>
+              {{repas.name}}
+            </div>
 
-        <div v-if="repas.categorie == 'entrer' && entrerChk == true">
-          <div>
-            {{repas.name}}
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
           </div>
 
-          <div>
-            {{repas.description}}
+
+          <div id="plat" v-if="repas.categorie == 'plat' && platChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
           </div>
 
-          <div>
-            {{repas.categorie}}
+
+          <div id="plat" v-if="repas.categorie == 'dessert' && dessertChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
           </div>
 
-          <div>
-            {{repas.prix}}
+          <div id="plat" v-if="entrerChk == false && platChk == false  && dessertChk == false">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img src="../public/images/{repas.name}.jpg">
+            </div>
           </div>
 
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
         </div>
 
+        <!-- --------------------------------------------------------- -->
+        <!-- SI NON VEGE :  -->
 
-        <div v-if="repas.categorie == 'plat' && platChk == true">
-          <div>
-            {{repas.name}}
+        <div v-if="vegeChk == false">
+
+          <div id="plat" v-if="repas.categorie == 'entrer' && entrerChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
           </div>
 
-          <div>
-            {{repas.description}}
+
+          <div id="plat" v-if="repas.categorie == 'plat' && platChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
           </div>
 
-          <div>
-            {{repas.categorie}}
+
+          <div id="plat" v-if="repas.categorie == 'dessert' && dessertChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
           </div>
 
-          <div>
-            {{repas.prix}}
+          <div id="plat" v-if="entrerChk == false && platChk == false  && dessertChk == false">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
           </div>
 
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
+
         </div>
 
-
-        <div v-if="repas.categorie == 'dessert' && dessertChk == true">
-          <div>
-            {{repas.name}}
-          </div>
-
-          <div>
-            {{repas.description}}
-          </div>
-
-          <div>
-            {{repas.categorie}}
-          </div>
-
-          <div>
-            {{repas.prix}}
-          </div>
-
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
-        </div>
-
-        <div v-if="entrerChk == false && platChk == false  && dessertChk == false">
-          <div>
-            {{repas.name}}
-          </div>
-
-          <div>
-            {{repas.description}}
-          </div>
-
-          <div>
-            {{repas.categorie}}
-          </div>
-
-          <div>
-            {{repas.prix}}
-          </div>
-
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
-        </div>
 
       </div>
 
-      <!-- --------------------------------------------------------- -->
-      <!-- SI NON VEGE :  -->
-
-      <div v-if="vegeChk == false">
-
-        <div v-if="repas.categorie == 'entrer' && entrerChk == true">
-          <div>
-            {{repas.name}}
-          </div>
-
-          <div>
-            {{repas.description}}
-          </div>
-
-          <div>
-            {{repas.categorie}}
-          </div>
-
-          <div>
-            {{repas.prix}}
-          </div>
-
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
-        </div>
-
-
-        <div v-if="repas.categorie == 'plat' && platChk == true">
-          <div>
-            {{repas.name}}
-          </div>
-
-          <div>
-            {{repas.description}}
-          </div>
-
-          <div>
-            {{repas.categorie}}
-          </div>
-
-          <div>
-            {{repas.prix}}
-          </div>
-
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
-        </div>
-
-
-        <div v-if="repas.categorie == 'dessert' && dessertChk == true">
-          <div>
-            {{repas.name}}
-          </div>
-
-          <div>
-            {{repas.description}}
-          </div>
-
-          <div>
-            {{repas.categorie}}
-          </div>
-
-          <div>
-            {{repas.prix}}
-          </div>
-
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
-        </div>
-
-        <div v-if="entrerChk == false && platChk == false  && dessertChk == false">
-          <div>
-            {{repas.name}}
-          </div>
-
-          <div>
-            {{repas.description}}
-          </div>
-
-          <div>
-            {{repas.categorie}}
-          </div>
-
-          <div>
-            {{repas.prix}}
-          </div>
-
-          <div>
-            repas vege : {{repas.vege}}
-          </div>
-        </div>
-
-
-      </div>
 
 
     </div>
+
+
 
   </div>
 
@@ -252,31 +276,6 @@
       vegeChk: false,
 
     },
-    computed: {
-      catEntrer() {
-        return {
-          active: this.catEntrerSelected
-        };
-      },
-
-      boxAClasses() {
-        return {
-          active: this.boxASelected
-        };
-      },
-
-    },
-    methods: {
-
-      boxSelected(box) {
-        if (box === 'A') {
-          this.boxASelected = !this.boxASelected;
-          this.color = this.boxASelected ? 'white' : 'red';
-        }
-
-      },
-
-    }
   })
 </script>
 

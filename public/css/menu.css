@@ -1,19 +1,45 @@
-.navigation{
-    width: 30vw;
-    margin: 0 auto ;
-}
-.card{
-    width: 17rem;
-    margin: 1%;
-    border-radius: 10px;
-}
-.card:hover{
-    box-shadow: 2px 2px 5px 5px rgb(255, 234, 203);
-}
-.cardMenu{
-    display: flex;
-    flex-wrap: wrap ;
-    flex-direction: row;
-    justify-content: space-around;
 
-}
+
+#plat {
+    margin:  2rem;
+    padding: 2%;
+    border: 1.5px solid rgb(71, 83, 110);
+    border-radius: 25px;
+    transition: box-shadow 0.3s;
+ }
+ 
+ #plat:hover{
+     box-shadow: 1px 1px 10px 1px rgb(71, 83, 110);
+ }
+
+ #choixMenu{
+    border: 1.5px solid rgb(71, 83, 110);
+    border-radius: 10px;
+ }
+
+ #choixMenu2{
+    padding: 1rem;
+    padding-right: 5rem;
+    margin: 0.1rem;
+    border: 1.5px solid rgb(71, 83, 110);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+ }
+
+ #app{
+     display: flex;
+     flex-direction: row;
+ }
+
+ #menuComplet{
+     display: flex;
+     flex-direction: row;
+     flex-wrap:  wrap
+ }
+
+ #chkBox{
+     margin-right: 20%;
+     display: flex;
+     flex-direction: row;
+ }
