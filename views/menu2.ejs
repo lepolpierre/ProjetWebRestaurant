@@ -5,6 +5,7 @@
 </head>
 
 <body>
+  <%- include('includes/header.ejs') %>
   <h1></h1>
   <p>Menu </p>
 
@@ -72,6 +73,10 @@
             <div>
               repas vege : {{repas.vege}}
             </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
           </div>
 
 
@@ -95,6 +100,10 @@
             <div>
               repas vege : {{repas.vege}}
             </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
           </div>
 
 
@@ -117,6 +126,10 @@
 
             <div>
               repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
             </div>
           </div>
 
@@ -142,7 +155,7 @@
             </div>
 
             <div>
-              <img src="../public/images/{repas.name}.jpg">
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
             </div>
           </div>
 
@@ -173,6 +186,10 @@
             <div>
               repas vege : {{repas.vege}}
             </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
           </div>
 
 
@@ -195,6 +212,10 @@
 
             <div>
               repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
             </div>
           </div>
 
@@ -219,6 +240,10 @@
             <div>
               repas vege : {{repas.vege}}
             </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
           </div>
 
           <div id="plat" v-if="entrerChk == false && platChk == false  && dessertChk == false">
@@ -240,6 +265,10 @@
 
             <div>
               repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
             </div>
           </div>
 
