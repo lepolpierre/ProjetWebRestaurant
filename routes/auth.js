@@ -17,7 +17,7 @@ router.get('/',  (req,res,next)=>{
 
 
 // Création de compte
-router.get('/signup', authCtrl.registerUser);                        // GET signup form  
+router.get('/signup', isConnected,  authCtrl.registerUser);                        // GET signup form  
 router.post('/signup', authCtrl.signupUser);                        // POST singnup form
 router.get('/signup/verify/:userId', authCtrl.verifyUserEmail);     // GET verify user
 

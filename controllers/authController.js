@@ -26,10 +26,20 @@ const User = require("../models/user"); // Importation du modèle User de la BD
  * @param {object} res
  * @param {function} next
  */
-exports.registerUser = (req, res, next) => res.render("auth/signup", {
+exports.registerUser = (req, res, next) => {
+  // Renvoie à la page d'informations sur l'utilisateur s'il est connecté
+  if(req.user !== undefined) res.status(301).render('auth/infouser', {
+    user: req.user,
+    pageTitle: "Profil utilisateur"
+  });
+
+  // Sinon affiche la page de création de compte.
+  res.render("auth/signup", {
     pageTitle: "Création de compte",
     user:req.user
   });
+
+};
 
 
 /**
