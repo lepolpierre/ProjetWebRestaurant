@@ -1,125 +1,311 @@
 <%- include ('includes/head.ejs') %>
-  <script src="https://unpkg.com/vue"></script>
-  </head>
+<script src="https://unpkg.com/vue"></script>
+<link rel="stylesheet" type="text/css" href="/public/css/menu.css">
 
-  <body>
-    <h1></h1>
-    <p>Menu </p>
+</head>
 
-    <div id="app">
-      <!-- <h1>{{ menu }}</h1> -->
+<body>
+  <%- include('includes/header.ejs') %>
+  <h1></h1>
+  <p>Menu </p>
 
-      <!-- <div class="demo" :class="catEntrer" @click="categorieSelected('entrer')">
-        <p :style="{fontSize: fontSize, color: color, backgroundColor: '#ff9797'}">Entrer</p>
-      </div> -->
+  <div id="app">
 
-      <div choixMenu >
-        <button-counter></button-counter>
-        <button-counter></button-counter>
-        <button-counter></button-counter>
-        <button-counter></button-counter>
-        <button-counter></button-counter>
-      </div>
+    <div id="choixMenu" choixMenu>
 
-      <div v-for="repas in menu" style="margin: 3em;">
-        <card-repas>
+      <div id="choixMenu2">
+        <div id="chkBox"> 
+          <input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk">
+          <label for="entrerChk"> entrer</label>
+        </div>
 
+        <div id="chkBox">
+          <input type="checkbox" id="platChkBox" value="platChk" v-model="platChk">
+          <label for="platChk"> plat</label>
+        </div>
 
-        </card-repas>
+        <div id="chkBox">
+          <input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk">
+          <label for="dessertChk"> dessert</label>
 
-        <div>
-          <div>
-            {{repas.name}}
-          </div>
+        </div id="chkBox">
 
-          <div>
-            {{repas.description}}
-          </div>
-
-          <div>
-            {{repas.categorie}}
-          </div>
-
-          <div>
-            {{repas.prix}}
-          </div>
-
-
-          <!-- <button-counter></button-counter> -->
+      
+        <div id="chkBox">
+          <input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk">
+          <label for="vegeChk"> vege</label>
         </div>
 
       </div>
+    </div>
+
+
+
+
+    <!-- --------------------------------------------------------- -->
+    <!-- MENU DE PLAT SELECTONNER  -->
+    <div id="menuComplet">
+      <div v-for="repas in menu" style="margin: 3em, ">
+
+
+        <!-- --------------------------------------------------------- -->
+        <!-- SI  VEGE :  -->
+
+        <div v-if="repas.vege == true && vegeChk == true">
+
+          <div id="plat" v-if="repas.categorie == 'entrer' && entrerChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+
+          <div id="plat" v-if="repas.categorie == 'plat' && platChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+
+          <div id="plat" v-if="repas.categorie == 'dessert' && dessertChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+          <div id="plat" v-if="entrerChk == false && platChk == false  && dessertChk == false">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+        </div>
+
+        <!-- --------------------------------------------------------- -->
+        <!-- SI NON VEGE :  -->
+
+        <div v-if="vegeChk == false">
+
+          <div id="plat" v-if="repas.categorie == 'entrer' && entrerChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+
+          <div id="plat" v-if="repas.categorie == 'plat' && platChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+
+          <div id="plat" v-if="repas.categorie == 'dessert' && dessertChk == true">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+          <div id="plat" v-if="entrerChk == false && platChk == false  && dessertChk == false">
+            <div>
+              {{repas.name}}
+            </div>
+
+            <div>
+              {{repas.description}}
+            </div>
+
+            <div>
+              {{repas.categorie}}
+            </div>
+
+            <div>
+              {{repas.prix}}
+            </div>
+
+            <div>
+              repas vege : {{repas.vege}}
+            </div>
+
+            <div>
+              <img :src="'./public/images/'+repas.name+'.jpg'" >
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
 
     </div>
 
-    <%- include('includes/end.ejs') %>
-
-  </body>
 
 
-  <script>
-    // -------------------------------------------
-    //BTN TST
-    Vue.component('button-counter', {
-      data: function () {
+  </div>
 
-        return {
-          count: 0
-        }
-      },
-      template: '<button v-on:click="count++">Ajouter au panier {{ count }} fois.</button>'
-    })
+  <%- include('includes/end.ejs') %>
 
-    //CARD REPAS
-    Vue.component('card-repas', {
-
-      data: function () {
-
-        return {
-
-        }
-      },
-      template: '<div style="background-color:  #ff9797;">{{repas}}</div>'
-    })
+</body>
 
 
-    //BTN TST
-    Vue.component('button-selection', {
+<script>
+  // -------------------------------------------
+  var app = new Vue({
+    el: '#app',
+    data: {
+      menu: JSON.parse('<%-menu%>'),
+      fontSize: '30px',
+      vege: false,
+      entrerChk: false,
+      platChk: false,
+      dessertChk: false,
+      vegeChk: false,
 
-      template:
-        `<button v-on:click="visible= !visible"categorie selected {{ categorie }} </button>`
+    },
+  })
+</script>
 
-    })
-    // -------------------------------------------
-    var app = new Vue({
-      el: '#app',
-      data: {
-        menu: JSON.parse('<%-menu%>'),
-        color: 'red',
-        fontSize: '30px',
-        catEntrerSelected: false,
-      },
-      computed: {
-        catEntrer() {
-          return { active: this.catEntrerSelected };
-        },
-      },
-      methods: {
-        //  methode de test 
-        // categorieSelected(cat) {
-        //   if (cat === 'entrer') {
-        //     this.catEntrerSelected = !this.catEntrerSelected;
-        //     this.color = this.catEntrerSelected ? 'white' : 'red';
-        //   } else if (cat === 'dessert') {
-        //     this.catdessertSelected = !this.catdessertelected;
-        //     this.color = this.catdessertSelected ? 'white' : 'red';
-        //   }
-        // }
-        activeCategorie() {
-
-        }
-      }
-    })
-  </script>
-
-  </html>
+</html>

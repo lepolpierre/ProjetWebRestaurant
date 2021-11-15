@@ -34,6 +34,7 @@ exports.getPlat = (req, res, next) => {
   Plat.findById(req.params.platId)
     .then(plat => {
       res.render('plat', {
+        user: req.user,
         plat: plat,
         pageTitle: plat.name
       });
