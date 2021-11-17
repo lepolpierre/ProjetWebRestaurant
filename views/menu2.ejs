@@ -14,7 +14,7 @@
     <div id="choixMenu" choixMenu>
 
       <div id="choixMenu2">
-        <div id="chkBox"> 
+        <div id="chkBox">
           <input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk">
           <label for="entrerChk"> entrer</label>
         </div>
@@ -30,7 +30,7 @@
 
         </div id="chkBox">
 
-      
+
         <div id="chkBox">
           <input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk">
           <label for="vegeChk"> vege</label>
@@ -39,250 +39,23 @@
       </div>
     </div>
 
-
-
-
-    <!-- --------------------------------------------------------- -->
-    <!-- MENU DE PLAT SELECTONNER  -->
-    <div id="menuComplet">
-      <div v-for="repas in menu" style="margin: 3em, ">
-
-
-        <!-- --------------------------------------------------------- -->
-        <!-- SI  VEGE :  -->
-
-        <div v-if="repas.vege == true && vegeChk == true">
-
-          <div id="plat" v-if="repas.categorie == 'entrer' && entrerChk == true">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-
-          <div id="plat" v-if="repas.categorie == 'plat' && platChk == true">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-
-          <div id="plat" v-if="repas.categorie == 'dessert' && dessertChk == true">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-          <div id="plat" v-if="entrerChk == false && platChk == false  && dessertChk == false">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-        </div>
-
-        <!-- --------------------------------------------------------- -->
-        <!-- SI NON VEGE :  -->
-
-        <div v-if="vegeChk == false">
-
-          <div id="plat" v-if="repas.categorie == 'entrer' && entrerChk == true">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-
-          <div id="plat" v-if="repas.categorie == 'plat' && platChk == true">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-
-          <div id="plat" v-if="repas.categorie == 'dessert' && dessertChk == true">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-          <div id="plat" v-if="entrerChk == false && platChk == false  && dessertChk == false">
-            <div>
-              {{repas.name}}
-            </div>
-
-            <div>
-              {{repas.description}}
-            </div>
-
-            <div>
-              {{repas.categorie}}
-            </div>
-
-            <div>
-              {{repas.prix}}
-            </div>
-
-            <div>
-              repas vege : {{repas.vege}}
-            </div>
-
-            <div>
-              <img :src="'./public/images/'+repas.name+'.jpg'" >
-            </div>
-          </div>
-
-
-        </div>
-
+      <div class="menuComplet">
+      <!-- SI VEGE -->
+      <div v-if="entrerChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredEntrerVege"/></div>
+      <div v-if="platChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredPlatVege"/></div>
+      <div v-if="dessertChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredDessertVege"/></div>
+        
+      <!-- SINON -->
+      <div v-if="entrerChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredEntrer"/></div>
+      <div v-if="platChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredPlat"/></div>
+      <div v-if="dessertChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredDessert"/></div>
+
+      <!-- SI RIEN  -->
+      <div v-if="!dessertChk && !platChk && !entrerChk "><div_plat v-bind:menu_componant="menu"/></div>
 
       </div>
 
-
-
     </div>
-
-
 
   </div>
 
@@ -291,48 +64,46 @@
 </body>
 
 
-
-
-
-check 
-<div v-for="plat, index in menu" :key="index">
-
-    <div>
-      <div>
-        {{repas.name}}
-      </div>
-
-      <div>
-        {{repas.description}}
-      </div>
-
-      <div>
-        {{repas.categorie}}
-      </div>
-
-      <div>
-        {{repas.prix}}
-      </div>
-
-      <div>
-        repas vege : {{repas.vege}}
-      </div>
-
-      <div>
-        <img :src="'./public/images/'+repas.name+'.jpg'" >
-      </div>
-    </div>
-</div>
-
-
-
-
-
-
 <script>
   // -------------------------------------------
+  Vue.component("div_plat", {
+    props: ["menu_componant"],
+    template: `   
+    <div class="sousMenu">
+    <div id="plat" v-for="repas in menu_componant">
+     
+        <div>
+          {{repas.name}}
+        </div>
+
+        <div>
+          {{repas.description}}
+        </div>
+
+        <div>
+          {{repas.categorie}}
+        </div>
+
+        <div>
+          {{repas.prix}}
+        </div>
+
+        <div>
+          repas vege : {{repas.vege}}
+        </div>
+
+        <div>
+          <img :src="'./public/images/'+repas.name+'.jpg'">
+        </div>
+      </div>
+      </div>
+`
+  })
+
+
   var app = new Vue({
     el: '#app',
+
     data: {
       menu: JSON.parse('<%-menu%>'),
       fontSize: '30px',
@@ -341,13 +112,39 @@ check
       platChk: false,
       dessertChk: false,
       vegeChk: false,
+    },
+    computed: {
+      // filtrer
+      menuFiltredEntrer: function () {
+        return this.menu.filter(plat => plat.categorie == "entrer")
+        // filtre par rapport aux chk
+      },
+      menuFiltredPlat: function () {
+        return this.menu.filter(plat => plat.categorie == "plat")
+        // filtre par rapport aux chk
+      },
+      menuFiltredDessert: function () {
+        return this.menu.filter(plat => plat.categorie == "dessert")
+        // filtre par rapport aux chk
+      },
+
+      menuFiltredEntrerVege: function () {
+        return this.menuFiltredVege.filter(plat => plat.categorie == "entrer")
+        // filtre par rapport aux chk
+      },
+      menuFiltredPlatVege: function () {
+        return this.menuFiltredVege.filter(plat => plat.categorie == "plat")
+        // filtre par rapport aux chk
+      },
+      menuFiltredDessertVege: function () {
+        return this.menuFiltredVege.filter(plat => plat.categorie == "dessert")
+        // filtre par rapport aux chk
+      },
+      menuFiltredVege: function () {
+        return this.menu.filter(plat => plat.vege == true)
+      }
 
     },
-    methods: {
-      isVege(){
-        menu = menu.filter(plat => plat.vege);
-      }
-    }
   })
 </script>
 
