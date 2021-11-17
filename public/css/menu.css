@@ -6,6 +6,7 @@
     border: 1.5px solid rgb(71, 83, 110);
     border-radius: 25px;
     transition: box-shadow 0.3s;
+    width: 40rem;
  }
  
  #plat:hover{
@@ -61,4 +62,10 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+ }
+
+ a {
+     list-style: none;
+     text-decoration: none;
+     color: black;
  }

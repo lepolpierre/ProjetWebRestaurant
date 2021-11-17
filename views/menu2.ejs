@@ -74,7 +74,7 @@
     template: `   
     <div class="sousMenu">
     <div id="plat" v-for="repas in menu_componant">
-     
+      <a v-bind:href="'/plat/'+repas._id">
         <div>
           {{repas.name}}
         </div>
@@ -98,6 +98,7 @@
         <div>
           <img :src="'./public/images/'+repas.name+'.jpg'">
         </div>
+      </a>
       </div>
       </div>
 `
