@@ -44,7 +44,9 @@
       <div v-if="entrerChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredEntrerVege"/></div>
       <div v-if="platChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredPlatVege"/></div>
       <div v-if="dessertChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredDessertVege"/></div>
-        
+      <div v-if="!dessertChk && !platChk && !entrerChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredVege"/></div>
+  
+
       <!-- SINON -->
       <div v-if="entrerChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredEntrer"/></div>
       <div v-if="platChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredPlat"/></div>
@@ -52,6 +54,7 @@
 
       <!-- SI RIEN  -->
       <div v-if="!dessertChk && !platChk && !entrerChk "><div_plat v-bind:menu_componant="menu"/></div>
+
 
       </div>
 
@@ -140,6 +143,7 @@
         return this.menuFiltredVege.filter(plat => plat.categorie == "dessert")
         // filtre par rapport aux chk
       },
+
       menuFiltredVege: function () {
         return this.menu.filter(plat => plat.vege == true)
       }

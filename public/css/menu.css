@@ -13,19 +13,23 @@
  }
 
  #choixMenu{
-    border: 1.5px solid rgb(71, 83, 110);
+    border: 2px solid #afdfdc;
     border-radius: 10px;
     flex-grow: 1;
+    background-color: #deebed;
+
  }
 
  #choixMenu2{
     padding: 1rem;
     padding-right: 5rem;
     margin: 0.1rem;
-    border: 1.5px solid rgb(71, 83, 110);
+    border: 2px solid #afdfdc;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    background-color: #deebed;
+
  }
 
  #app{
@@ -38,6 +42,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     flex-grow: 10;
+    
  }
 
  #chkBox{
