@@ -113,9 +113,12 @@ exports.signupUser = (req, res, next) => {
                   console.log(body);
 
                   // Confirmation de création de courriel.
-                  res.status(201).json({
-                    msg: `utilisateur ${utilisateur.username} crée! Valider votre courriel requise`,
+                  res.status(201).render("includes/message",{
+                    pageTitle: "Nouveau message!",
+                    user: req.user,
+                    message: `utilisateur ${utilisateur.username} crée! La validation de votre courriel est requise :)`,
                   });
+
                 });
 
               })
@@ -325,9 +328,10 @@ exports.sendRecoverEmail = (req, res, next) => {
 
         console.log(body);
 
-        res.status(200).json({
-          message: "Vérifier votre boite de messagerie",
-          body: body,
+        res.status(200).render("includes/message", {
+          pageTitle: "Nouveau message!",
+          user: req.user,
+          message: "Veuillez vérifier votre boite de messagerie pour finaliser la récupération de votre compte :)"
         });
       });
     })

@@ -291,6 +291,44 @@
 </body>
 
 
+
+
+
+check 
+<div v-for="plat, index in menu" :key="index">
+
+    <div>
+      <div>
+        {{repas.name}}
+      </div>
+
+      <div>
+        {{repas.description}}
+      </div>
+
+      <div>
+        {{repas.categorie}}
+      </div>
+
+      <div>
+        {{repas.prix}}
+      </div>
+
+      <div>
+        repas vege : {{repas.vege}}
+      </div>
+
+      <div>
+        <img :src="'./public/images/'+repas.name+'.jpg'" >
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
 <script>
   // -------------------------------------------
   var app = new Vue({
@@ -305,6 +343,11 @@
       vegeChk: false,
 
     },
+    methods: {
+      isVege(){
+        menu = menu.filter(plat => plat.vege);
+      }
+    }
   })
 </script>
 
