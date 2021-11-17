@@ -12,7 +12,7 @@ const {isAuth, isConnected} = require('../middlewares/auth');
 const router = express.Router();
 
 //router.get('/:categorie', platControllers.getMenuCategorie, isConnected);
-router.get('/', platControllers.getMenu2, isConnected);
+router.get('/', isConnected, platControllers.getMenu2);
 
 
 

@@ -15,6 +15,7 @@
  #choixMenu{
     border: 1.5px solid rgb(71, 83, 110);
     border-radius: 10px;
+    flex-grow: 1;
  }
 
  #choixMenu2{
@@ -32,14 +33,27 @@
      flex-direction: row;
  }
 
- #menuComplet{
-     display: flex;
-     flex-direction: row;
-     flex-wrap:  wrap
+ .menuComplet{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 10;
  }
 
  #chkBox{
      margin-right: 20%;
      display: flex;
      flex-direction: row;
+ }
+
+ .link{
+     list-style: none;
+     text-decoration: none;
+     color: black;
+ }
+
+ .sousMenu{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
  }
