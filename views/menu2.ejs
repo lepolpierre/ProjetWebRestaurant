@@ -6,8 +6,7 @@
 
 <body>
   <%- include('includes/header.ejs') %>
-  <h1></h1>
-  <p>Menu </p>
+  <h1>Menu</h1>
 
   <div id="app">
 
@@ -16,27 +15,27 @@
 
         <!-- CHECKBOX ENTRER -->
       <div id="choixMenu2">
-        <div id="chkBox">
-          <input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk">
-          <label for="entrerChk"> entrer</label>
+        <div class="chkBox">
+          <div><label for="entrerChk"> entrer</label></div>
+          <div><input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk"></div>
         </div>
 
         <!-- CHECKBOX PLAT -->
-        <div id="chkBox">
-          <input type="checkbox" id="platChkBox" value="platChk" v-model="platChk">
-          <label for="platChk"> plat</label>
+        <div class="chkBox">
+          <div><label for="platChk"> plat</label></div>
+          <div><input type="checkbox" id="platChkBox" value="platChk" v-model="platChk"></div>
         </div>
 
         <!-- CHECKBOX DESSERT -->
-        <div id="chkBox">
-          <input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk">
-          <label for="dessertChk"> dessert</label>
+        <div class="chkBox">
+          <div><label for="dessertChk"> dessert</label></div>
+          <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk"></div>
         </div id="chkBox">
 
         <!-- CHECKBOX VEGE -->
-        <div id="chkBox">
-          <input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk">
-          <label for="vegeChk"> vege</label>
+        <div class="chkBox">
+          <div><label for="vegeChk"> vege</label></div>
+          <div><input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk"></div>
         </div>
       </div>
     </div>
@@ -60,29 +59,31 @@
     template: `   
     <div class="sousMenu">
     <div id="plat" v-for="repas in menu_componant">
+      <div id="infoPlat">
       <a v-bind:href="'/plat/'+repas._id">
         <div>
           {{repas.name}}
         </div>
 
         <div>
-          {{repas.description}}
+          description : {{repas.description}}
         </div>
 
         <div>
-          {{repas.categorie}}
+          categorie : {{repas.categorie}}
         </div>
 
         <div>
-          {{repas.prix}}
+          prix : {{repas.prix}} $
         </div>
 
         <div>
           repas vege : {{repas.vege}}
         </div>
+        </div>
 
-        <div>
-          <img :src="'./public/images/'+repas.name+'.jpg'">
+        <div id="image">
+          <img :src="'./public/images/'+repas.name+'Petite.jpg'">
         </div>
       </a>
       </div>
