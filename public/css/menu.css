@@ -1,12 +1,18 @@
 
 
 #plat {
-    margin:  2rem;
-    padding: 2rem;
+    margin:  1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     border: 1.5px solid rgb(71, 83, 110);
     border-radius: 25px;
     transition: box-shadow 0.3s;
     width: 30rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
  }
  
  #plat:hover{
@@ -14,22 +20,24 @@
  }
 
  #choixMenu{
-    border: 2px solid #afdfdc;
-    border-radius: 10px;
+    /* border: 2px solid #afdfdc;
+    border-radius: 10px; */
+    display: flex;
     flex-grow: 1;
-    background-color: #deebed;
+    flex-shrink: ;
+    /* background-color: #deebed; */
 
  }
 
  #choixMenu2{
     padding: 1rem;
-    padding-right: 5rem;
+    padding-right: 3rem;
     margin: 0.1rem;
-    border: 2px solid #afdfdc;
-    border-radius: 10px;
+    /* border: 2px solid #afdfdc;
+    border-radius: 10px; */
     display: flex;
     flex-direction: column;
-    background-color: #deebed;
+    /* background-color: #deebed; */
 
  }
 
@@ -42,7 +50,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    flex-grow: 10;
+    flex-grow: 2;
     
  }
 
@@ -50,6 +58,9 @@
      margin-right: 20%;
      display: flex;
      flex-direction: row;
+     padding: 1rem;
+     display: flex;
+     justify-content: space-between;
  }
 
  .link{
@@ -69,3 +80,21 @@
      text-decoration: none;
      color: black;
  }
+
+ #infoPlat{
+     display: flex;
+ }
+
+ .chkBox{
+     padding-left: 2rem;
+     display: flex;
+     justify-content: space-between;
+     padding-bottom: 2rem;
+ }
+
+ label{
+     padding-right: 2rem;
+ }
+ h1{
+     text-align: center;
+    padding-bottom: 3rem;}

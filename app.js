@@ -19,7 +19,6 @@ app.use('/public',express.static(path.join(__dirname, 'public'))); // static fil
 
 // Routes 
 const adminRoutes = require('./routes/auth');
-const platRoutes = require('./routes/unPlat');
 const menuRoutes = require('./routes/menu');
 
 
@@ -37,7 +36,6 @@ app.use((req, res, next) => {
 
 
 app.use('/auth', adminRoutes);
-app.use('/plat', platRoutes);
 app.use('/menu', menuRoutes);
 
 

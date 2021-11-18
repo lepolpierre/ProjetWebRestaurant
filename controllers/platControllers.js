@@ -26,9 +26,6 @@ const loadPLat = () => {
 
 
 
-
-
-
 //-------------------------------------------------------------------------------------------
 //                       RECUPERER UN ARTICLE PAR L'ID
 exports.getPlat = (req, res, next) => {
@@ -51,7 +48,6 @@ exports.getPlat = (req, res, next) => {
 
 //-------------------------------------------------------------------------------------------
 //                                     MENU COMPLET
-
 
 
 exports.getMenu2 = (req, res, next) => {

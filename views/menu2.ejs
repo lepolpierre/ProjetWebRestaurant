@@ -6,102 +6,88 @@
 
 <body>
   <%- include('includes/header.ejs') %>
-  <h1></h1>
-  <p>Menu </p>
+  <h1>Menu</h1>
 
   <div id="app">
 
+    <!-- CHOIX MENU CHKBOX -->
     <div id="choixMenu" >
 
+        <!-- CHECKBOX ENTRER -->
       <div id="choixMenu2">
-        <div id="chkBox">
-          <input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk">
-          <label for="entrerChk"> entrer</label>
+        <div class="chkBox">
+          <div><label for="entrerChk"> entrer</label></div>
+          <div><input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk"></div>
         </div>
 
-        <div id="chkBox">
-          <input type="checkbox" id="platChkBox" value="platChk" v-model="platChk">
-          <label for="platChk"> plat</label>
+        <!-- CHECKBOX PLAT -->
+        <div class="chkBox">
+          <div><label for="platChk"> plat</label></div>
+          <div><input type="checkbox" id="platChkBox" value="platChk" v-model="platChk"></div>
         </div>
 
-        <div id="chkBox">
-          <input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk">
-          <label for="dessertChk"> dessert</label>
-
+        <!-- CHECKBOX DESSERT -->
+        <div class="chkBox">
+          <div><label for="dessertChk"> dessert</label></div>
+          <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk"></div>
         </div id="chkBox">
 
-
-        <div id="chkBox">
-          <input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk">
-          <label for="vegeChk"> vege</label>
+        <!-- CHECKBOX VEGE -->
+        <div class="chkBox">
+          <div><label for="vegeChk"> vege</label></div>
+          <div><input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk"></div>
         </div>
-
       </div>
     </div>
 
+
+  <!-- MENU COMPLET -->
       <div class="menuComplet">
-      <!-- SI VEGE -->
-      <div v-if="entrerChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredEntrerVege"/></div>
-      <div v-if="platChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredPlatVege"/></div>
-      <div v-if="dessertChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredDessertVege"/></div>
-      <div v-if="!dessertChk && !platChk && !entrerChk && vegeChk"><div_plat v-bind:menu_componant="menuFiltredVege"/></div>
-  
-
-      <!-- SINON -->
-      <div v-if="entrerChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredEntrer"/></div>
-      <div v-if="platChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredPlat"/></div>
-      <div v-if="dessertChk && !vegeChk"><div_plat v-bind:menu_componant="menuFiltredDessert"/></div>
-
-      <!-- SI RIEN  -->
-      <div v-if="!dessertChk && !platChk && !entrerChk "><div_plat v-bind:menu_componant="menu"/></div>
-
-
+        <div><div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)"/></div>
       </div>
 
     </div>
-
   </div>
-
   <%- include('includes/end.ejs') %>
-
 </body>
 
+<!--  ---------------VUE JS --------------- -->
 
 <script>
-  // -------------------------------------------
   Vue.component("div_plat", {
     props: ["menu_componant"],
     template: `   
     <div class="sousMenu">
     <div id="plat" v-for="repas in menu_componant">
-      <a v-bind:href="'/plat/'+repas._id">
+      <div id="infoPlat">
+      <a v-bind:href="'/menu/'+repas._id">
         <div>
           {{repas.name}}
         </div>
 
         <div>
-          {{repas.description}}
+          description : {{repas.description}}
         </div>
 
         <div>
-          {{repas.categorie}}
+          categorie : {{repas.categorie}}
         </div>
 
         <div>
-          {{repas.prix}}
+          prix : {{repas.prix}} $
         </div>
 
         <div>
           repas vege : {{repas.vege}}
         </div>
+        </div>
 
-        <div>
-          <img :src="'./public/images/'+repas.name+'.jpg'">
+        <div id="image">
+          <img :src="'./public/images/'+repas.name+'Petite.jpg'">
         </div>
       </a>
       </div>
-      </div>
-`
+      </div>`
   })
 
 
@@ -111,45 +97,38 @@
     data: {
       menu: JSON.parse('<%-menu%>'),
       fontSize: '30px',
-      vege: false,
       entrerChk: false,
       platChk: false,
       dessertChk: false,
       vegeChk: false,
     },
+
     computed: {
-      // filtrer
-      menuFiltredEntrer: function () {
-        return this.menu.filter(plat => plat.categorie == "entrer")
-        // filtre par rapport aux chk
-      },
-      menuFiltredPlat: function () {
-        return this.menu.filter(plat => plat.categorie == "plat")
-        // filtre par rapport aux chk
-      },
-      menuFiltredDessert: function () {
-        return this.menu.filter(plat => plat.categorie == "dessert")
-        // filtre par rapport aux chk
-      },
-
-      menuFiltredEntrerVege: function () {
-        return this.menuFiltredVege.filter(plat => plat.categorie == "entrer")
-        // filtre par rapport aux chk
-      },
-      menuFiltredPlatVege: function () {
-        return this.menuFiltredVege.filter(plat => plat.categorie == "plat")
-        // filtre par rapport aux chk
-      },
-      menuFiltredDessertVege: function () {
-        return this.menuFiltredVege.filter(plat => plat.categorie == "dessert")
-        // filtre par rapport aux chk
-      },
-
       menuFiltredVege: function () {
         return this.menu.filter(plat => plat.vege == true)
       }
-
     },
+
+    methods:{
+      menuFiltred: function (entrerChk,platChk,dessertChk,vege) {
+        menuFiltred = []
+        if(vege){
+          if(entrerChk){menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entrer"))}
+          if(platChk){menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "plat"))}
+          if(dessertChk){menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "dessert"))}
+        }
+        if(!vege){
+          if(entrerChk){menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entrer"))}
+          if(platChk){menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "plat"))}
+          if(dessertChk){menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "dessert"))}
+        }
+        if(!vege && !entrerChk && !platChk && !dessertChk){menuFiltred = this.menu}
+        if(vege && !entrerChk && !platChk && !dessertChk){menuFiltred = this.menuFiltredVege}
+
+        return menuFiltred
+        // filtre par rapport aux chk
+      },
+    }
   })
 </script>
 
