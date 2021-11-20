@@ -9,7 +9,7 @@ const loadPLat = () => {
   "couscous traditionelle", "burger classic", "pizza toute garnie", "naan au fromage", "poutine classic", "banane plantin"];
   let categorie = ["plat", "plat", "plat", "plat", "plat", "plat", "plat", "plat", "entrer", "plat", "dessert"];
   let vege = [false, true, true, false, false, false, false, false, true, true, true];
-  let prix = [10, 9, 14, 12, 15, 11, 10, 9, 10, 10, 10];
+  let prix = [10.00, 9.00, 14.00, 12.00, 15.00, 11.00, 10.00, 9.00, 10.00, 10.00, 10.00];
 
 
   for (let i = 0; i < 11; i++) {

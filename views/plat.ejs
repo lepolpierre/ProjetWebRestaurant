@@ -7,7 +7,7 @@
   <%- include('includes/header.ejs') %>
   <main>
 
-    <div class="card" >
+    <div class="card">
       <img src="../public/images/<%= plat.name%>.jpg" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">
@@ -22,15 +22,24 @@
         <h5 class="card-prix">
           Prix : <%= plat.prix %>
         </h5>
-        <a href="#" class="btn btn-primary">ajouter au panier</a>
+
+        <button class="snipcart-add-item" 
+          data-item-id=<%plat._id%>
+          data-item-price="99.00"
+          data-item-description=<%= plat.description %>
+          data-item-url="/menu/<%= plat._id %>"
+          data-item-name=<%= plat.name %>>
+          Add to cart
+        </button>
       </div>
     </div>
-    
+
 
   </main>
 
   <%- include('includes/end.ejs') %>
-
+  <script async src="https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.js"></script>
+  <div hidden id="snipcart" data-api-key="OTNmMzRjMmMtYzFiOC00MDBkLWFiOGItNzYyOTA3NjQ1MjJlNjM3NzMwMzE2MDI2MzY0NDk3" data-config-modal-style="side"></div>
 </body>
 
 </html>
