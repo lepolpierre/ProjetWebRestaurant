@@ -13,9 +13,9 @@
   <div id="app">
 
     <!-- CHOIX MENU CHKBOX -->
-    <div id="choixMenu" >
+    <div id="choixMenu">
 
-        <!-- CHECKBOX ENTRER -->
+      <!-- CHECKBOX ENTRER -->
       <div id="choixMenu2">
         <div class="chkBox">
           <div><label for="entrerChk"> entrer</label></div>
@@ -32,7 +32,7 @@
         <div class="chkBox">
           <div><label for="dessertChk"> dessert</label></div>
           <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk"></div>
-        </div id="chkBox">
+        </div>
 
         <!-- CHECKBOX VEGE -->
         <div class="chkBox">
@@ -43,14 +43,18 @@
     </div>
 
 
-  <!-- MENU COMPLET -->
-      <div class="menuComplet">
-        <div><div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)"/></div>
+    <!-- MENU COMPLET -->
+    <div class="menuComplet">
+      <div>
+        <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)"></div_plat>
       </div>
-
     </div>
+
+  </div>
   </div>
   <%- include('includes/end.ejs') %>
+  <script async src="https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.js"></script>
+  <div hidden id="snipcart" data-api-key="OTNmMzRjMmMtYzFiOC00MDBkLWFiOGItNzYyOTA3NjQ1MjJlNjM3NzMwMzE2MDI2MzY0NDk3" data-config-modal-style="side"></div>
 </body>
 
 <!--  ---------------VUE JS --------------- -->
@@ -63,11 +67,11 @@
     <div id="plat" v-for="repas in menu_componant">
       <div id="infoPlat">
       <a v-bind:href="'/menu/'+repas._id">
-        <div>
+        <div id="repas.name">
           {{repas.name}}
         </div>
 
-        <div>
+        <div >
           description : {{repas.description}}
         </div>
 
@@ -83,9 +87,21 @@
           repas vege : {{repas.vege}}
         </div>
 
+        <button class="snipcart-add-item" 
+          v-bind:data-item-id="repas._id"
+          v-bind:data-item-price="repas.prix"
+          v-bind:data-item-description="repas.description"
+          data-item-url="localhost:3000/menu/'repas._id'"
+          v-bind:data-item-name="repas.name">
+          Add to cart
+        </button>
+        </div>
+
         <div id="image">
           <img :src="'./public/images/'+repas.name+'Petite.jpg'">
         </div>
+
+
       </a>
       </div>
       </div>`
@@ -107,24 +123,43 @@
     computed: {
       menuFiltredVege: function () {
         return this.menu.filter(plat => plat.vege == true)
+      },
+      getName: function(repas){
+        return repas.name
       }
     },
 
-    methods:{
-      menuFiltred: function (entrerChk,platChk,dessertChk,vege) {
+    methods: {
+      menuFiltred: function (entrerChk, platChk, dessertChk, vege) {
         menuFiltred = []
-        if(vege){
-          if(entrerChk){menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entrer"))}
-          if(platChk){menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "plat"))}
-          if(dessertChk){menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "dessert"))}
+        if (vege) {
+          if (entrerChk) {
+            menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entrer"))
+          }
+          if (platChk) {
+            menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "plat"))
+          }
+          if (dessertChk) {
+            menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "dessert"))
+          }
         }
-        if(!vege){
-          if(entrerChk){menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entrer"))}
-          if(platChk){menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "plat"))}
-          if(dessertChk){menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "dessert"))}
+        if (!vege) {
+          if (entrerChk) {
+            menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entrer"))
+          }
+          if (platChk) {
+            menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "plat"))
+          }
+          if (dessertChk) {
+            menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "dessert"))
+          }
         }
-        if(!vege && !entrerChk && !platChk && !dessertChk){menuFiltred = this.menu}
-        if(vege && !entrerChk && !platChk && !dessertChk){menuFiltred = this.menuFiltredVege}
+        if (!vege && !entrerChk && !platChk && !dessertChk) {
+          menuFiltred = this.menu
+        }
+        if (vege && !entrerChk && !platChk && !dessertChk) {
+          menuFiltred = this.menuFiltredVege
+        }
 
         return menuFiltred
         // filtre par rapport aux chk
