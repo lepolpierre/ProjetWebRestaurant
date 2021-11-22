@@ -62,45 +62,46 @@
     props: ["menu_componant"],
     template: `   
     <div class="sousMenu">
-    <div id="plat" v-for="repas in menu_componant">
+    <div id="plat" v-for="repas in menu_componant" >
       <div id="infoPlat">
-      <a v-bind:href="'/menu/'+repas._id">
-        <div id="repas.name">
-          {{repas.name}}
-        </div>
+        <a v-bind:href="'/menu/'+repas._id">
+          <div id="repas.name">
+            {{repas.name}}
+          </div>
 
-        <div >
-          description : {{repas.description}}
-        </div>
+          <div >
+            description : {{repas.description}}
+          </div>
 
-        <div>
-          categorie : {{repas.categorie}}
-        </div>
+          <div>
+            categorie : {{repas.categorie}}
+          </div>
 
-        <div>
-          prix : {{repas.prix}} $
-        </div>
+          <div>
+            prix : {{repas.prix}} $
+          </div>
 
-        <div>
-          repas vege : {{repas.vege}}
-        </div>
+          <div>
+            repas vege : {{repas.vege}}
+          </div>
 
-        <button class="snipcart-add-item" 
-          v-bind:data-item-id="repas.name"
-          v-bind:data-item-price="repas.prix"
-          v-bind:data-item-description="repas.description"
-          data-item-url="http://6353-74-58-22-67.ngrok.io/menu"
-          v-bind:data-item-name="repas.name">
-          Add to cart
-        </button>
-        </div>
+          <button class="snipcart-add-item" 
+            v-bind:data-item-id="repas._id"
+            v-bind:data-item-price="repas.prix"
+            v-bind:data-item-description="repas.description"
+            data-item-url="http://6353-74-58-22-67.ngrok.io/menu"
+            v-bind:data-item-name="repas.name">
+            Add to cart
+          </button>
+        </a>
+      </div>
 
-        <div id="image">
-          <img :src="'./public/images/'+repas.name+'Petite.jpg'">
-        </div>
+      <div id="image">
+        <img :src="'./public/images/'+repas.name+'Petite.jpg'">
+      </div>
 
 
-      </a>
+      
       </div>
       </div>`
   })
