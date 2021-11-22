@@ -1,6 +1,8 @@
 "use strict";
 
 require('dotenv').config();       // .env
+const ngrok = require('ngrok');
+
 
 const path = require('path');
 
@@ -55,7 +57,10 @@ app.use(function (err, req, res, next) {
   res.status(err.statusCode).json({ message: err.message, statusCode: err.statusCode });
 });
 
-
+// connection ngrok
+(async function() {
+  const url = await ngrok.connect(3000);
+})();
 
 // connection MongoDB
 mongoose
