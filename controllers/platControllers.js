@@ -71,3 +71,9 @@ function envoyerMenu2(menu, req, res, next) {
     })
 
 }
+
+
+
+exports.addPlat = (req,res,next)=>{
+  console.log(req);
+};

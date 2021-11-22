@@ -12,7 +12,12 @@ body {
     min-height: 100vh;
 
     header {
-        // background: linear-gradient(to bottom, rgba(207, 200, 175, 0.2), rgba(169, 231, 218, 0));
+        // Positionnement
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: 1;
+
         background-color: hsl(187, 30%, 90%);
         display: flex;
         justify-content: space-between;
@@ -48,7 +53,7 @@ body {
                         color: rgb(59, 73, 100);
                         font-family: "Montserrat", sans-serif;
                         font-weight: 500;
-                        font-size: 1.4rem;
+                        font-size: 1.2rem;
                         text-decoration: none;
 
                         transition: all 0.3s ease 0s;
@@ -60,13 +65,22 @@ body {
                 }
             }
         }
+
+        max-height: 17vh;
+
+        .sticky{
+            background: linear-gradient(to bottom, rgba(207, 200, 175, 0.2), rgba(169, 231, 218, 0));
+            color: red;
+        }
     }
 
     main {
+        position: relative;
+        top: 20vh;
         width: 75vw;
         margin: 0 auto;
         display: block;
-        min-height: 100vh;
+        min-height: 80vh;
 
         .titre {
             color: rgb(71, 83, 110);

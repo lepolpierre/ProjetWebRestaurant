@@ -6,7 +6,7 @@
 <body>
 
     <%- include('../includes/header.ejs')  %> 
-    <main>
+    <main class="container-fluid">
         <h2 class="titre">Connexion au compte</h2>
     
         <form class="col-8" method="POST" action="/auth/login">
@@ -23,12 +23,12 @@
 
             <div>
                 <label class="form-label" for="utilisateur">Courriel ou nom d'utilisateur</label>
-                <input class="form-control" type="text" name="utilisateur" required  value=<%= locals.username %> >
+                <input class="form-control" type="text" name="utilisateur" placeholder="Mon identifiant..." required  value=<%= locals.username %> >
             </div>
 
             <div>
                 <label class="form-label" for="pass">Mot de passe</label>
-                <input class="form-control" type="password" name="pass" required>
+                <input class="form-control" type="password" name="pass" placeholder="Ma clé secrète..." required>
             </div>
             
             
