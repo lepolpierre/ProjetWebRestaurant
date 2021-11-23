@@ -5,8 +5,9 @@ const resultsPerPage = 9;
 
 const loadPLat = () => {
   let noms = ["poulet", "riz", "pattes", "rizoto", "bolognaise", "couscous", "burger", "pizza", "naan", "poutine", "banane"];
-  let description = ["poulet rotit", "riz rond", "spagetti", "rizoto cervette", "pattes sauce bolognaise", 
-  "couscous traditionelle", "burger classic", "pizza toute garnie", "naan au fromage", "poutine classic", "banane plantin"];
+  let description = ["poulet rotit", "riz rond", "spagetti", "rizoto cervette", "pattes sauce bolognaise",
+    "couscous traditionelle", "burger classic", "pizza toute garnie", "naan au fromage", "poutine classic", "banane plantin"
+  ];
   let categorie = ["plat", "plat", "plat", "plat", "plat", "plat", "plat", "plat", "entrer", "plat", "dessert"];
   let vege = [false, true, true, false, false, false, false, false, true, true, true];
   let prix = [10.00, 9.00, 14.00, 12.00, 15.00, 11.00, 10.00, 9.00, 10.00, 10.00, 10.00];
@@ -52,14 +53,24 @@ exports.getPlat = (req, res, next) => {
 
 exports.getMenu2 = (req, res, next) => {
   //loadPLat();
-  Plat.find({categorie:req.param.categorie})
+  Plat.find({categorie: req.param.categorie})
     .then(menu => {
-      envoyerMenu2(menu, req, res, next)
+      Plat.find()
+      .then(menu => {
+        res.render('menu2', {
+          user: req.user,
+          menu: JSON.stringify(menu),
+        });
+      })
     });
 };
 
 
-function envoyerMenu2(menu, req, res, next) {
+//-------------------------------------------------------------------------------------------
+//                                     GET JSON
+
+
+exports.getJson = (req, res, next) => {
 
   Plat.find()
     .then(menu => {
