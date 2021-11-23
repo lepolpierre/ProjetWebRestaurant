@@ -12,6 +12,10 @@ const {isAuth, isConnected} = require('../middlewares/auth');
 const router = express.Router();
 
 router.get('/', isConnected, platControllers.getMenu2);
-router.get('/:platId', isConnected, platControllers.getPlat);
+router.get('/jsonMenu/', platControllers.getJson);
+
+router.get('/plat/:platId', isConnected, platControllers.getPlat);
+
+
 
 module.exports = router;

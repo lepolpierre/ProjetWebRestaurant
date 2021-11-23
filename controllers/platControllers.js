@@ -74,3 +74,13 @@ function envoyerMenu2(menu, req, res, next) {
     })
 
 }
+
+exports.getJson = (req, res, next) => {
+  //loadPLat();
+
+  Plat.find()
+    .then(menu => {
+      console.log("MMEENNUU : ",menu)
+      res.json(menu)
+    });
+};
