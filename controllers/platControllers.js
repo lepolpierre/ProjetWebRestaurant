@@ -54,33 +54,28 @@ exports.getPlat = (req, res, next) => {
 exports.getMenu2 = (req, res, next) => {
   //loadPLat();
 
-  Plat.find({
-      categorie: req.param.categorie
-    })
+  Plat.find({categorie: req.param.categorie})
     .then(menu => {
-      envoyerMenu2(menu, req, res, next)
+      Plat.find()
+      .then(menu => {
+        res.render('menu2', {
+          user: req.user,
+          menu: JSON.stringify(menu),
+        });
+      })
     });
 };
 
 
-function envoyerMenu2(menu, req, res, next) {
+//-------------------------------------------------------------------------------------------
+//                                     GET JSON
 
-  Plat.find()
-    .then(menu => {
-      res.render('menu2', {
-        user: req.user,
-        menu: JSON.stringify(menu),
-      });
-    })
-
-}
 
 exports.getJson = (req, res, next) => {
-  //loadPLat();
 
   Plat.find()
     .then(menu => {
-      console.log("MMEENNUU : ",menu)
-      res.json(menu)
+      menu = JSON.parse(JSON.stringify(menu).split('"_id":').join('"id":'));
+      res.render('menujson',{menu: menu})
     });
 };

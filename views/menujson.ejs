@@ -1,0 +1,15 @@
+<body>
+    <ul>
+        <% menu.forEach(function(plat) { %>
+            <button 
+            class="snipcart-add-item" 
+            data-item-id="<%= plat.id  %>"
+            data-item-price="<%= plat.prix %>"
+            data-item-description="<%= plat.description %>"
+            data-item-url="http://dcc3-74-58-22-67.ngrok.io/menu/json"
+            data-item-name="<%= plat.name %>" >
+            Add to cart
+            </button>
+            <% }); %>
+    </ul>
+</body>
