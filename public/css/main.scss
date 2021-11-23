@@ -9,14 +9,14 @@
 body {
     // background-image: linear-gradient(to bottom, rgba(169, 231, 218, 0.6), rgba(220, 231, 169, 0.4));
     background: linear-gradient(to bottom, hsl(180, 69%, 95%), hsl(180, 60%, 87%));
-    min-height: 100vh;
+    // min-height: 100vh;
 
     header {
         // Positionnement
-        position: fixed;
-        left: 0;
-        right: 0;
-        z-index: 1;
+        // position: fixed;
+        // left: 0;
+        // right: 0;
+        // z-index: 1;
 
         background-color: hsl(187, 30%, 90%);
         display: flex;
@@ -66,17 +66,16 @@ body {
             }
         }
 
-        max-height: 17vh;
 
-        .sticky{
-            background: linear-gradient(to bottom, rgba(207, 200, 175, 0.2), rgba(169, 231, 218, 0));
-            color: red;
-        }
+        // .sticky{
+        //     background: linear-gradient(to bottom, rgba(207, 200, 175, 0.2), rgba(169, 231, 218, 0));
+        //     color: red;
+        // }
     }
 
     main {
-        position: relative;
-        top: 20vh;
+        // position: relative;
+        // top: 20vh;
         width: 75vw;
         margin: 0 auto;
         display: block;

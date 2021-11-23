@@ -72,7 +72,34 @@ function envoyerMenu2(menu, req, res, next) {
 }
 
 
+
+/**
+ * Permet l'ajout d'un plat par l'utilisateur.
+ * @param {Objet} req 
+ * @param {Objet} res 
+ * @param {function} next 
+ */
+exports.addPlatAdmin = (req,res,next)=>{
+  const user = req.user;
+
+  // Aucun admin est connecté
+  if (user === undefined){
+    return res.status(401).render("auth/login", {
+      user: req.user,
+      pageTitle: "Connexion",
+      msg: "Une connexion est requise"
+    });
+    
+  }
+
+  // admin connecté
+  res.status(200).render('auth/plat-add', {
+    pageTitle: "Ajout de plat",
+    user: req.user
+  });
+};
+
+
 exports.addPlat = (req,res,next)=>{
-  // ca marche pas
-  console.log(req);
+  console.log(req.body);
 };

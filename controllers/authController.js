@@ -242,6 +242,7 @@ exports.login = (req, res, next) => {
         {
           username: loginUser.username,
           _id: loginUser._id.toString(),
+          level : loginUser.level
         },
         // Secret Key
         process.env.JWT_SECRET_KEY, 

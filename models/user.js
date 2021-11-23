@@ -31,6 +31,10 @@ const userSchema = new Schema(
         verified:{
             type : Boolean,
             default: false
+        },
+        level:{
+            type: Number,
+            default: 2
         }
     },
     { timestamps: true }

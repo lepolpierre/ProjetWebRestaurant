@@ -30,20 +30,16 @@ exports.isAuth = (req,res,next)=>{
                 return res.status(401).json({err:err});
             }
             
-            // Enregistrement du token.
-            req.user = user;
+            
+            // Enregistrement du token si l'utilisateur est autorisé (niveau 1)
+            if(user.level === 1)
+                req.user = user;
 
         });
 
     }
 
     next();
-
-    // Diriger l'utilisateur à se connecter.
-    // res.status(301).render('login');
-
-
-
 };
 
 
@@ -57,7 +53,7 @@ exports.isConnected = (req,res,next)=> {
     const token = LocalS.getItem('token');
     
     if(token !== null){
-        // console.log(`[Connected token] : ${token}`);
+        console.log(`[Connected token] : ${token}`);
 
         // Récupérer les données du token
         jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user)=>{
