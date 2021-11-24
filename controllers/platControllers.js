@@ -93,24 +93,25 @@ exports.getJson = (req, res, next) => {
 exports.addPlatAdmin = (req,res,next)=>{
   const user = req.user;
 
-  // Aucun admin est connecté
-  if (user === undefined){
-    return res.status(401).render("auth/login", {
-      user: req.user,
-      pageTitle: "Connexion",
-      msg: "Une connexion est requise"
-    });
-    
-  }
-
   // admin connecté
   res.status(200).render('auth/plat-add', {
     pageTitle: "Ajout de plat",
-    user: req.user
+    user: user,
   });
 };
 
-
+/**
+ * Récupère les données du formulaire d'ajout de plat et l'insère dans la BD
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.addPlat = (req,res,next)=>{
-  console.log(req.body);
+  const {name, desc, prix, vege, categorie} = req.body;
+
+  console.log(name);
+
+  res.status(201).json({
+   name, desc,prix,vege,categorie
+  });
 };

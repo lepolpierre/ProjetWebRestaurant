@@ -1,11 +1,47 @@
 <%- include("../includes/head.ejs")  %> 
-
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
 <body>
     <%- include("../includes/header.ejs")  %> 
 
-    <main>
-        
-        
+    <main id="app">
+
+        <h3 class="titre">Ajout de plat</h3>
+        <form method="POST" action="/menu/plat/add" @submit.prevent="submitForm">
+
+            <div>
+                <label for="name">Nom: </label>
+                <input v-model="nom" :class="{err: nom.length>2}"
+                type="text" name="name" id="name" placeholder="Nommer votre plat..">
+                <span class="err-span">{{nomErr}}</span>
+            </div>
+
+            <div>
+                <label for="desc">Description : </label>
+                <input v-model="desc" type="text" name="desc" id="desc" placeholder="Décrire votre plat..">
+            </div>
+            
+            <div>
+                <label for="vege">Végetarien ?</label>
+                <input v-model="vege" type="checkbox" name="vege" id="vege" >
+            </div>
+            
+            <div>
+                <label for="prix">Prix :</label>
+                <input v-model="prix" type="number" min="1" name="prix" id="prix" placeholder="Ca coute ? ...">
+            </div>
+            
+            <div>
+                <label for="categorie">Catégorie: </label>
+                <select id="catergories" name="categorie" v-model="cat">
+                    <option value="dessert">Dessert</option>
+                    <option value="entree">Entrée</option>
+                    <option value="plat">Plat principal</option>
+                </select>
+            </div>
+
+            <button type="submit">Ajouter</button>
+        </form>
 
 
     </main>
@@ -13,3 +49,56 @@
 
     <%- include("../includes/end.ejs")  %> 
 </body>
+
+<script>
+
+    var app = new Vue({
+        el : '#app',
+        data :{
+            nom: "",
+            nomErr: '',
+
+            desc : "",
+            descErr: '',
+            vege : false,
+            cat : "plat",
+            prix : ''
+
+        },
+        watch : {
+            nom(newVal, oldVal){
+                let msg = "Le nom du plat doit contenir "
+                this.nomErr = newVal.length > 2 ? msg : "";
+            }
+        },
+        methods: {
+            submitForm(){
+                // console.log(process.env.HOST);
+
+
+                fetch("/menu/plat/add", {
+                    method : "POST",
+                    'Content-type': "application/json",
+                
+                })
+                .then(()=>{
+                    console.log("hi")
+                })
+                
+            }
+        }
+
+
+        
+    })
+</script>
+
+<style scoped>
+.err{
+    color: red;
+}
+
+.err-span{
+    color: blue;
+}
+</style>

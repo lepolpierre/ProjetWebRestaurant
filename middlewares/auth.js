@@ -24,22 +24,32 @@ exports.isAuth = (req,res,next)=>{
 
         // Récupérer les données du token
         jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user)=>{
-            if(err || !user){
-                // Supprimer le token en cas d'erreurs.
-                LocalS.removeItem('token');
-                return res.status(401).json({err:err});
+            if(!err || user){
+
+                // Enregistrement du token si l'utilisateur est autorisé (niveau 1)
+                if(user.level === 1){
+                    req.user = user;
+                    // continuer si autorisé
+                    next();
+                    return;
+                }
+              
             }
             
-            
-            // Enregistrement du token si l'utilisateur est autorisé (niveau 1)
-            if(user.level === 1)
-                req.user = user;
+            // Supprimer le token en cas d'erreurs.
+            LocalS.removeItem('token');
+        
 
         });
 
     }
 
-    next();
+    // S'il n'est pas autorisé, renvoyer la page de connexion
+    return res.status(401).render("auth/login", {
+        user: req.user,
+        pageTitle: "Connexion",
+        msg: "Une connexion est requise !"
+      });
 };
 
 

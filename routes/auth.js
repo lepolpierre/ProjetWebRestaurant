@@ -23,7 +23,7 @@ router.get('/signup/verify/:userId', authCtrl.verifyUserEmail);     // GET verif
 
 
 // Connexion
-router.get('/login', isAuth, authCtrl.loginUser);                   // GET login form
+router.get('/login', isConnected, authCtrl.loginUser);                   // GET login form
 router.post('/login', authCtrl.login);                              // POST login form
 
 router.get('/login/sendrecover', authCtrl.getRecoverUserEmail);     // GET send recover pwd

@@ -18,6 +18,10 @@
                             </p>
                         </div>
 
+                        <% if (locals.user !== undefined && locals.user.level === 1) { %>
+                            <a class="btn-plat-add btn-primary float-start m-3 p-2" href="/menu/plat/add">Ajout d'un plat</a>
+                        <% } %>
+
                         <button onclick="location.href = `/auth/login/disconnect/<%= locals.user._id.toString() %>`;"
                             class="float-end mt-5 btn-outline-success btn">Déconnexion</button>
                     </div>

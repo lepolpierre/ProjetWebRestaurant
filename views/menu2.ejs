@@ -8,14 +8,14 @@
 
 <body>
 
-  <% if (locals.user !== undefined && locals.user.level === 1) { %>
-    <a class="btn-primary float-end m-3 p-2" href="/menu/plat/add">Ajout d'un plat</a>
-  <% } %>
-
 
   <body>
     <%- include('includes/header.ejs') %>
       <h1>Menu</h1>
+
+      <% if (locals.user !== undefined && locals.user.level === 1) { %>
+        <a class="btn-primary float-start m-3 p-2" href="/menu/plat/add">Ajout d'un plat</a>
+      <% } %>
 
       <div id="app">
 
@@ -103,7 +103,7 @@
               </a>
 
            
-            <div id="image">
+            <div  id="image">
               <img :src="'./public/images/'+repas.name+'Petite.jpg'">
             </div>
 
@@ -168,10 +168,8 @@
           }
 
           return menuFiltred
-          // filtre par rapport aux chk
         },
       }
     })
   </script>
-
-  </html>
+</html>
