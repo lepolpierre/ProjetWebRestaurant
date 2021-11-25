@@ -40,7 +40,8 @@ router.post('/plat/add',
             { name: 'plat', maxCount: 1 }
         ]
     ),
-    platControllers.addPlat);              
+    platControllers.addPlat
+);              
 
 
 router.get('/plat/:platId', isConnected, platControllers.getPlat);   // Affichage d'un plat.

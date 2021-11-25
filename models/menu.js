@@ -15,17 +15,22 @@ const platsSchema = new Schema(
     },
     vege: {
       type: Boolean,
-      required: false,
+      required: true,
       default: false
     },
     categorie: {
       type: String,
-      required: false,
+      required: true,
       enum : [ "dessert", "entree" , "plat"]
     },
     prix: {
       type: Number,
-      required: false
+      required: true
+    },
+    image :{
+      type: String,
+      required: true,
+
     }
 
   }

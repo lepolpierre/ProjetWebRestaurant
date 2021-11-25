@@ -78,10 +78,9 @@ var app = new Vue({
             this.verifDesc();
             this.verifPrix();
 
-            // return this.nom.length > 3 && this.desc.length > 10 & this.prix > 0 
-            // && this.cats.includes(this.cat) && this.file != null;
+            return this.nom.length >= 5 && this.desc.length >= 10 & this.prix > 0 
+            && this.cats.includes(this.cat) && this.file != null;
 
-            return true;
         },
 
         appelApi(){
@@ -112,7 +111,7 @@ var app = new Vue({
             .then(()=>{
                 console.log("[ Form Submit ]");
                 // Redirect vers la page affichant le menu.
-                // window.location.href = '/menu';
+                window.location.href = '/menu';
             })
             .catch(err=>{
                 console.error(err);

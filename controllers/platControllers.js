@@ -1,12 +1,7 @@
 "use strict";
 
-
-
-
 const Plat = require('../models/menu');
 const resultsPerPage = 9;
-
-
 
 
 
@@ -120,33 +115,29 @@ exports.addPlatAdmin = (req,res,next)=>{
  * @param {function} next 
  */
 exports.addPlat = (req,res,next)=>{
-  // console.log(req.body);
-
-  // const {name, desc, prix, vege, categorie} = req.body;
-
-  // if (!name || !desc || !prix  || !categorie ){
-  //   next(new Error("Formulaire invalide, champs manquants!"));
-  // }
-
-  console.log("=========");
-  // ici contient rien :/
+  // L'objet plat est parsé en JSON 
   console.log(JSON.parse(req.body.plat));
+  const {name, desc, prix, vege, categorie} = JSON.parse(req.body.plat);
   console.log(req.files.file[0]);
+  const file = req.files.file[0];
 
-  // ici contient l'image
-  // console.log(req.file);
+  if (!name || !desc || !prix  || !categorie || !file){
+    next(new Error("Formulaire invalide, champs manquants!"));
+  }
+
 
   // ajout de plat dans BD
-  // new Plat({
-  //   name,vege,prix,categorie,
-  //   description: desc
-  // }).save((err,plat) =>{
-  //   if(err)next(err);
+  new Plat({
+    name,vege,prix,categorie,
+    description: desc,
+    image: file.filename
+  }).save((err,plat) =>{
+    if(err)next(err);
 
-  //   console.log("[/menu/plat/add  POST]  plat ajouté avec succès!");
-  //   console.log(plat);
-  // })
-  // .catch(err=> next(err));
+    console.log("[/menu/plat/add  POST]  plat ajouté avec succès!");
+    console.log(plat);
+  })
+  .catch(err=> next(err));
 
 };
 
