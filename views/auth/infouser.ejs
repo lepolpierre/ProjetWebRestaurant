@@ -1,40 +1,40 @@
 <%- include('../includes/head.ejs') %>
 
-    </head>
+</head>
 
-    <body>
-        <%- include('../includes/header.ejs') %>
-            <main class="container-fluid">
+<body>
+    <%- include('../includes/header.ejs') %>
+        <main class="container-fluid">
 
-                <div>
-                    <h3 class="titre">Informations sur le compte </h3>
+            <div>
+                <h3 class="titre">Informations sur le compte </h3>
 
-                    <div class="info">
+                <div class="info">
 
-                        <div>
-                            <h4>Nom de l'utilisateur: </h4>
-                            <p>
-                                <%= locals.user.username %>
-                            </p>
-                        </div>
-
-                        <% if (locals.user !== undefined && locals.user.level === 1) { %>
-                            <a class="btn-plat-add btn-primary float-start m-3 p-2" href="/menu/plat/add">Ajout d'un plat</a>
-                        <% } %>
-
-                        <button onclick="location.href = `/auth/login/disconnect/<%= locals.user._id.toString() %>`;"
-                            class="float-end mt-5 btn-outline-success btn">Déconnexion</button>
+                    <div>
+                        <h4>Nom de l'utilisateur: </h4>
+                        <p>
+                            <%= locals.user.username %>
+                        </p>
                     </div>
+
+                    <% if (locals.user !== undefined && locals.user.level === 1) { %>
+                        <a class="btn-plat-add btn-primary float-start m-3 p-2" href="/menu/plat/add">Ajout d'un plat</a>
+                    <% } %>
+
+                    <button onclick="location.href = `/auth/login/disconnect/<%= locals.user._id.toString() %>`;"
+                        class="float-end mt-5 btn-outline-success btn">Déconnexion</button>
                 </div>
-            </main>
+            </div>
+        </main>
 
-            <%- include('../includes/end.ejs') %>
-    </body>
+        <%- include('../includes/end.ejs') %>
+</body>
 
 
-    <style>
-        .info{
-            width: 70vw;
-            margin: 0 auto;
-        }
-    </style>
+<style>
+    .info{
+        width: 70vw;
+        margin: 0 auto;
+    }
+</style>

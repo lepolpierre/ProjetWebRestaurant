@@ -53,7 +53,6 @@ exports.signupUser = (req, res, next) => {
 
   // Vérifier que tous les champs ont été fournis
   if (!u_email || !u_username || !u_pwd || !u_pwdConfirm) {
-    res.status(400);
     return returnSignInFormRempli(req, res, "Veuillez remplir tous les champs! ");
   }
 
@@ -68,7 +67,6 @@ exports.signupUser = (req, res, next) => {
 
       // Verifier les deux mots de passes.
       if (!verifierDeuxMDP(u_pwd, u_pwdConfirm)) {
-        res.status(400);
         return returnSignInFormRempli(req,res,"Les deux mots de passes doivent être identiques! ");
       }
 
@@ -149,7 +147,7 @@ exports.verifyUserEmail = (req, res, next) => {
       if (!user) {
         // Envoyer la page d'erreurs.
         const err = new Error("Utilisateur invalide !");
-        err.stausCode = 404;
+        err.statusCode = 404;
         throw err;
       }
 
@@ -203,7 +201,6 @@ exports.login = (req, res, next) => {
 
   // Vérifier que les champs sont bien remplis.
   if (!utilisateur || !pass) {
-    res.status(404);
     return returnLoginInFormRempli(req, res, "Veuillez remplir tous les champs.");
   }
 
@@ -213,14 +210,12 @@ exports.login = (req, res, next) => {
   User.find({ $or: [ { email: utilisateur },{ username: utilisateur} ] } )
     .then(user => {
       if (user.length < 1) {
-        res.status(404);
         return returnLoginInFormRempli(req, res, "Utilisateur inéxistant !");
       }
 
       loginUser = user[0];
       // Vérifier que l'utilisateur a vérifié son compte.
       if (!loginUser.verified) {
-        res.status(401);
         return returnLoginInFormRempli( req, res, "Veuillez confirmer votre courriel !");
       }
 
@@ -229,7 +224,6 @@ exports.login = (req, res, next) => {
     })
     .then(egal => {
       if (!egal) {
-        res.status(404);
         return returnLoginInFormRempli(req,res,"Informations de connexion incorrectes !");
       }
 
@@ -490,7 +484,7 @@ const verifierDeuxMDP = (mdp1, mdp2) =>  mdp1 === mdp2;
  * @param {object} res
  * @param {string} error
  */
-const returnSignInFormRempli = (req, res, error = "") => res.render("auth/signup", {
+const returnSignInFormRempli = (req, res, error = "") => res.status(400).render("auth/signup", {
     user: req.user,
     pageTitle: "Création de compte",
     email: req.body.u_email,
@@ -506,7 +500,7 @@ const returnSignInFormRempli = (req, res, error = "") => res.render("auth/signup
  * @param {object} res
  * @param {string} error
  */
-const returnLoginInFormRempli = (req, res, error = "") => res.render("auth/login", {
+const returnLoginInFormRempli = (req, res, error = "") => res.status(400).render("auth/login", {
     user: req.user,
     pageTitle: "Connexion",
     username: req.body.utilisateur,

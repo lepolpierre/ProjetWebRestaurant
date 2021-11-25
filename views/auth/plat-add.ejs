@@ -1,46 +1,68 @@
 <%- include("../includes/head.ejs")  %> 
+
+<!-- CDN Vue.js -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<!-- Mon propre fichier Vue -->
+<script src="/public/js/add-plat.js" defer></script>
+
 </head>
+
+<!-- PAGE -->
 <body>
     <%- include("../includes/header.ejs")  %> 
 
     <main id="app">
 
         <h3 class="titre">Ajout de plat</h3>
+
+        <p class="error"><%= locals.error %> </p>
+
         <form method="POST" action="/menu/plat/add" @submit.prevent="submitForm">
 
             <div>
-                <label for="name">Nom: </label>
-                <input v-model="nom" :class="{err: nom.length>2}"
+                <label for="name">Nom: <sup class="etoile">*</sup> </label>
+                <input v-model="nom" @blur="verifNom" ref="nomField"
                 type="text" name="name" id="name" placeholder="Nommer votre plat..">
                 <span class="err-span">{{nomErr}}</span>
             </div>
 
             <div>
-                <label for="desc">Description : </label>
-                <input v-model="desc" type="text" name="desc" id="desc" placeholder="Décrire votre plat..">
+                <label for="desc">Description <sup class="etoile">*</sup> : </label>
+                <textarea v-model="desc" @blur="verifDesc" 
+                id="desc" name="desc" rows="4" cols="50" placeholder="Décrire votre plat.."></textarea>
+                <span class="err-span">{{descErr}}</span>
             </div>
             
+            <div>
+                <label for="image">Image <sup class="etoile">*</sup>:</label>
+                <input @change="onChangeFile"
+                type="file" name="image" id="image" accept="image/png, image/jpeg" required>
+                <span class="err-span">{{fileErr}}</span>
+            </div>
+
             <div>
                 <label for="vege">Végetarien ?</label>
                 <input v-model="vege" type="checkbox" name="vege" id="vege" >
             </div>
             
             <div>
-                <label for="prix">Prix :</label>
-                <input v-model="prix" type="number" min="1" name="prix" id="prix" placeholder="Ca coute ? ...">
+                <label for="prix">Prix <sup class="etoile">*</sup>:</label>
+                <input v-model="prix" @blur="verifPrix"
+                type="number" min="1" name="prix" id="prix" placeholder="Ca coute en CAD ? ..." >
+                <span class="err-span">{{prixErr}}</span>
             </div>
             
             <div>
-                <label for="categorie">Catégorie: </label>
-                <select id="catergories" name="categorie" v-model="cat">
+                <label for="categorie">Catégorie <sup class="etoile">*</sup>: </label>
+                <select id="catergorie" name="categorie" v-model="cat" required>
                     <option value="dessert">Dessert</option>
                     <option value="entree">Entrée</option>
                     <option value="plat">Plat principal</option>
                 </select>
             </div>
 
-            <button type="submit">Ajouter</button>
+            <button class="btn-secondary" type="submit">Ajouter</button>
         </form>
 
 
@@ -50,55 +72,16 @@
     <%- include("../includes/end.ejs")  %> 
 </body>
 
-<script>
 
-    var app = new Vue({
-        el : '#app',
-        data :{
-            nom: "",
-            nomErr: '',
-
-            desc : "",
-            descErr: '',
-            vege : false,
-            cat : "plat",
-            prix : ''
-
-        },
-        watch : {
-            nom(newVal, oldVal){
-                let msg = "Le nom du plat doit contenir "
-                this.nomErr = newVal.length > 2 ? msg : "";
-            }
-        },
-        methods: {
-            submitForm(){
-                // console.log(process.env.HOST);
-
-
-                fetch("/menu/plat/add", {
-                    method : "POST",
-                    'Content-type': "application/json",
-                
-                })
-                .then(()=>{
-                    console.log("hi")
-                })
-                
-            }
-        }
-
-
-        
-    })
-</script>
 
 <style scoped>
 .err{
     color: red;
+    border-color: red;
 }
 
 .err-span{
-    color: blue;
+    color: rgb(250, 64, 64);
+    text-shadow: 0px 0px 10px rgb(168, 161, 161);
 }
 </style>

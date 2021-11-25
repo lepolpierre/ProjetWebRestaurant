@@ -80,10 +80,13 @@ exports.getJson = (req, res, next) => {
       });
     })
 
-}
+  }
+  
+  
 
+  // ==============================================[ Ajout de plat par l'admin ]==================
 
-
+  
 /**
  * Permet l'ajout d'un plat par l'utilisateur.
  * @param {Objet} req 
@@ -100,18 +103,38 @@ exports.addPlatAdmin = (req,res,next)=>{
   });
 };
 
+
+
+
 /**
  * Récupère les données du formulaire d'ajout de plat et l'insère dans la BD
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
  */
 exports.addPlat = (req,res,next)=>{
+  // console.log(req.body);
+
   const {name, desc, prix, vege, categorie} = req.body;
 
-  console.log(name);
+  if (!name || !desc || !prix || !vege || !categorie ){
+    next(new Error("Formulaire invalide, champs manquants!"));
+  }
 
-  res.status(201).json({
-   name, desc,prix,vege,categorie
-  });
+  console.log(req.body);
+
+  // ajout de plat dans BD
+  // new Plat({
+  //   name,vege,prix,categorie,
+  //   description: desc
+  // }).save((err,plat) =>{
+  //   if(err)next(err);
+
+  //   console.log("[/menu/plat/add  POST]  plat ajouté avec succès!");
+  //   console.log(plat);
+  // })
+  // .catch(err=> next(err));
+
 };
+
+

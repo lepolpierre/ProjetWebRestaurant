@@ -9,11 +9,8 @@
         </ul>
         <ul>
             <li><a href="">Panier</a></li>
-            <li> <a href="<%= locals.user!= undefined 
-                ? `/auth/login/disconnect/${locals.user._id}` 
-                : "/auth/login" %>"
-                >
-                    <%= locals.user !=undefined ? "Deconnexion" : "Connexion" %>
+            <li> <a href="/auth/login">
+                    <%= locals.user !=undefined ? locals.user.username : "Connexion" %>
                 </a>
             </li>
         </ul>
