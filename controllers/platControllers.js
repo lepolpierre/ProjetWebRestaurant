@@ -1,7 +1,14 @@
 "use strict";
 
+
+
+
 const Plat = require('../models/menu');
 const resultsPerPage = 9;
+
+
+
+
 
 const loadPLat = () => {
   let noms = ["poulet", "riz", "pattes", "rizoto", "bolognaise", "couscous", "burger", "pizza", "naan", "poutine", "banane"];
@@ -115,13 +122,15 @@ exports.addPlatAdmin = (req,res,next)=>{
 exports.addPlat = (req,res,next)=>{
   // console.log(req.body);
 
-  const {name, desc, prix, vege, categorie} = req.body;
+  // const {name, desc, prix, vege, categorie} = req.body;
 
-  if (!name || !desc || !prix || !vege || !categorie ){
-    next(new Error("Formulaire invalide, champs manquants!"));
-  }
+  // if (!name || !desc || !prix  || !categorie ){
+  //   next(new Error("Formulaire invalide, champs manquants!"));
+  // }
 
+  console.log("=========");
   console.log(req.body);
+  console.log(req.file);
 
   // ajout de plat dans BD
   // new Plat({

@@ -18,7 +18,7 @@
 
         <p class="error"><%= locals.error %> </p>
 
-        <form method="POST" action="/menu/plat/add" @submit.prevent="submitForm">
+        <form method="POST" action="/menu/plat/add" @submit.prevent="submitForm" enctype="multipart/form-data">
 
             <div>
                 <label for="name">Nom: <sup class="etoile">*</sup> </label>
@@ -29,8 +29,8 @@
 
             <div>
                 <label for="desc">Description <sup class="etoile">*</sup> : </label>
-                <textarea v-model="desc" @blur="verifDesc" 
-                id="desc" name="desc" rows="4" cols="50" placeholder="Décrire votre plat.."></textarea>
+                <textarea v-model="desc" @blur="verifDesc" ref="descField"
+                id="desc" name="desc" rows="3" cols="30" placeholder="Décrire votre plat.."></textarea>
                 <span class="err-span">{{descErr}}</span>
             </div>
             
@@ -38,7 +38,6 @@
                 <label for="image">Image <sup class="etoile">*</sup>:</label>
                 <input @change="onChangeFile"
                 type="file" name="image" id="image" accept="image/png, image/jpeg" required>
-                <span class="err-span">{{fileErr}}</span>
             </div>
 
             <div>
@@ -48,7 +47,7 @@
             
             <div>
                 <label for="prix">Prix <sup class="etoile">*</sup>:</label>
-                <input v-model="prix" @blur="verifPrix"
+                <input v-model="prix" @blur="verifPrix" ref="prixField"
                 type="number" min="1" name="prix" id="prix" placeholder="Ca coute en CAD ? ..." >
                 <span class="err-span">{{prixErr}}</span>
             </div>

@@ -17,18 +17,27 @@ var app = new Vue({
         cats : [ "dessert", "entree" , "plat"],
 
         file: null,
-        fileErr: '',
-        
-        // Permet de déterminer s'il s'agit d'une première viste sur la page ou pas (Deja cliqué sur Submit).
-        isFirstSubmit: true
+
 
     },
     watch:{
         nom(newVal,oldVal){
             if(newVal.length >= 5){
                 this.$refs.nomField.classList.remove("err");
-                console.log(this.$refs.nomField.classList);
                 this.nomErr="";
+
+            }
+        },
+        desc(newVal,oldVal){
+            if(newVal.length >= 10){
+                this.$refs.descField.classList.remove("err");
+                this.descErr="";
+            }
+        },
+        prix(newVal, oldVal){
+            if(parseInt(newVal)> 0){
+                this.$refs.prixField.classList.remove("err");
+                this.prixErr = "";
             }
         }
     },
@@ -37,29 +46,27 @@ var app = new Vue({
             let msg = "Le nom du plat doit contenir 5 caractères au moins!";
             this.nomErr = this.nom.length < 5 ? msg : "";
 
-            event.target.classList.add("err");
+            if(this.nom.length < 5 ) this.$refs.nomField.classList.add("err");
             // console.log(event.target.classList);
         },
         verifDesc(event){
             let msg = "La description du plat doit contenir 10 caractères au moins!";
             this.descErr = this.desc.length < 10 ? msg : "";
 
-            event.target.classList.add("err");
+            if(this.desc.length < 10 )this.$refs.descField.classList.add("err");
 
         },
         verifPrix(event){
-            this.prix = parseInt(event.target.value);
+            let field = this.$refs.prixField;
+            this.prix = parseInt(field.value);
 
             let msg = "Le prix du plat doit être supérieur à la valeur 0";
             this.prixErr = this.prix <= 0 ? msg : "";
 
-            event.target.classList.add("err");
+            if(prix<=0)field.classList.add("err");
 
         },
         submitForm(){
-            // console.log(process.env.HOST);
-            this.isFirstSubmit = false;
-
             // Ajout de plat si champs valide.
             if(this.formValide()) this.appelApi();
             else console.error("Formulaire non valide!");
@@ -67,34 +74,46 @@ var app = new Vue({
         },
 
         formValide(){
+            this.verifNom();
+            this.verifDesc();
+            this.verifPrix();
 
-            return this.nom.length > 3 && this.desc.length > 10 & this.prix > 0 
-            && this.cats.includes(this.cat) && this.file != null;
+            // return this.nom.length > 3 && this.desc.length > 10 & this.prix > 0 
+            // && this.cats.includes(this.cat) && this.file != null;
 
-            // return false;
+            return true;
         },
 
         appelApi(){
             // [POST ajout de plat]
-            fetch("/menu/plat/add", {
-                method : "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name : this.nom,
-                    desc : this.desc, 
-                    prix : this.prix, 
-                    vege : this.vege, 
-                    categorie: this.cat,
-                    file: this.file
-                })
+            const plat = {
+                name : this.nom,
+                desc : this.desc, 
+                prix : this.prix, 
+                vege : this.vege, 
+                categorie: this.cat,
+            };
+            formData.append('plat', plat);
+
+
+
+            // Objet contenant l'image.
+            const formData = new FormData();
+            formData.append('file', this.file);
+
+            const options = {
+                method: 'POST',
+                body: formData,
+        
+            };
+
+            // delete options.headers['Content-Type'];
             
-            })
+            fetch("/menu/plat/add", options)
             .then(()=>{
                 console.log("[ Form Submit ]");
                 // Redirect vers la page affichant le menu.
-                // window.location.href = '/menu';
+                window.location.href = '/menu';
             })
             .catch(err=>{
                 console.error(err);
@@ -105,6 +124,7 @@ var app = new Vue({
 
         onChangeFile(event){
             this.file= event.target.files[0];
+            console.log(this.file);
         }
     }
 
