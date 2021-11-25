@@ -86,6 +86,7 @@ var app = new Vue({
 
         appelApi(){
             // [POST ajout de plat]
+
             const plat = {
                 name : this.nom,
                 desc : this.desc, 
@@ -93,14 +94,12 @@ var app = new Vue({
                 vege : this.vege, 
                 categorie: this.cat,
             };
-            formData.append('plat', plat);
-
-
-
+            
             // Objet contenant l'image.
             const formData = new FormData();
             formData.append('file', this.file);
-
+            formData.append('plat', JSON.stringify(plat));
+            
             const options = {
                 method: 'POST',
                 body: formData,
@@ -113,7 +112,7 @@ var app = new Vue({
             .then(()=>{
                 console.log("[ Form Submit ]");
                 // Redirect vers la page affichant le menu.
-                window.location.href = '/menu';
+                // window.location.href = '/menu';
             })
             .catch(err=>{
                 console.error(err);

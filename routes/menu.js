@@ -1,6 +1,8 @@
 "use strict";
 
 const express = require("express");
+
+// Permet la récupération des champs et fichiers du formulaire
 const multer  = require('multer');
 // multer({ dest: './public/images' });
 const fileStorageEngine = multer.diskStorage({
@@ -28,8 +30,17 @@ router.get('/', isConnected, platControllers.getMenu2);
 router.get('/json', platControllers.getJson);
 
 
-router.get('/plat/add', isAuth, platControllers.addPlatAdmin);                  // Affiche from ajout de plat
-router.post('/plat/add', upload.single('file'),platControllers.addPlat);               // Ajout de plat
+
+router.get('/plat/add', isAuth, platControllers.addPlatAdmin);  // Affiche from ajout de plat
+ // Ajout de plat                 
+router.post('/plat/add',
+    upload.fields(
+        [
+            { name: 'file', maxCount: 1 }, 
+            { name: 'plat', maxCount: 1 }
+        ]
+    ),
+    platControllers.addPlat);              
 
 
 router.get('/plat/:platId', isConnected, platControllers.getPlat);   // Affichage d'un plat.

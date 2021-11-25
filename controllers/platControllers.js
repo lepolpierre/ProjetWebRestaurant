@@ -129,8 +129,12 @@ exports.addPlat = (req,res,next)=>{
   // }
 
   console.log("=========");
-  console.log(req.body);
-  console.log(req.file);
+  // ici contient rien :/
+  console.log(JSON.parse(req.body.plat));
+  console.log(req.files.file[0]);
+
+  // ici contient l'image
+  // console.log(req.file);
 
   // ajout de plat dans BD
   // new Plat({
