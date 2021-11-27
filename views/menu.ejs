@@ -125,8 +125,8 @@
 
         data: {
           menu: JSON.parse('<%-menu%>'),
-          localU: '<%- locals.user.level %>',
           fontSize: '30px',
+          localUser: JSON.parse('<%- locals.user %>'),
           entrerChk: false,
           platChk: false,
           dessertChk: false,
@@ -141,8 +141,8 @@
             return repas.name
           },
           localUser: function () {
-            if(this.localU != undefined)
-            return this.localU
+            console.log("Hello world!"); 
+            console.log("console log",localUser)
           }
         },
 
