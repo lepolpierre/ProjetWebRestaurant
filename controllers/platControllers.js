@@ -63,6 +63,7 @@ exports.getMenu = (req, res, next) => {
         res.render('menu', {
           user: req.user,
           menu: JSON.stringify(menu),
+          utilisateur : JSON.stringify(req.user)
         });
       })
     });

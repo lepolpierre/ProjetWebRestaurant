@@ -104,7 +104,7 @@
               </button>
               </a>
 
-              <div v-if="lc ==1 ">
+              <div v-show="localUserLevel ">
                 <button>Modifier</button>
                 <button>Supprimer</button>
               </div>
@@ -125,7 +125,7 @@
 
         data: {
           menu: JSON.parse('<%-menu%>'),
-          localU: '<%- locals.user.level %>',
+          localUserLevel: '<%- locals.utilisateur %>' !== undefined ?  JSON.parse('<%- locals.utilisateur %>').level : false,
           fontSize: '30px',
           entrerChk: false,
           platChk: false,
@@ -183,7 +183,7 @@
 
             return menuFiltred
           },
-        }
+        },
       })
     </script>
 
