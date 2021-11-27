@@ -2,36 +2,9 @@
 
 const Plat = require('../models/menu');
 const User = require('../models/user');
-const resultsPerPage = 9;
 
 
-
-const loadPLat = () => {
-  let noms = ["poulet", "riz", "pattes", "rizoto", "bolognaise", "couscous", "burger", "pizza", "naan", "poutine", "banane"];
-  let description = ["poulet rotit", "riz rond", "spagetti", "rizoto cervette", "pattes sauce bolognaise",
-    "couscous traditionelle", "burger classic", "pizza toute garnie", "naan au fromage", "poutine classic", "banane plantin"
-  ];
-  let categorie = ["plat", "plat", "plat", "plat", "plat", "plat", "plat", "plat", "entrer", "plat", "dessert"];
-  let vege = [false, true, true, false, false, false, false, false, true, true, true];
-  let prix = [10.00, 9.00, 14.00, 12.00, 15.00, 11.00, 10.00, 9.00, 10.00, 10.00, 10.00];
-
-
-  for (let i = 0; i < 11; i++) {
-    let plat = new Plat({
-      name: noms[i],
-      description: description[i],
-      categorie: categorie[i],
-      vege: vege[i],
-      prix: prix[i]
-    });
-    plat.save();
-  }
-};
-
-
-
-//-------------------------------------------------------------------------------------------
-//                       RECUPERER UN ARTICLE PAR L'ID
+//   recuperation d'un plat par l'id
 exports.getPlat = (req, res, next) => {
   Plat.findById(req.params.platId)
     .then(plat => {
@@ -50,10 +23,7 @@ exports.getPlat = (req, res, next) => {
 };
 
 
-//-------------------------------------------------------------------------------------------
-//                                     MENU COMPLET
-
-
+// menu complet
 exports.getMenu = (req, res, next) => {
   //loadPLat();
   Plat.find({categorie: req.param.categorie})
@@ -63,16 +33,14 @@ exports.getMenu = (req, res, next) => {
         res.render('menu', {
           user: req.user,
           menu: JSON.stringify(menu),
+          utilisateur : JSON.stringify(req.user)
         });
       })
     });
 };
 
 
-//-------------------------------------------------------------------------------------------
-//                                     GET JSON
-
-
+// menu json pour verification payement
 exports.getJson = (req, res, next) => {
 
   Plat.find()
@@ -89,7 +57,6 @@ exports.getJson = (req, res, next) => {
 
   // ==============================================[ Ajout de plat par l'admin ]==================
 
-  
 /**
  * Permet l'ajout d'un plat par l'utilisateur.
  * @param {Objet} req 
@@ -133,6 +100,7 @@ exports.addPlat = (req,res,next)=>{
     description: desc,
     image: file.filename
   }).save((err,plat) =>{
+    // attrappe erreur
     if(err)next(err);
 
     console.log("[/menu/plat/add  POST]  plat ajouté avec succès!");

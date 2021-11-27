@@ -53,7 +53,7 @@
 
               <!-- MENU COMPLET -->
 
-              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUser"></div_plat>
+              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUserLevel"></div_plat>
 
             </div>
             <%- include('includes/end.ejs') %>
@@ -104,7 +104,7 @@
               </button>
               </a>
 
-              <div v-if="lc ==1 ">
+              <div v-if="lc == '1'">
                 <button>Modifier</button>
                 <button>Supprimer</button>
               </div>
@@ -125,8 +125,8 @@
 
         data: {
           menu: JSON.parse('<%-menu%>'),
+          localUserLevel: '<%- locals.utilisateur %>' !== '' ?  JSON.parse('<%- locals.utilisateur %>').level : false,
           fontSize: '30px',
-          localUser: JSON.parse('<%- locals.user %>'),
           entrerChk: false,
           platChk: false,
           dessertChk: false,
@@ -140,10 +140,7 @@
           getName: function (repas) {
             return repas.name
           },
-          localUser: function () {
-            console.log("Hello world!"); 
-            console.log("console log",localUser)
-          }
+
         },
 
         methods: {
@@ -183,7 +180,7 @@
 
             return menuFiltred
           },
-        }
+        },
       })
     </script>
 
