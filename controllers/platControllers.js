@@ -132,6 +132,7 @@ exports.addPlat = (req,res,next)=>{
     description: desc,
     image: file.filename
   }).save((err,plat) =>{
+    // attrappe erreur
     if(err)next(err);
 
     console.log("[/menu/plat/add  POST]  plat ajouté avec succès!");
