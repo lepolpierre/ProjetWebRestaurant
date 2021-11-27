@@ -77,13 +77,13 @@ exports.getJson = (req, res, next) => {
 
   Plat.find()
     .then(menu => {
-      res.render('menu', {
+      res.render('menu/menujson', {
         user: req.user,
         menu: JSON.stringify(menu),
       });
     })
 
-  }
+}
   
   
 

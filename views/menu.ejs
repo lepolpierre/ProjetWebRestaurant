@@ -50,9 +50,10 @@
 
 
 
+
               <!-- MENU COMPLET -->
 
-              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)"></div_plat>
+              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUser"></div_plat>
 
             </div>
             <%- include('includes/end.ejs') %>
@@ -67,7 +68,7 @@
 
     <script>
       Vue.component("div_plat", {
-        props: ["menu_componant"],
+        props: ["menu_componant","lc"],
         template: `        
       <div class="sousMenu">
           <div id="plat" v-for="repas in menu_componant">
@@ -103,16 +104,15 @@
               </button>
               </a>
 
-
+              <div v-if="lc ==1 ">
+                <button>Modifier</button>
+                <button>Supprimer</button>
+              </div>
            
             <div  id="image">
               <img :src="'./public/images/'+repas.image">
             </div>
 
-            <div v-if="localUser != undefined ">
-              <button>Modifier</button>
-              <button>Supprimer</button>
-            </div>
 
           </div>
           
@@ -125,7 +125,7 @@
 
         data: {
           menu: JSON.parse('<%-menu%>'),
-          localUser: '<%= locals.user %>',
+          localU: '<%- locals.user.level %>',
           fontSize: '30px',
           entrerChk: false,
           platChk: false,
@@ -139,6 +139,10 @@
           },
           getName: function (repas) {
             return repas.name
+          },
+          localUser: function () {
+            if(this.localU != undefined)
+            return this.localU
           }
         },
 
