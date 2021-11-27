@@ -22,6 +22,8 @@ app.use('/public',express.static(path.join(__dirname, 'public'))); // static fil
 // Routes 
 const adminRoutes = require('./routes/auth');
 const menuRoutes = require('./routes/menu');
+const newPageRoutes = require('./routes/newPage');
+
 
 
 // Header
@@ -39,6 +41,8 @@ app.use((req, res, next) => {
 
 app.use('/auth', adminRoutes);
 app.use('/menu', menuRoutes);
+app.use('/newPage', newPageRoutes);
+
 
 
 

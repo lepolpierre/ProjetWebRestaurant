@@ -30,7 +30,6 @@ const platsSchema = new Schema(
     image :{
       type: String,
       required: true,
-
     }
 
   }

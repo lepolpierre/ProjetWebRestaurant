@@ -1,0 +1,190 @@
+<%- include ('includes/head.ejs') %>
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" type="text/css" href="/public/css/menu.css">
+
+
+  </head>
+
+  <body>
+
+
+    <body>
+      <%- include('includes/header.ejs') %>
+        <h1>Menu</h1>
+
+        <% if (locals.user !==undefined && locals.user.level===1) { %>
+          <a class="btn-primary float-start m-3 p-2" href="/menu/plat/add">Ajout d'un plat</a>
+          <% } %>
+
+            <div id="app">
+
+              <!-- CHOIX MENU CHKBOX -->
+              <div id="choixMenu">
+
+                <!-- CHECKBOX ENTRER -->
+                <div id="choixMenu2">
+                  <div class="chkBox">
+                    <div><label for="entrerChk"> entrer</label></div>
+                    <div><input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk"></div>
+                  </div>
+
+                  <!-- CHECKBOX PLAT -->
+                  <div class="chkBox">
+                    <div><label for="platChk"> plat</label></div>
+                    <div><input type="checkbox" id="platChkBox" value="platChk" v-model="platChk"></div>
+                  </div>
+
+                  <!-- CHECKBOX DESSERT -->
+                  <div class="chkBox">
+                    <div><label for="dessertChk"> dessert</label></div>
+                    <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk"></div>
+                  </div>
+
+                  <!-- CHECKBOX VEGE -->
+                  <div class="chkBox">
+                    <div><label for="vegeChk"> vege</label></div>
+                    <div><input type="checkbox" id="vege" value="vegeChk" v-model="vegeChk"></div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+              <!-- MENU COMPLET -->
+
+              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUser"></div_plat>
+
+            </div>
+            <%- include('includes/end.ejs') %>
+              <script async src="https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.js"></script>
+              <div hidden id="snipcart"
+                data-api-key="OTNmMzRjMmMtYzFiOC00MDBkLWFiOGItNzYyOTA3NjQ1MjJlNjM3NzMwMzE2MDI2MzY0NDk3"
+                data-config-modal-style="side">
+              </div>
+    </body>
+
+    <!--  ---------------VUE JS --------------- -->
+
+    <script>
+      Vue.component("div_plat", {
+        props: ["menu_componant","lc"],
+        template: `        
+      <div class="sousMenu">
+          <div id="plat" v-for="repas in menu_componant">
+            
+              <a v-bind:href="'/menu/'+repas._id">
+                <div id="repas.name">
+                  {{repas.name}}
+                </div>
+
+                <div>
+                  description : {{repas.description}}
+                </div>
+
+                <div>
+                  categorie : {{repas.categorie}}
+                </div>
+
+                <div>
+                  prix : {{repas.prix}} $
+                </div>
+
+                <div>
+                  repas vege : {{repas.vege}}
+                </div>
+                <button 
+                class="snipcart-add-item" 
+                v-bind:data-item-id="repas._id" 
+                v-bind:data-item-price="repas.prix"
+                v-bind:data-item-description="repas.description" 
+                data-item-url="http://dcc3-74-58-22-67.ngrok.io/menu/json"
+                v-bind:data-item-name="repas.name">
+                Ajouter au panier
+              </button>
+              </a>
+
+              <div v-if="lc ==1 ">
+                <button>Modifier</button>
+                <button>Supprimer</button>
+              </div>
+           
+            <div  id="image">
+              <img :src="'./public/images/'+repas.image">
+            </div>
+
+
+          </div>
+          
+        </div>`
+      })
+
+
+      var app = new Vue({
+        el: '#app',
+
+        data: {
+          menu: JSON.parse('<%-menu%>'),
+          localU: '<%- locals.user.level %>',
+          fontSize: '30px',
+          entrerChk: false,
+          platChk: false,
+          dessertChk: false,
+          vegeChk: false,
+        },
+
+        computed: {
+          menuFiltredVege: function () {
+            return this.menu.filter(plat => plat.vege == true)
+          },
+          getName: function (repas) {
+            return repas.name
+          },
+          localUser: function () {
+            if(this.localU != undefined)
+            return this.localU
+          }
+        },
+
+        methods: {
+          cl: function (cl) {
+            console.log("console log : ", cl);
+          },
+          menuFiltred: function (entrerChk, platChk, dessertChk, vege) {
+            menuFiltred = []
+            if (vege) {
+              if (entrerChk) {
+                menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entrer"))
+              }
+              if (platChk) {
+                menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "plat"))
+              }
+              if (dessertChk) {
+                menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "dessert"))
+              }
+            }
+            if (!vege) {
+              if (entrerChk) {
+                menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entrer"))
+              }
+              if (platChk) {
+                menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "plat"))
+              }
+              if (dessertChk) {
+                menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "dessert"))
+              }
+            }
+            if (!vege && !entrerChk && !platChk && !dessertChk) {
+              menuFiltred = this.menu
+            }
+            if (vege && !entrerChk && !platChk && !dessertChk) {
+              menuFiltred = this.menuFiltredVege
+            }
+
+            return menuFiltred
+          },
+        }
+      })
+    </script>
+
+    </html>

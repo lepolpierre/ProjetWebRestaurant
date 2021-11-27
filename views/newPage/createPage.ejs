@@ -1,0 +1,24 @@
+<%- include ('../includes/head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/public/css/plat.css">
+
+</head>
+
+<body>
+  <%- include('../includes/header.ejs') %>
+  <main>
+    <h1>Creation nouvelle page</h1>
+    <!-- Text area matching the selector specified in the TinyMCE configuration -->
+    <textarea id="my-expressjs-tinymce-app">Hello, World!</textarea>
+  </main>
+
+  <%- include('../includes/end.ejs') %>
+  <script async src="https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.js"></script>
+  <div hidden id="snipcart" data-api-key="OTNmMzRjMmMtYzFiOC00MDBkLWFiOGItNzYyOTA3NjQ1MjJlNjM3NzMwMzE2MDI2MzY0NDk3" data-config-modal-style="side"></div>
+
+</body>
+  <!-- Script element sourcing TinyMCE -->
+  <script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+  <!-- Script element sourcing the TinyMCE configuration -->
+  <script type="application/javascript" src= "/js/my-tinymce-config.js"></script>
+
+</html>

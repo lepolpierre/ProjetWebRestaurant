@@ -1,6 +1,7 @@
 "use strict";
 
 const Plat = require('../models/menu');
+const User = require('../models/user');
 const resultsPerPage = 9;
 
 
@@ -53,13 +54,13 @@ exports.getPlat = (req, res, next) => {
 //                                     MENU COMPLET
 
 
-exports.getMenu2 = (req, res, next) => {
+exports.getMenu = (req, res, next) => {
   //loadPLat();
   Plat.find({categorie: req.param.categorie})
     .then(menu => {
       Plat.find()
       .then(menu => {
-        res.render('menu2', {
+        res.render('menu', {
           user: req.user,
           menu: JSON.stringify(menu),
         });
@@ -76,13 +77,13 @@ exports.getJson = (req, res, next) => {
 
   Plat.find()
     .then(menu => {
-      res.render('menu2', {
+      res.render('menu/menujson', {
         user: req.user,
         menu: JSON.stringify(menu),
       });
     })
 
-  }
+}
   
   
 
