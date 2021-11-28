@@ -53,7 +53,7 @@
 
               <!-- MENU COMPLET -->
 
-              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUser"></div_plat>
+              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="lc"></div_plat>
 
             </div>
             <%- include('includes/end.ejs') %>
@@ -125,7 +125,7 @@
 
         data: {
           menu: JSON.parse('<%-menu%>'),
-          localU: '<%- locals.user.level %>',
+          //localU: localUser,
           fontSize: '30px',
           entrerChk: false,
           platChk: false,
@@ -140,9 +140,9 @@
           getName: function (repas) {
             return repas.name
           },
-          localUser: function () {
-            if(this.localU != undefined)
-            return this.localU
+          lc: function () {
+            if('<%- locals.user %>' == undefined){return '2'}
+            return '<%- locals.user.level %>'
           }
         },
 
