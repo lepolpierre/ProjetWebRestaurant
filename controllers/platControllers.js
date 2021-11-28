@@ -33,6 +33,7 @@ exports.getMenu = (req, res, next) => {
         res.render('menu', {
           user: req.user,
           menu: JSON.stringify(menu),
+          utilisateur : JSON.stringify(req.user)
         });
       })
     });
@@ -99,6 +100,7 @@ exports.addPlat = (req,res,next)=>{
     description: desc,
     image: file.filename
   }).save((err,plat) =>{
+    // attrappe erreur
     if(err)next(err);
 
     console.log("[/menu/plat/add  POST]  plat ajouté avec succès!");

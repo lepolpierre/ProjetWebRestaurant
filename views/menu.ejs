@@ -24,7 +24,7 @@
                 <!-- CHECKBOX ENTRER -->
                 <div id="choixMenu2">
                   <div class="chkBox">
-                    <div><label for="entrerChk"> entrer</label></div>
+                    <div><label for="entrerChk" > entrer</label></div>
                     <div><input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk"></div>
                   </div>
 
@@ -53,7 +53,7 @@
 
               <!-- MENU COMPLET -->
 
-              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="lc"></div_plat>
+              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUserLevel"></div_plat>
 
             </div>
             <%- include('includes/end.ejs') %>
@@ -104,7 +104,7 @@
               </button>
               </a>
 
-              <div v-if="lc ==1 ">
+              <div v-if="lc == '1'">
                 <button>Modifier</button>
                 <button>Supprimer</button>
               </div>
@@ -113,9 +113,7 @@
               <img :src="'./public/images/'+repas.image">
             </div>
 
-
           </div>
-          
         </div>`
       })
 
@@ -125,7 +123,7 @@
 
         data: {
           menu: JSON.parse('<%-menu%>'),
-          //localU: localUser,
+          localUserLevel: '<%- locals.utilisateur %>' !== '' ?  JSON.parse('<%- locals.utilisateur %>').level : false,
           fontSize: '30px',
           entrerChk: false,
           platChk: false,
@@ -133,28 +131,30 @@
           vegeChk: false,
         },
 
+        
+        // watch:{
+        //   dessert(){
+        //     this.menuFiltred = this.menuFiltred.filter(plat=>plat.categorie == "dessert");
+        //   }
+        // },
+
+
         computed: {
           menuFiltredVege: function () {
             return this.menu.filter(plat => plat.vege == true)
           },
           getName: function (repas) {
             return repas.name
-          },
-          lc: function () {
-            if('<%- locals.user %>' == undefined){return '2'}
-            return '<%- locals.user.level %>'
           }
         },
 
         methods: {
-          cl: function (cl) {
-            console.log("console log : ", cl);
-          },
+
           menuFiltred: function (entrerChk, platChk, dessertChk, vege) {
-            menuFiltred = []
+            menuFiltred = [];
             if (vege) {
               if (entrerChk) {
-                menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entrer"))
+                menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entree"))
               }
               if (platChk) {
                 menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "plat"))
@@ -165,7 +165,7 @@
             }
             if (!vege) {
               if (entrerChk) {
-                menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entrer"))
+                menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entree"))
               }
               if (platChk) {
                 menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "plat"))
@@ -183,7 +183,7 @@
 
             return menuFiltred
           },
-        }
+        },
       })
     </script>
 

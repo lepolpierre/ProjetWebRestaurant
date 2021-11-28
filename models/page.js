@@ -9,7 +9,7 @@ const pagesSchema = new Schema(
     },
     contenu: {
       type: String,
-      required: false
+      required: true
     }
   }
 );
