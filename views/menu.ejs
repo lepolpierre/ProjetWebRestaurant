@@ -24,7 +24,7 @@
                 <!-- CHECKBOX ENTRER -->
                 <div id="choixMenu2">
                   <div class="chkBox">
-                    <div><label for="entrerChk"> entrer</label></div>
+                    <div><label for="entrerChk" > entrer</label></div>
                     <div><input type="checkbox" id="entrerChk" value="entrerChk" v-model="entrerChk"></div>
                   </div>
 
@@ -37,7 +37,7 @@
                   <!-- CHECKBOX DESSERT -->
                   <div class="chkBox">
                     <div><label for="dessertChk"> dessert</label></div>
-                    <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessert"></div>
+                    <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk"></div>
                   </div>
 
                   <!-- CHECKBOX VEGE -->
@@ -53,7 +53,7 @@
 
               <!-- MENU COMPLET -->
 
-              <div_plat v-show="" v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUserLevel"></div_plat>
+              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUserLevel"></div_plat>
 
             </div>
             <%- include('includes/end.ejs') %>
@@ -113,9 +113,7 @@
               <img :src="'./public/images/'+repas.image">
             </div>
 
-
           </div>
-          
         </div>`
       })
 
@@ -129,20 +127,16 @@
           fontSize: '30px',
           entrerChk: false,
           platChk: false,
-          dessert: false,
+          dessertChk: false,
           vegeChk: false,
         },
 
         
-
-
-        watch:{
-          dessert(){
-            this.menuFiltred = this.menuFiltred.filter(plat=>plat.categorie == "dessert");
-          }
-        },
-
-
+        // watch:{
+        //   dessert(){
+        //     this.menuFiltred = this.menuFiltred.filter(plat=>plat.categorie == "dessert");
+        //   }
+        // },
 
 
         computed: {
@@ -151,19 +145,16 @@
           },
           getName: function (repas) {
             return repas.name
-          },
-
+          }
         },
 
         methods: {
-          cl: function (cl) {
-            console.log("console log : ", cl);
-          },
+
           menuFiltred: function (entrerChk, platChk, dessertChk, vege) {
             menuFiltred = [];
             if (vege) {
               if (entrerChk) {
-                menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entrer"))
+                menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entree"))
               }
               if (platChk) {
                 menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "plat"))
@@ -174,7 +165,7 @@
             }
             if (!vege) {
               if (entrerChk) {
-                menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entrer"))
+                menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "entree"))
               }
               if (platChk) {
                 menuFiltred = menuFiltred.concat(this.menu.filter(plat => plat.categorie == "plat"))
