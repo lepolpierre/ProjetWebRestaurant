@@ -6,9 +6,9 @@
 <body>
   <%- include('includes/header.ejs') %>
   <main>
-
+    
     <div class="card">
-      <img src="../public/images/<%= plat.name%>" class="card-img-top" alt="...">
+       <img src="/public/images/<%=plat.image%>" >
       <div class="card-body">
         <h5 class="card-title">
           Nom : <%= plat.name %>
@@ -24,11 +24,11 @@
         </h5>
 
         <button class="snipcart-add-item" 
-          data-item-id=<%plat._id%>
+          data-item-id="<%=plat._id%>"
           data-item-price="99.00"
-          data-item-description=<%= plat.description %>
-          data-item-url="/menu/<%= plat._id %>"
-          data-item-name=<%= plat.name %>>
+          data-item-description='<%= plat.description %>'
+          data-item-url="/menu/'<%= plat._id %>'"
+          data-item-name='<%= plat.name %>'>
           Add to cart
         </button>
       </div>
