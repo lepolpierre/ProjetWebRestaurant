@@ -37,7 +37,7 @@
                   <!-- CHECKBOX DESSERT -->
                   <div class="chkBox">
                     <div><label for="dessertChk"> dessert</label></div>
-                    <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessertChk"></div>
+                    <div><input type="checkbox" id="dessert" value="dessertChk" v-model="dessert"></div>
                   </div>
 
                   <!-- CHECKBOX VEGE -->
@@ -53,7 +53,7 @@
 
               <!-- MENU COMPLET -->
 
-              <div_plat v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUserLevel"></div_plat>
+              <div_plat v-show="" v-bind:menu_componant="menuFiltred(entrerChk,platChk,dessertChk,vegeChk)" v-bind:lc="localUserLevel"></div_plat>
 
             </div>
             <%- include('includes/end.ejs') %>
@@ -129,9 +129,21 @@
           fontSize: '30px',
           entrerChk: false,
           platChk: false,
-          dessertChk: false,
+          dessert: false,
           vegeChk: false,
         },
+
+        
+
+
+        watch:{
+          dessert(){
+            this.menuFiltred = this.menuFiltred.filter(plat=>plat.categorie == "dessert");
+          }
+        },
+
+
+
 
         computed: {
           menuFiltredVege: function () {
@@ -148,7 +160,7 @@
             console.log("console log : ", cl);
           },
           menuFiltred: function (entrerChk, platChk, dessertChk, vege) {
-            menuFiltred = []
+            menuFiltred = [];
             if (vege) {
               if (entrerChk) {
                 menuFiltred = menuFiltred.concat(this.menuFiltredVege.filter(plat => plat.categorie == "entrer"))
