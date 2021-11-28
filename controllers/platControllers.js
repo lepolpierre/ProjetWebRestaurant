@@ -55,7 +55,10 @@ exports.getJson = (req, res, next) => {
   
   
 
-  // ==============================================[ Ajout de plat par l'admin ]==================
+// ==============================================[ Ajout de plat par l'admin ]===========================
+
+
+
 
 /**
  * Permet l'ajout d'un plat par l'utilisateur.
@@ -107,6 +110,20 @@ exports.addPlat = (req,res,next)=>{
     console.log(plat);
   })
   .catch(err=> next(err));
+
+};
+
+
+
+exports.updatePlat = (req,res, next)=>{
+
+  const {id, name, desc, prix, vege, categorie} = JSON.parse(req.body.plat);
+
+
+  // Plat.findByIdAndUpdate() {
+
+  // })
+
 
 };
 
