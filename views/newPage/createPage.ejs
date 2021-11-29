@@ -1,24 +1,55 @@
 <%- include ('../includes/head.ejs') %>
-<link rel="stylesheet" type="text/css" href="/public/css/plat.css">
 
-</head>
+  <link rel="stylesheet" href="/public/css/rte_theme_default.css" />
+  <script type="text/javascript" src="/public/js/rte.js"></script>
+  <script type="text/javascript" src='/public/js/all_plugins.js'></script>
 
-<body>
-  <%- include('../includes/header.ejs') %>
-  <main>
-    <h1>Creation nouvelle page</h1>
-    <!-- Text area matching the selector specified in the TinyMCE configuration -->
-    <textarea id="my-expressjs-tinymce-app">Hello, World!</textarea>
-  </main>
 
-  <%- include('../includes/end.ejs') %>
-  <script async src="https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.js"></script>
-  <div hidden id="snipcart" data-api-key="OTNmMzRjMmMtYzFiOC00MDBkLWFiOGItNzYyOTA3NjQ1MjJlNjM3NzMwMzE2MDI2MzY0NDk3" data-config-modal-style="side"></div>
 
-</body>
-  <!-- Script element sourcing TinyMCE -->
-  <script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
-  <!-- Script element sourcing the TinyMCE configuration -->
-  <script type="application/javascript" src= "/js/my-tinymce-config.js"></script>
+  </head>
 
-</html>
+  <body>
+    <%- include('../includes/header.ejs') %>
+
+      <main>
+        <label for="titre">Titre de la page :</label>
+        <input type="text" id="titre" name="titre" value="un titre">
+
+        <div id="div_editor1">
+          <p>Initial Document Content</p>
+        </div>
+
+        <button class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover px-5"
+          onclick="btngetHTMLCode();return false;">
+          Enregister
+        </button>
+      </main>
+
+      <%- include('../includes/end.ejs') %>
+
+  </body>
+
+  <script> var editor1 = new RichTextEditor("#div_editor1");</script>
+
+  <script>
+    async  function btngetHTMLCode() {
+      let titre = document.getElementById('titre').value
+      data = new URLSearchParams();
+      data.append("pageBody",editor1.getHTMLCode())
+      data.append("titre", titre)
+      try {
+        const response =   await fetch('/newPage/add', {
+          method: 'post',
+          body: 
+            data
+        
+        });
+        console.log('Completed!', response);
+      } catch (err) {
+        console.error(`Error: ${err}`);
+      }
+    }
+  </script>
+
+
+  </html>

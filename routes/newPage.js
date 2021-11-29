@@ -13,6 +13,7 @@ const {isAuth, isConnected} = require('../middlewares/auth');
 const router = express.Router();
 
 router.get('/create', isConnected, pageControllers.creatNewPage);
-router.get('/newPage/:title', isConnected, pageControllers.getNewpage);
+router.post('/add',pageControllers.addPage);
+//router.get('/newPage/:title', isConnected, pageControllers.getNewpage);
 
 module.exports = router;
