@@ -1,0 +1,35 @@
+form {
+  border: 1.5px solid #47536e;
+  border-radius: 25px;
+  transition: box-shadow 0.3s;
+  width: 60vw;
+  padding: 2%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+form:hover {
+  box-shadow: 1px 1px 10px 1px #47536e;
+}
+form div {
+  width: 80%;
+  margin: 1% auto;
+  display: flex;
+  align-items: center;
+}
+form .boutonSubmit {
+  background: linear-gradient(to right, #b3d5e6, #a3daf5);
+  margin-top: 5%;
+  padding: 1%;
+  border-radius: 15px;
+  color: #6868a5;
+  font-size: large;
+  align-self: flex-end;
+}
+form .boutonSubmit:hover {
+  background: linear-gradient(to right, #55ff00, #bef5a3);
+  color: #3d7419;
+}
+
+/*# sourceMappingURL=ajout-plat.css.map */

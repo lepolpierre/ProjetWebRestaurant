@@ -1,0 +1,48 @@
+
+form{
+    border: 1.5px solid rgb(71, 83, 110);
+    
+    &:hover{
+        box-shadow: 1px 1px 10px 1px rgb(71, 83, 110);
+    }
+
+    border-radius: 25px;
+    transition: box-shadow 0.3s;
+
+    width: 60vw;
+    padding: 2%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    div{
+        width: 80%;
+        margin: 1% auto;
+        // border: 1px solid black;
+        display: flex;
+        // justify-content: space-between;
+        align-items: center;
+
+        // :nth-child(1) {
+        //     margin-right: 5%;
+        // }
+    }
+
+    .boutonSubmit{
+        background: linear-gradient(to right, hsl(200, 50, 80), hsl(200, 80,80));
+        margin-top: 5%;
+        padding: 1%;
+        border-radius: 15px;
+        color: rgb(104, 104, 165);
+        font-size: large;
+        align-self: flex-end;
+
+        &:hover{
+            background: linear-gradient(to right, hsl(100, 100%, 50%), hsl(100, 80,80));
+            color: rgb(61, 116, 25);
+        }
+    }
+
+   
+}

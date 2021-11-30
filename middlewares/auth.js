@@ -30,6 +30,7 @@ exports.isAuth = (req,res,next)=>{
                 if(user.level === 1){
                     req.user = user;
                     // continuer si autorisé
+                    console.log(req.user);
                     next();
                     return;
                 }

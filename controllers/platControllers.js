@@ -114,16 +114,80 @@ exports.addPlat = (req,res,next)=>{
 };
 
 
+/**
+ * Permet d'afficher la page modification de chaque repas.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.platModification = (req,res,next)=>{
+  const {platId} = req.params;
+  
+  Plat.findById(platId)
+  .then(plat=>{
+    if(!plat){
+      const err = new Error("Plat non trouvé !");
+      err.statusCode = 404;
+      err.code = "ID_INTROUVABLE";
+      throw err;
+    }
 
+    // Envoyer à la page de modification.
+    res.status(200).render('auth/modifier-plat', {
+      pageTitle : `${plat.name}`,
+      user: req.user,
+      plat : JSON.stringify(plat)
+    });
+  })
+  .catch(err=>next(err));
+  
+};
+
+
+
+/**
+ * Permet d'appliquer les modifications sur le plat dans la BD. 
+ * @param {object} res 
+ * @param {object} req 
+ * @param {function} next 
+ */
 exports.updatePlat = (req,res, next)=>{
+   // L'objet plat est parsé en JSON 
+  //  console.log(JSON.parse(req.body.plat));
+   const {id, name, desc, prix, vege, categorie} = JSON.parse(req.body.plat);
+  //  console.log(req.files.file[0]);z
+   const file = req.files.file[0];
+ 
+   if (!name || !desc || !prix  || !categorie || !file){
+     next(new Error("Formulaire invalide, champs manquants!"));
+   }
+ 
 
-  const {id, name, desc, prix, vege, categorie} = JSON.parse(req.body.plat);
+  Plat.findByIdAndUpdate(id, {
+    name,vege,prix,categorie,
+    description: desc,
+    image: file.filename
+  }).then(a=>{
+    console.log(a);
+  });
 
 
-  // Plat.findByIdAndUpdate() {
+};
 
-  // })
 
+/**
+ * Permet de supprimer un plat par l'admin.
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
+ */
+exports.supprimerPlat = (req,res,next)=>{
+  const {platId} = req.params;
+  
+  Plat.findByIdAndRemove(platId)
+  .then(plat=>{
+    console.log({plat});
+  }).catch(err=>next(err));
 
 };
 

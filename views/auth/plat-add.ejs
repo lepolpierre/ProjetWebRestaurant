@@ -1,5 +1,8 @@
 <%- include("../includes/head.ejs")  %> 
 
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/public/css/ajout-plat/ajout-plat.css">
+
 <!-- CDN Vue.js -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
@@ -22,14 +25,14 @@
 
             <div>
                 <label for="name">Nom: <sup class="etoile">*</sup> </label>
-                <input v-model="nom" @blur="verifNom" ref="nomField"
+                <input class="input" v-model="nom" @blur="verifNom" ref="nomField"
                 type="text" name="name" id="name" placeholder="Nommer votre plat..">
                 <span class="err-span">{{nomErr}}</span>
             </div>
 
             <div>
                 <label for="desc">Description <sup class="etoile">*</sup> : </label>
-                <textarea v-model="desc" @blur="verifDesc" ref="descField"
+                <textarea class="input" v-model="desc" @blur="verifDesc" ref="descField"
                 id="desc" name="desc" rows="3" cols="30" placeholder="Décrire votre plat.."></textarea>
                 <span class="err-span">{{descErr}}</span>
             </div>
@@ -47,21 +50,21 @@
             
             <div>
                 <label for="prix">Prix <sup class="etoile">*</sup>:</label>
-                <input v-model="prix" @blur="verifPrix" ref="prixField"
+                <input class="input" v-model="prix" @blur="verifPrix" ref="prixField"
                 type="number" min="1" name="prix" id="prix" placeholder="Ca coute en CAD ? ..." >
                 <span class="err-span">{{prixErr}}</span>
             </div>
             
             <div>
                 <label for="categorie">Catégorie <sup class="etoile">*</sup>: </label>
-                <select id="catergorie" name="categorie" v-model="cat" required>
+                <select id="categorie" name="categorie" v-model="cat" required>
                     <option value="dessert">Dessert</option>
                     <option value="entree">Entrée</option>
                     <option value="plat">Plat principal</option>
                 </select>
             </div>
 
-            <button class="btn-secondary" type="submit">Ajouter</button>
+            <button class="boutonSubmit" type="submit">Ajouter</button>
         </form>
 
 

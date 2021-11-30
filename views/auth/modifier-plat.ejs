@@ -1,0 +1,234 @@
+<%- include("../includes/head.ejs")  %> 
+
+<script src="https://unpkg.com/vue"></script>
+
+<link rel="stylesheet" href="/public/css/ajout-plat/ajout-plat.css">
+</head>
+
+<body>
+    <%- include("../includes/header.ejs")  %> 
+
+    <main id="modifier-form">
+
+        <h3 class="titre">Modification de plat</h3>
+
+        <form method="POST" action="/menu/modifier" @submit.prevent="onSubmit" enctype="multipart/form-data">
+            <input type="hidden" v-model.trim="id" >
+            <div>
+                <label for="name">Nom: <sup class="etoile">*</sup> </label>
+                <input  v-model.trim="nom" @blur="verifNom" ref="nomField"
+                type="text" name="name" id="name" placeholder="Nommer votre plat..">
+                <span class="err-span">{{nomErr}}</span>
+            </div>
+
+            <div>
+                <label for="desc">Description <sup class="etoile">*</sup> : </label>
+                <textarea v-model="desc" @blur="verifDesc" ref="descField"
+                id="desc" name="desc" rows="3" cols="30" placeholder="Décrire votre plat.."><%= locals.plat.description %></textarea>
+                <span class="err-span">{{descErr}}</span>
+            </div>
+            
+            <div>
+                <label for="image">Image <sup class="etoile">*</sup>:</label>
+                <img class="img" :src="image" alt="">
+                <input  @change="selectImage"
+                type="file" name="image" id="image" accept="image/png, image/jpeg">
+            </div>
+
+            <div>
+                <label for="vege">Végetarien ?</label>
+                <input type="checkbox" name="vege" id="vege" :checked="vege">
+            </div>
+            
+            <div>
+                <label for="prix">Prix <sup class="etoile">*</sup>:</label>
+                <input v-model.number="prix" @blur="verifPrix"  ref="prixField"
+                type="number" min="1" name="prix" id="prix" placeholder="Ca coute en CAD ? ..." >
+                <span class="err-span">{{prixErr}}</span>
+            </div>
+            
+            <div>
+                <label for="categorie">Catégorie <sup class="etoile">*</sup>: </label>
+                <select id="categorie" name="categorie" required>
+                    <option value="dessert">Dessert</option>
+                    <option value="entree">Entrée</option>
+                    <option value="plat">Plat principal</option>
+                </select>
+            </div>
+
+            <button class="boutonSubmit" type="submit">Modifier</button>
+        </form>
+    </main>
+
+    <%- include("../includes/end.ejs")  %> 
+
+
+</body>
+
+
+<script>
+"use strict";
+
+    
+const app = new Vue({
+    el : '#modifier-form',
+    data : {
+       platJSON : '<%- locals.plat %>',
+       id:'',
+
+       nom: '',
+       nomErr: "",
+
+       desc: '',
+       descErr:'',
+
+       prix: 0,
+       prixErr : '',
+
+       vege : false,
+       cat : '',
+       cats : [ "dessert", "entree" , "plat"],
+       image: '',
+       file: null
+
+
+    },
+    computed:{
+        plat(){
+            return JSON.parse(this.platJSON);
+        }
+    },
+    watch :{
+        nom(newVal){
+            if(newVal.length>=5){
+                this.nomErr="";
+                this.$refs.nomField.classList.remove("err");
+            } 
+        },
+        desc(newVal){
+            if(newVal.length>= 10){
+                this.descErr="";
+                this.$refs.descField.classList.remove("err");
+            }
+        },
+        prix(newVal){
+            if(newVal > 0){
+                this.prixErr = "";
+                this.$refs.prixField.classList.remove("err");
+            }
+        }
+    },
+
+    methods : {
+        selectImage(e){
+            this.file = e.target.files[0];
+            this.image= ""; 
+            
+        },
+        verifNom(e){
+            if(this.$refs.nomField.value.length < 5){
+                this.$refs.nomField.classList.add("err");
+                this.nomErr = "Le nom du plat doit contenir au moins 5 caractères!";
+            }
+        },
+        verifDesc(e){
+            if(this.$refs.descField.value.length< 10){
+                this.$refs.descField.classList.add('err');
+                this.descErr = "La description doit contenir au moins 10 caractères!";
+            }
+        },
+        verifPrix(e){
+            if(this.$refs.prixField.value <= 0){
+                this.$refs.prixField.classList.add('err');
+                this.prixErr = "Le prix doit être supérieur à 0!";
+            }
+        },
+        onSubmit(){
+            
+            this.verifNom();
+            this.verifDesc();
+            this.verifPrix();
+
+            console.log('this.validations()', this.validations());
+            if(this.validations())this.appelApi();
+        },
+        validations(){
+            return this.nom.length>= 5 && 
+            this.desc.length >=10 && 
+            this.cats.includes(this.cat) &&
+            (this.image.length >1 || this.file!=null)
+
+        },
+        appelApi(){
+
+            // Créer l'objet pour l'envoie.
+            const plat = {
+                id: this.id,
+                name : this.nom,
+                desc : this.desc, 
+                prix : this.prix, 
+                vege : this.vege, 
+                categorie: this.cat,
+            };
+
+            const formData = new FormData();
+            formData.append('file', this.file);
+            formData.append('plat',JSON.stringify(plat));
+
+            const options = {
+                method: 'POST',
+                body: formData,
+        
+            };
+
+
+
+            fetch("/menu/modifier", options)
+            .then(()=>{
+                console.log("[ Form Submit ]");
+                // Redirect vers la page affichant les informations sur le plat.
+                window.location.href = `/menu/plat/${this.id}`
+            })
+            .catch(err=>{
+                console.error(err);
+                throw err;
+            });
+        }
+    },
+
+
+    created (){
+        // instance des variables.
+        this.id = this.plat._id;
+        this.nom = this.plat.name;
+        this.desc = this.plat.description;
+        this.prix = this.plat.prix;
+        this.vege = this.plat.vege;
+        this.cat = this.plat.categorie;
+
+        this.image = `/public/images/${this.plat.image}`
+    }
+});
+
+
+
+
+</script>
+
+
+<style scoped>
+.img{
+    width: 80px;
+    height:auto;
+}
+.err{
+    color: red;
+    border-color: red;
+}
+
+.err-span{
+    color: rgb(250, 64, 64);
+    text-shadow: 0px 0px 10px rgb(168, 161, 161);
+}   
+
+</style>
