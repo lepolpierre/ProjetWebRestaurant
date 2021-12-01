@@ -6,12 +6,14 @@ const express = require("express");
 
 //  recuperation de la nouvelle page dans la bd
 exports.getNewpage = (req, res, next) => {
-  Page.find(titre = req.params.title)
+  console.log("titre",   req.params.titre )
+  Page.find({titre: req.params.titre })
     .then(page => {
+      console.log({page})
       res.render('newPage/newPage', {
         user: req.user,
-        contenu: page.contenu,
-        titre: page.titre
+        contenu: page[0].contenu,
+        titre: page[0].titre
       });
     })
     .catch(err => {
@@ -32,10 +34,13 @@ exports.creatNewPage = (req, res, next) => {
 
 // ajouter la page a la base de donnees
 exports.addPage = (req, res, next) => {
-  const  titre  = JSON.stringify(req.body.titre);
-  const  contenu  = JSON.stringify(req.body.pageBody);
-
-  let page = new Page({ titre:titre, contenu:contenu })
+  const  titre  = req.body.titre.toString();
+  let  contenu  = req.body.pageBody.toString();
+  let search = '"'
+  let a = contenu.replace(/"/g," ");
+  let b = titre.replace(/"/g," ");
+  console.log("contenue",a)
+  let page = new Page({ titre:b, contenu:a })
   page.save()
     
 };

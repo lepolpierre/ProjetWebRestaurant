@@ -14,6 +14,6 @@ const router = express.Router();
 
 router.get('/create', isConnected, pageControllers.creatNewPage);
 router.post('/add',pageControllers.addPage);
-router.get('/:titre', isConnected, pageControllers.getNewpage);
+router.get('/new/:titre', isConnected, pageControllers.getNewpage);
 
 module.exports = router;

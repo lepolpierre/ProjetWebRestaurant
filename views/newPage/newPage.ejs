@@ -1,17 +1,54 @@
 <%- include ('../includes/head.ejs') %>
-<link rel="stylesheet" type="text/css" href="/public/css/plat.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/plat.css">
 
-</head>
+  </head>
 
-<body>
-  <%- include('../includes/header.ejs') %>
-  <main>
-<h1></h1>
-<div></div>
+  <script></script>
 
-  </main>
+  <body>
+    <%- include('../includes/header.ejs') %>
+      <main>
 
-  <%- include('../includes/end.ejs') %>
-</body>
+        <h1>
+          <%=titre%>
+        </h1>
 
-</html>
+        <div id="contenue"></div>
+
+
+      </main>
+      <script>
+
+        var a = `<%=contenu%>`
+        console.log({ a })
+
+        container = document.getElementById('contenue');
+
+        newDiv = document.createElement('div');
+        newDiv.innerHTML = htmldecode(a);
+
+
+
+        console.log({ newDiv })
+        container.appendChild(newDiv)
+
+
+        function htmldecode(str) {
+
+          var txt = document.createElement('textarea');
+          txt.innerHTML = str;
+          return txt.value;
+        }
+      </script>
+
+
+      <script>
+
+      </script>
+      <%- include('../includes/end.ejs') %>
+  </body>
+
+
+
+
+  </html>
