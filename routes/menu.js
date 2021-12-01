@@ -41,7 +41,7 @@ router.post('/plat/add',
 router.get('/plat/:platId', isConnected, platControllers.getPlat);   // Affichage d'un plat.
 
 
-router.get('/modifier/:platId', isAuth, platControllers.platModification);         // Affichage du plat à modifier.
+router.get('/modifier/:platId', isConnected, platControllers.platModification);         // Affichage du plat à modifier.
 router.post('/modifier', 
     upload.fields(
         [
