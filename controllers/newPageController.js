@@ -21,7 +21,7 @@ exports.getNewpage = (req, res, next) => {
   Page.find({titre: req.params.titre })
     .then(page => {
       console.log({page});
-      
+
       res.render('newPage/newPage', {
         user: req.user,
         contenu: page[0].contenu,
@@ -57,4 +57,21 @@ exports.addPage = (req, res, next) => {
   })
   .catch(err=>next(err));
     
+};
+
+
+/**
+ * Permet de récupérer l'ensemble des page crées.
+ * @param {object} req 
+ * @param {object} res 
+ * @param {function} next 
+ */
+exports.getAllPages = (req,res,next)=>{
+  Page.find()
+  .then(plats=>{
+
+    res.status(200).json({plats});
+
+  })
+  .catch(err=>next(err));
 };

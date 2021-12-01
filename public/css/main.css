@@ -27,7 +27,7 @@ body header #logo:hover {
   box-shadow: 0 2px 8px 0 rgba(83, 199, 174, 0.9);
 }
 body header nav {
-  min-width: 52vw;
+  min-width: 69vw;
   display: flex;
   justify-content: space-between;
 }
@@ -46,6 +46,7 @@ body header nav ul li a {
   font-weight: 500;
   font-size: 1.2rem;
   text-decoration: none;
+  text-transform: capitalize;
   transition: all 0.3s ease 0s;
 }
 body header nav ul li a:hover {

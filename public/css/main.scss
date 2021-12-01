@@ -38,7 +38,7 @@ body {
         }
 
         nav {
-            min-width: 52vw;
+            min-width: 69vw;
             display: flex;
             justify-content: space-between;
             ul{
@@ -55,6 +55,9 @@ body {
                         font-weight: 500;
                         font-size: 1.2rem;
                         text-decoration: none;
+                        
+                        // titre
+                        text-transform: capitalize;
 
                         transition: all 0.3s ease 0s;
 

@@ -16,4 +16,6 @@ router.get('/create', isConnected, pageControllers.creatNewPage);
 router.post('/add',pageControllers.addPage);
 router.get('/new/:titre', isConnected, pageControllers.getNewpage);
 
+router.get("/getall", isConnected, pageControllers.getAllPages);
+
 module.exports = router;

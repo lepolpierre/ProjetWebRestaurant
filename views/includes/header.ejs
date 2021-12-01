@@ -3,7 +3,7 @@
         <img id="logo" src="/public/images/logo.png" alt="Logo NodeResto">
     </a>
     <nav>
-        <ul>
+        <ul id="menuPrincipal">
             <li><a href="/menu">Menu</a></li>
             <li><a href="/">Réservation</a></li>
         </ul>
@@ -22,10 +22,42 @@
 <script>
 "use strict";
 
+// contient l'ensemble des titres.
+let titres = [];
+
+const getAll = ()=>{
+    fetch('/newPage/getall')
+    .then(res=>{
+        return res.json();
+    })
+    .then(data =>{
+       titres = data.plats.map(plat=> plat.titre);
+
+       if(titres.length > 0){
+           let ul = document.getElementById("menuPrincipal");
+
+           titres.forEach(titre => {
+               console.log(titre);
+               let li = document.createElement('li');
+
+               let a = document.createElement('a');
+               a.href = `/newPage/new/${titre}`;
+               var linkText = document.createTextNode(titre.replace('-', " "));
+               a.appendChild(linkText);
+
+               li.appendChild(a);
+               ul.appendChild(li);
+
+
+           });
+       }
+    })
+}
 
 
 
-
+// recupérer les titres.
+getAll();
 
 
 </script>
