@@ -25,7 +25,7 @@ exports.getNewpage = (req, res, next) => {
       res.render('newPage/newPage', {
         user: req.user,
         contenu: page[0].contenu,
-        titre: page[0].titre
+        titre: page[0].titre.replace(/-/g," ")
       });
     })
     .catch(err => {
@@ -43,12 +43,14 @@ exports.addPage = (req, res, next) => {
   const  titre  = req.body.titre.toString().replace(/ /g, "-");
   let  contenu  = req.body.pageBody.toString();
 
-  let search = '"';
   // ajustement "string" de caractères dans la BD 
+  console.log({contenu});
   let a = contenu.replace(/"/g," ");
+  console.log({a});
+  
   let b = titre.replace(/"/g," ");
   console.log("contenue",a);
-  let page = new Page({ titre:b, contenu:a });
+  let page = new Page({ titre:b, contenu:contenu });
 
   
   page.save()
