@@ -1,19 +1,20 @@
 <%- include ('../includes/head.ejs') %>
   <link rel="stylesheet" type="text/css" href="/public/css/plat.css">
 
-  </head>
+</head>
 
-  <script></script>
 
   <body>
     <%- include('../includes/header.ejs') %>
       <main>
 
-        <h1>
-          <%=titre%>
-        </h1>
-
-        <div id="contenue"></div>
+        <div id="newPage">
+          <h1>
+            <%=titre%>
+          </h1>
+  
+          <div id="contenue"></div>
+        </div>
 
 
       </main>
@@ -42,13 +43,18 @@
       </script>
 
 
-      <script>
-
-      </script>
       <%- include('../includes/end.ejs') %>
   </body>
 
 
 
 
-  </html>
+</html>
+
+<style scoped>
+
+#div{
+  width: 80vw;
+  margin: 0 auto;
+}
+</style>
