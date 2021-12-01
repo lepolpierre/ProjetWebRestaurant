@@ -48,8 +48,12 @@ body {
 
                 li {
                     display: inline-block;
-                    padding: 10px;
+
+                    margin: 2px;
                     a {
+                        background: linear-gradient(to right, hsl(187, 70%, 90%) , hsl(187, 50%, 92%));
+                        border-radius: 3px;
+                        padding: 5%;
                         color: rgb(59, 73, 100);
                         font-family: "Montserrat", sans-serif;
                         font-weight: 500;
