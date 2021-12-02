@@ -12,7 +12,7 @@
 
         <h3 class="titre">Modification de plat</h3>
 
-        <form method="POST" action="/menu/modifier" @submit.prevent="onSubmit" enctype="multipart/form-data">
+        <form method="POST" action="" @submit.prevent="onSubmit" enctype="multipart/form-data">
             <input type="hidden" v-model.trim="id" >
             <div>
                 <label for="name">Nom: <sup class="etoile">*</sup> </label>
@@ -149,18 +149,21 @@ const app = new Vue({
             this.verifDesc();
             this.verifPrix();
 
-            console.log('this.validations()', this.validations());
+            console.log('Valider ? ', this.validations());
+
             if(this.validations())this.appelApi();
         },
         validations(){
-            return this.nom.length>= 5 && 
-            this.desc.length >=10 && 
-            this.cats.includes(this.cat) &&
-            (this.image.length >1 || this.file!=null)
+            return this.nom.length>= 5  
+            && this.desc.length >=10
+            && this.cats.includes(this.cat)
+            && this.prix > 0
+            // image déja enregistrée ou choisi
+            && (this.image.length>0 || this.file!== null)
 
         },
         appelApi(){
-
+            console.log("[Form Submit, UPDATE plat]");
             // Créer l'objet pour l'envoie.
             const plat = {
                 id: this.id,
@@ -173,6 +176,7 @@ const app = new Vue({
 
             const formData = new FormData();
             formData.append('file', this.file);
+            formData.append('image', this.image);
             formData.append('plat',JSON.stringify(plat));
 
             const options = {
@@ -182,12 +186,12 @@ const app = new Vue({
             };
 
 
-
             fetch("/menu/modifier", options)
             .then(()=>{
-                console.log("[ Form Submit ]");
-                // Redirect vers la page affichant les informations sur le plat.
-                window.location.href = `/menu/plat/${this.id}`
+                console.log("[ API call ]");
+                // Redirect vers la page affichant les informations sur le plat (2s)
+                //AJOUTER spinner
+                window.location.href = `/menu/plat/${this.id}`;
             })
             .catch(err=>{
                 console.error(err);
@@ -227,6 +231,7 @@ const app = new Vue({
 }
 
 .err-span{
+    margin-left: 1%;
     color: rgb(250, 64, 64);
     text-shadow: 0px 0px 10px rgb(168, 161, 161);
 }   

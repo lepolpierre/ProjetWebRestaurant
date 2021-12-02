@@ -41,10 +41,11 @@ router.post('/plat/add',
 router.get('/plat/:platId', isConnected, platControllers.getPlat);   // Affichage d'un plat.
 
 
-router.get('/modifier/:platId', isConnected, platControllers.platModification);         // Affichage du plat à modifier.
-router.post('/modifier', 
+router.get('/modifier/:platId', isAuth, platControllers.platModification);         // Affichage du plat à modifier.
+router.post('/modifier', isAuth,
     upload.fields(
         [
+            {name: 'image', maxCount: 1},
             { name: 'file', maxCount: 1 }, 
             { name: 'plat', maxCount: 1 }
         ]

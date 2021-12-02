@@ -8,7 +8,7 @@
             <li><a href="/">Réservation</a></li>
         </ul>
         <ul>
-            <li><a href="/">Panier</a></li>
+            <li><a class="btn-panier snipcart-checkout">Panier</a></li>
             <li> <a href="/auth/login">
                     <%= locals.user !=undefined ? locals.user.username : "Connexion" %>
                 </a>
@@ -37,7 +37,7 @@ const getAll = ()=>{
            let ul = document.getElementById("menuPrincipal");
 
            titres.forEach(titre => {
-               console.log(titre);
+            //    console.log(titre);
                let li = document.createElement('li');
 
                let a = document.createElement('a');
@@ -61,3 +61,10 @@ getAll();
 
 
 </script>
+
+<style>
+
+    .btn-panier{
+        cursor: pointer;
+    }
+</style>

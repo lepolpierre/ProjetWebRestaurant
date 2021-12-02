@@ -44,13 +44,15 @@ exports.isAuth = (req,res,next)=>{
         });
 
     }
-
-    // S'il n'est pas autorisé, renvoyer la page de connexion
-    return res.status(401).render("auth/login", {
-        user: req.user,
-        pageTitle: "Connexion",
-        msg: "Une connexion est requise !"
-      });
+    else{
+        // S'il n'est pas autorisé, renvoyer la page de connexion
+        return res.status(401).render("auth/login", {
+            user: req.user,
+            pageTitle: "Connexion",
+            msg: "Une connexion est requise !"
+        });
+    }
+ 
 };
 
 

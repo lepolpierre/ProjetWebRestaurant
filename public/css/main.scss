@@ -53,7 +53,7 @@ body {
                     a {
                         background: linear-gradient(to right, hsl(187, 70%, 90%) , hsl(187, 50%, 92%));
                         border-radius: 3px;
-                        padding: 5%;
+                        // padding: 5%;
                         color: rgb(59, 73, 100);
                         font-family: "Montserrat", sans-serif;
                         font-weight: 500;
@@ -86,7 +86,7 @@ body {
         width: 75vw;
         margin: 0 auto;
         display: block;
-        min-height: 80vh;
+        min-height: 72vh;
 
         .titre {
             color: rgb(71, 83, 110);

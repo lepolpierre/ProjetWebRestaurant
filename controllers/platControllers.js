@@ -152,24 +152,41 @@ exports.platModification = (req,res,next)=>{
  * @param {function} next 
  */
 exports.updatePlat = (req,res, next)=>{
-   // L'objet plat est parsé en JSON 
-  //  console.log(JSON.parse(req.body.plat));
-   const {id, name, desc, prix, vege, categorie} = JSON.parse(req.body.plat);
-  //  console.log(req.files.file[0]);z
-   const file = req.files.file[0];
- 
-   if (!name || !desc || !prix  || !categorie || !file){
-     next(new Error("Formulaire invalide, champs manquants!"));
-   }
- 
+  // console.log(req);
 
-  Plat.findByIdAndUpdate(id, {
-    name,vege,prix,categorie,
-    description: desc,
-    image: file.filename
-  }).then(a=>{
-    console.log(a);
-  });
+  // L'objet plat est parsé en JSON 
+  const {id, name, desc, prix, vege, categorie} = JSON.parse(req.body.plat);
+
+  // Si admin change pas image de plat, req.body.file existe, contient 'null'. Sinon req.files contiendra l'objet File
+  let nomFile;
+  if(req.body.image.length> 1) nomFile = req.body.image;
+  else{
+    nomFile = req.files.file[0].filename;
+  }
+
+  console.log("[PLAT UPDATE, FILE NAME]",{nomFile});
+
+ 
+  if (!name || !desc || !prix  || !categorie){
+    next(new Error("Formulaire invalide, champs manquants!"));
+  }
+
+  // Mise à jour du plat.
+  Plat.findById(id)
+  .then(plat=>{
+    plat.name = name;
+    plat.vege = vege;
+    plat.prix = prix;
+    plat.categorie = categorie;
+    plat.image =  nomFile;
+    plat.description = desc;
+    
+    return plat.save();
+  })
+  .then(plat=>{
+    console.log("[PLAT UPDATED]", {plat});
+  })
+  .catch(err=>next(err));
 
 
 };
