@@ -39,9 +39,17 @@ app.use((req, res, next) => {
 
 
 
+
+
 app.use('/auth', adminRoutes);
 app.use('/menu', menuRoutes);
 app.use('/newPage', newPageRoutes);
+
+
+// Acceuil
+app.use('/', (req,res,next)=>{
+  res.status(200).render('index');
+});
 
 
 
