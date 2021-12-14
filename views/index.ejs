@@ -6,27 +6,35 @@
     <%- include("./includes/header.ejs")  %> 
 
     <main>
-        <h3 class="center fs-1">NodeResto</h3>
 
-        <div class="items">
-
-            <div id="carouselNodeResto" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="/public/images/pizza-fromage.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="/public/images/pates.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                </div>
-                </div>
+        <div>
+            <div class="home-logo">
+                <img src="/public/images/logo.png" alt="">
             </div>
+        </div>
+        <div>
+            <h3 class="center home-title">NodeResto</h3>
 
-            <div class="description">
-                <p class="fs-3">TITRE</p>
-                <p class="fs-3">TEXTTTT</p>
+            <div class="items">
+
+                <div id="carouselNodeResto" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/public/images/home/home-pizza-fromage.jpg" class="d-block w-100" alt="Pizza fromage">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/public/images/home/home-pates.jpg" class="d-block w-100" alt="Pates">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/public/images/home/home-poutine.jpg" class="d-block w-100" alt="Poutine">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <p class="fs-3">Lorem ipsum</p>
+                    <p class="fs-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit dignissimos ducimus id dolor labore, reiciendis illum quidem assumenda ab modi voluptatem rem aut deleniti quam sapiente nobis ex, ut aliquid.</p>
+                </div>
 
             </div>
         </div>
@@ -37,6 +45,16 @@
 
 <style scoped>
 
+    .home-title{
+        font-size: 5rem;
+        color: green;
+        padding: 2rem 0px!important;
+
+    }
+    .home-logo{
+        display: block;
+        width: 5px;
+    }
     body{
         width: 100vw !important;
         /* height: 100vh !important; */

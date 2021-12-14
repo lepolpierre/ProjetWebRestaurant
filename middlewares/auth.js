@@ -45,6 +45,7 @@ exports.isAuth = (req,res,next)=>{
 
     }
     else{
+
         // S'il n'est pas autorisé, renvoyer la page de connexion
         return res.status(401).render("auth/login", {
             user: req.user,
@@ -83,5 +84,6 @@ exports.isConnected = (req,res,next)=> {
 
     }
 
+    // passer middleware suivant.
     next();
 };

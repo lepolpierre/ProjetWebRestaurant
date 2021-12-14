@@ -18,6 +18,9 @@ app.set('views', "views");
 app.use(express.json());        // JSON
 app.use(express.urlencoded({ extended: false})); // body parser
 app.use('/public',express.static(path.join(__dirname, 'public'))); // static files
+const {isConnected} = require('./middlewares/auth');
+
+
 
 // Routes 
 const adminRoutes = require('./routes/auth');
@@ -47,8 +50,11 @@ app.use('/newPage', newPageRoutes);
 
 
 // Acceuil
-app.use('/', (req,res,next)=>{
-  res.status(200).render('index');
+app.use('/', isConnected, (req,res,next)=>{
+  res.status(200).render('index', {
+    pageTitle: "Acceuil",
+    user: req.user
+  });
 });
 
 
@@ -56,7 +62,6 @@ app.use('/', (req,res,next)=>{
 
 // Erreurs 404
 const errors = require('./controllers/errorController');
-const {isConnected} = require('./middlewares/auth');
 
 
 app.use(isConnected, errors.getError404);
