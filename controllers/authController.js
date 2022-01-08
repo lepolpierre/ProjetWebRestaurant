@@ -99,7 +99,7 @@ exports.signupUser = (req, res, next) => {
                 // Envoie de courriel de vérification par mailgun
                 var data = {
                   from: "NodeResto <signup@noderesto.ca>",
-                  to: "atoumi@edu.cegepgarneau.ca",
+                  to: "your mail gun email",
                   subject: "Finir la création de votre compte",
                   html: message,
                 };
@@ -313,7 +313,7 @@ exports.sendRecoverEmail = (req, res, next) => {
       // Envoie de courriel récupération de mot de passe
       let data = {
         from: "NodeResto <recover@noderesto.ca>",
-        to: "atoumi@edu.cegepgarneau.ca",
+        to: "your mail gun email",
         subject: "Récupération de compte NodeResto",
         html: message,
       };
